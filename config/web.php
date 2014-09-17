@@ -23,6 +23,15 @@ $config = [
             'class' => 'yii\swiftmailer\Mailer',
             'useFileTransport' => true,
         ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
+                '<_c:[\w\-]+>' => '<_c>/index',
+                '<_c:[\w\-]+>/<_a:[\w\-]+>/<id:\d+>' => '<_c>/<_a>',
+            ],
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
