@@ -1,29 +1,21 @@
 <?php
-
-Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
-
-$params = require(__DIR__ . '/params.php');
-$db = require(__DIR__ . '/db.php');
-
+use yii\helpers\ArrayHelper;
+ 
+$params = ArrayHelper::merge(
+    require(__DIR__ . '/params.php'),
+    require(__DIR__ . '/params-local.php')
+);
+ 
 return [
-    'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'controllerNamespace' => 'app\commands',
-    'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
     'components' => [
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
-        ],
-        'log' => [
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'charset' => 'utf8',
         ],
         'urlManager' => [
+            'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
@@ -32,7 +24,15 @@ return [
                 '<_c:[\w\-]+>/<_a:[\w\-]+>/<id:\d+>' => '<_c>/<_a>',
             ],
         ],
-        'db' => $db,
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+        ],
+        'cache' => [
+            'class' => 'yii\caching\DummyCache',
+        ],
+        'log' => [
+            'class' => 'yii\log\Dispatcher',
+        ],
     ],
     'params' => $params,
 ];
