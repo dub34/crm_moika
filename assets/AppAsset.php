@@ -19,8 +19,11 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'themes/adminlte/css/AdminLTE.css'
     ];
     public $js = [
+        'themes/adminlte/js/AdminLTE/app.js',
+        'themes/adminlte/js/bootstrap.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
