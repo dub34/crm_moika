@@ -2,7 +2,7 @@
 
 namespace app\modules\employee\models;
 
-class Employee extends \yii\base\Object implements \yii\web\IdentityInterface
+class EmployeeIdentity extends \yii\base\Object implements \yii\web\IdentityInterface
 {
     public $id;
     public $employeename;

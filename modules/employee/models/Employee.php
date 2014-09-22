@@ -2,102 +2,70 @@
 
 namespace app\modules\employee\models;
 
-class Employee extends \yii\base\Object implements \yii\web\IdentityInterface
+use Yii;
+use app\modules\office\models\Office;
+
+/**
+ * This is the model class for table "employee".
+ *
+ * @property integer $id
+ * @property integer $office_id
+ * @property string $name
+ * @property string $sign_img
+ * @property string $login
+ *
+ * @property Contract[] $contracts
+ * @property Office $office
+ */
+class Employee extends \yii\db\ActiveRecord
 {
-    public $id;
-    public $employeename;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    private static $employees = [
-        '100' => [
-            'id' => '100',
-            'employeename' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'employeename' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
     /**
      * @inheritdoc
      */
-    public static function findIdentity($id)
+    public static function tableName()
     {
-        return isset(self::$employees[$id]) ? new static(self::$employees[$id]) : null;
+        return 'employee';
     }
 
     /**
      * @inheritdoc
      */
-    public static function findIdentityByAccessToken($token, $type = null)
+    public function rules()
     {
-        foreach (self::$employees as $employee) {
-            if ($employee['accessToken'] === $token) {
-                return new static($employee);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Finds employee by employeename
-     *
-     * @param  string      $employeename
-     * @return static|null
-     */
-    public static function findByEmployeename($employeename)
-    {
-        foreach (self::$employees as $employee) {
-            if (strcasecmp($employee['employeename'], $employeename) === 0) {
-                return new static($employee);
-            }
-        }
-
-        return null;
+        return [
+            [['office_id'], 'required'],
+            [['office_id'], 'integer'],
+            [['name', 'login'], 'string']
+        ];
     }
 
     /**
      * @inheritdoc
      */
-    public function getId()
+    public function attributeLabels()
     {
-        return $this->id;
+        return [
+            'id' => 'ID',
+            'office_id' => 'Филиал',
+            'name' => 'ФИО сотрудника',
+            'login' => 'Логин',
+            'sign_img' => 'образец подписи',
+        ];
     }
 
     /**
-     * @inheritdoc
+     * @return \yii\db\ActiveQuery
      */
-    public function getAuthKey()
+    public function getContracts()
     {
-        return $this->authKey;
+        return $this->hasMany(Contract::className(), ['employee_id' => 'id']);
     }
 
     /**
-     * @inheritdoc
+     * @return \yii\db\ActiveQuery
      */
-    public function validateAuthKey($authKey)
+    public function getOffice()
     {
-        return $this->authKey === $authKey;
-    }
-
-    /**
-     * Validates password
-     *
-     * @param  string  $password password to validate
-     * @return boolean if password provided is valid for current employee
-     */
-    public function validatePassword($password)
-    {
-        return $this->password === $password;
+        return $this->hasOne(Office::className(), ['id' => 'office_id']);
     }
 }

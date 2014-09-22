@@ -33,7 +33,13 @@ class DefaultController extends Controller
         ];
         return array_merge(parent::behaviors(),$behaviors);
     }
- 
+    
+    public function actionIndex()
+    {
+        $this->redirect('employee/employee');
+    }
+            
+            
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {

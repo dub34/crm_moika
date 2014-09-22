@@ -70,7 +70,7 @@ class LoginForm extends Model
     public function getEmployee()
     {
         if ($this->_employee === false) {
-            $this->_employee = Employee::findByEmployeename($this->employeename);
+            $this->_employee = EmployeeIdentity::findByEmployeename($this->employeename);
         }
 
         return $this->_employee;

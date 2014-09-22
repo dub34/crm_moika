@@ -200,13 +200,14 @@ class ModelVersioning extends  \yii\base\Behavior
 	*/
 	public function getLastVersions($number = 1)
 	{
-		$lastVersionsArray = Yii::$app->db->createCommand()
+            $query=new Query;
+            $lastVersionsArray = $query
 			    ->select('*')
 			    ->from($this->versionTable)
 			    ->where('id=:id', [':id'=>$this->owner->primaryKey])
-			    ->order('version DESC')
+			    ->orderBy('version DESC')
 			    ->limit($number)
-			    ->queryAll();
+			    ->createCommand()->queryAll();
 	    if(!empty($lastVersionsArray)) {
 	    	return $this->populateActiveRecords($lastVersionsArray);
 	    } else {
@@ -222,7 +223,8 @@ class ModelVersioning extends  \yii\base\Behavior
 	*/
 	public function getOneVersion($versionNumber) 
 	{
-		$versionArray = Yii::$app->db->createCommand()
+            $query=new Query;
+            $versionArray = $query
 			    ->select('*')
 			    ->from($this->versionTable)
 			    ->where(
@@ -231,8 +233,7 @@ class ModelVersioning extends  \yii\base\Behavior
                                     ':id'=>$this->owner->primaryKey, 
                                     ':version'=>$versionNumber,
                                 ]
-		    	)
-			    ->queryRow();
+		    	)->createCommand()->queryRow();
 	    if($versionArray) {
 	    	return $this->populateNewRecord($versionArray, get_class($this->owner));
 	    } else {
@@ -248,7 +249,8 @@ class ModelVersioning extends  \yii\base\Behavior
 	*/
 	public function toVersion($versionNumber)
 	{
-		$versionArray = Yii::$app->db->createCommand()
+            $query=new Query;
+            $versionArray = $query
 			    ->select('*')
 			    ->from($this->versionTable)
 			    ->where(
@@ -257,7 +259,7 @@ class ModelVersioning extends  \yii\base\Behavior
                                     ':id'=>$this->owner->primaryKey, 
                                     ':version'=>$versionNumber,
                                 ]
-		    	)->queryRow();
+		    	)->createCommand()->queryRow();
 	    if($versionArray) {
 	    	$this->populateActiveRecord($versionArray, $this->owner);
 	    	return true;
@@ -274,7 +276,8 @@ class ModelVersioning extends  \yii\base\Behavior
 	*/
 	public function compareVersions($version1, $version2)
 	{
-		$versionsArray = Yii::$app->db->createCommand()
+            $query=new Query;
+            $versionsArray = $query
 			    ->select('*')
 			    ->from($this->versionTable)
 			    ->where(
@@ -285,8 +288,8 @@ class ModelVersioning extends  \yii\base\Behavior
 						':version2' => $version2,
 					]
 				)
-			    ->order("$this->versionField ASC")
-			    ->queryAll();
+			    ->orderBy("$this->versionField ASC")
+			    ->createCommand()->queryAll();
 	    if(!empty($versionsArray)&& count($versionsArray) == 2) {
 			//Watch attributes changing from one version to the other and put them in the array
 			//penser � unset les attributs de version (version, comment, created by, created at)
@@ -311,8 +314,9 @@ class ModelVersioning extends  \yii\base\Behavior
 	*/
 	public function compareTo($versionNumber)
 	{
-		$thisVersion = $this->owner->getAttributes(false);
-		$versionArray = Yii::$app->db->createCommand()
+            $query=new Query;
+            $thisVersion = $this->owner->getAttributes(false);
+		$versionArray = $query
 			    ->select('*')
 			    ->from($this->versionTable)
 			    ->where(
@@ -321,8 +325,7 @@ class ModelVersioning extends  \yii\base\Behavior
                                     ':id'=>$this->owner->primaryKey, 
                                     ':version'=>$versionNumber,
                                 ]
-		    	)
-			    ->queryRow();
+		    	)->createCommand()->queryRow();
 		if($versionArray) {
 			$differences = [];
 			$thisVersion = $this->unsetVersionedAttributes($this->owner->getAttributes(false));

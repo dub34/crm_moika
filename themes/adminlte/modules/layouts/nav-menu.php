@@ -23,6 +23,9 @@ use yii\helpers\Html;
         </ul>-->
     </li>
     <li>
+        <?= Html::a('Сотрудники','employee/employee'); ?>
+    </li>
+    <li>
         <?= Html::a('Клиенты','client/client'); ?>
     </li>
     <li>

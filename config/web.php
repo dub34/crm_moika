@@ -5,7 +5,7 @@ $config = [
     'defaultRoute' => 'main/default/index',
     'components' => [
         'user' => [
-            'identityClass' => 'app\modules\employee\models\Employee',
+            'identityClass' => 'app\modules\employee\models\EmployeeIdentity',
             'enableAutoLogin' => true,
             'loginUrl' => ['employee/default/login'],
         ],
