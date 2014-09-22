@@ -5,9 +5,9 @@ $config = [
     'defaultRoute' => 'main/default/index',
     'components' => [
         'user' => [
-            'identityClass' => 'app\modules\user\models\User',
+            'identityClass' => 'app\modules\employee\models\Employee',
             'enableAutoLogin' => true,
-            'loginUrl' => ['user/default/login'],
+            'loginUrl' => ['employee/default/login'],
         ],
         'errorHandler' => [
             'errorAction' => 'main/default/error',

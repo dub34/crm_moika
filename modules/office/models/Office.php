@@ -28,8 +28,8 @@ class Office extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
             [['id'], 'integer'],
+            [['name'], 'required'],
             [['name'], 'string', 'max' => 45]
         ];
     }
@@ -41,7 +41,7 @@ class Office extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название филиала',
         ];
     }
 
@@ -53,3 +53,4 @@ class Office extends \yii\db\ActiveRecord
         return $this->hasOne(Employee::className(), ['office_id' => 'id']);
     }
 }
+

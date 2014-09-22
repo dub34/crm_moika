@@ -41,7 +41,7 @@ AppAsset::register($this);
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-user"></i>
-                                <span><?= Yii::$app->user->identity->username; ?> <i class="caret"></i></span>
+                                <span><?= Yii::$app->user->identity->employeename; ?> <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
