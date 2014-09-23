@@ -18,33 +18,32 @@ use Yii;
  * @property integer $payment_account
  * @property integer $unp
  * @property integer $okpo
- * @property integer $fax
- * @property integer $telephone
+ * @property string $fax
+ * @property string $telephone
  * @property string $email
  * @property string $responsible_person
  *
  * @property Contract[] $contracts
  */
-class Client extends \yii\db\ActiveRecord
-{
+class Client extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'client';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['name','register_address', 'post_address', 'chief_name', 'bank_name','bank_code', 'payment_account', 'unp', 'okpo', 'fax', 'telephone'], 'required'],
+            [['name', 'register_address', 'post_address', 'chief_name', 'bank_name', 'bank_code', 'payment_account', 'unp', 'okpo'], 'required'],
             [['register_address', 'post_address', 'chief_name', 'chief_post', 'bank_name', 'responsible_person'], 'string'],
             [['bank_code', 'payment_account', 'unp', 'okpo'], 'integer'],
-            ['email','email'],
+            [['telephone','fax'],'safe'],
+            ['email', 'email'],
             [['name'], 'string', 'max' => 45]
         ];
     }
@@ -52,8 +51,7 @@ class Client extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'name' => 'Название',
@@ -76,8 +74,15 @@ class Client extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getContracts()
-    {
+    public function getContracts() {
         return $this->hasMany(Contract::className(), ['client_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+//    public function getClientForm() {
+//        return $this->hasOne(ClientForm::className(), ['id' => 'client_form_id']);
+//    }
+
 }

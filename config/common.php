@@ -66,6 +66,9 @@ return [
         'service' => [
             'class' => 'app\modules\service\Module',
         ],
+         'contract' => [
+            'class' => 'app\modules\contract\Module',
+        ],
     ],
     'params' => $params,
 ];

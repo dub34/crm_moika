@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\MaskedInput;
+use yii\helpers\ArrayHelper;
+use app\modules\client\models\ClientForm;
 
 /**
  * @var yii\web\View $this
@@ -11,7 +13,7 @@ use yii\widgets\MaskedInput;
  */
 ?>
 
-<div class="client-form">
+<div class="client-form col-md-6">
 
     <?php
     $form = ActiveForm::begin(
@@ -22,40 +24,41 @@ use yii\widgets\MaskedInput;
     );
     ?>
 
-    <?= $form->field($model, 'name', ['options' => ['class' => 'form-group']])->textInput(['maxlength' => 45]) ?>
-
+        
+        <?= $form->field($model, 'name', ['options' => ['class' => 'form-group']])->textInput(['maxlength' => 45]) ?>
     <div class="row">
-        <?= $form->field($model, 'register_address', ['options' => ['class' => 'col-xs-6 form-group']])->textarea(['rows' => 2]) ?>
-        <?= $form->field($model, 'post_address', ['options' => ['class' => 'col-xs-6 form-group']])->textarea(['rows' => 2]) ?>
+        <?= $form->field($model, 'register_address', ['options' => ['class' => 'col-md-6 form-group']])->textarea(['rows' => 2]) ?>
+        <?= $form->field($model, 'post_address', ['options' => ['class' => 'col-md-6 form-group']])->textarea(['rows' => 2]) ?>
     </div>
     <div class="row">
-        <?= $form->field($model, 'chief_name', ['options' => ['class' => 'col-xs-4 form-group']])->textInput() ?>
-        <?= $form->field($model, 'chief_post', ['options' => ['class' => 'col-xs-4 form-group']])->textInput() ?>
-        <?= $form->field($model, 'responsible_person', ['options' => ['class' => 'col-xs-4 form-group']])->textInput() ?>
+        <?= $form->field($model, 'chief_name', ['options' => ['class' => 'col-md-4 form-group']])->textInput() ?>
+        <?= $form->field($model, 'chief_post', ['options' => ['class' => 'col-md-4 form-group']])->textInput() ?>
+        <?= $form->field($model, 'responsible_person', ['options' => ['class' => 'col-md-4 form-group']])->textInput() ?>
     </div>
     <div class="row">
-        <?= $form->field($model, 'bank_name', ['options' => ['class' => 'col-xs-4 form-group']])->textarea(['rows' => 1]) ?>
-        <?= $form->field($model, 'bank_code', ['options' => ['class' => 'col-xs-4 form-group']])->textInput() ?>
-        <?= $form->field($model, 'payment_account', ['options' => ['class' => 'col-xs-4 form-group']])->textInput() ?>
+        <?= $form->field($model, 'bank_name', ['options' => ['class' => 'col-md-4 form-group']])->textarea(['rows' => 1]) ?>
+        <?= $form->field($model, 'bank_code', ['options' => ['class' => 'col-md-4 form-group']])->textInput() ?>
+        <?= $form->field($model, 'payment_account', ['options' => ['class' => 'col-md-4 form-group']])->textInput() ?>
     </div>
     <div class="row">
-        <?= $form->field($model, 'unp', ['options' => ['class' => 'col-xs-6 form-group']])->textInput(); ?>
-        <?= $form->field($model, 'okpo', ['options' => ['class' => 'col-xs-6 form-group']])->textInput() ?>
+        <?= $form->field($model, 'unp', ['options' => ['class' => 'col-md-6 form-group']])->textInput(); ?>
+        <?= $form->field($model, 'okpo', ['options' => ['class' => 'col-md-6 form-group']])->textInput() ?>
     </div>
     <div class="row">
-        <?= $form->field($model, 'fax', ['options' => ['class' => 'col-xs-4 form-group']])->textInput() ?>
-        <div class="col-xs-4 form-group">
-            <?= Html::activeLabel($model, 'telephone'); ?>
-            <?=
-            MaskedInput::widget([
-                'model' => $model,
-                'attribute' => 'telephone',
-                'mask' => '+375-99-999-9999',
-            ]);
+        <?= $form->field($model, 'fax', ['options' => ['class' => 'col-md-4 form-group']])->textInput() ?>
+        <!--<div class="col-md-4 form-group">-->
+        <?= $form->field($model, 'telephone', ['options' => ['class' => 'col-md-4 form-group']])->textInput() ?>    
+            <?php //  Html::activeLabel($model, 'telephone'); ?>
+            <?php
+//            MaskedInput::widget([
+//                'model' => $model,
+//                'attribute' => 'telephone',
+//                'mask' => '+375-99-999-9999',
+//            ]);
             ?>
-            <?= Html::error($model, 'telephone'); ?>
-        </div>
-        <?= $form->field($model, 'email', ['options' => ['class' => 'col-xs-4 form-group']])->textInput(['maxlength' => 45]) ?>
+            <?php //  Html::error($model, 'telephone'); ?>
+        <!--</div>-->
+        <?= $form->field($model, 'email', ['options' => ['class' => 'col-md-4 form-group']])->textInput(['maxlength' => 45]) ?>
     </div>
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

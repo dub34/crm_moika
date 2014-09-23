@@ -35,7 +35,23 @@ class ClientController extends Controller
     {
         $searchModel = new ClientSearch;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-
+            
+//        $clients = Client::find()->all();
+//        foreach ($clients as $client)
+//        {
+//            $client->name=  trim($client->name,"'");
+//            $client->post_address =  trim($client->post_address,"'");
+//            $client->register_address =  trim($client->register_address,"'");
+//            $client->chief_name =  trim($client->chief_name,"'");
+//            $client->chief_post =  trim($client->chief_post,"'");
+//            $client->responsible_person =  trim($client->responsible_person,"'");
+//            $client->bank_name =  trim($client->bank_name,"'");
+//            $client->email =  trim($client->email,"'");
+//            $client->save(false);                       
+//        }
+//        
+//        
+        
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
