@@ -11,6 +11,8 @@ return [
     'bootstrap' => ['log'],
     'name' => 'CW-CRM',
     'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
+	'language' => 'ru-BE',
+	'sourceLanguage' => 'ru-RU',
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
@@ -49,6 +51,13 @@ return [
         'log' => [
             'class' => 'yii\log\Dispatcher',
         ],
+	    'i18n' => [
+		    'translations' => [
+			    '*' => [
+				    'class' => 'yii\i18n\PhpMessageSource'
+			    ],
+		    ],
+	    ],
     ],
     'modules' => [
         'main' => [

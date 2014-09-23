@@ -1,10 +1,10 @@
 Order Allow,Deny
 Allow from all
-
 AddDefaultCharset utf-8
+Options +FollowSymlinks
+RewriteEngine On
 
-RewriteEngine on
-
+RewriteCond %{REQUEST_URI} !index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . index.php
+RewriteRule ^.*$ index.php
