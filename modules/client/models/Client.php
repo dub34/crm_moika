@@ -3,6 +3,7 @@
 namespace app\modules\client\models;
 
 use Yii;
+use app\modules\contract\models\Contract;
 
 /**
  * This is the model class for table "client".
@@ -76,6 +77,12 @@ class Client extends \yii\db\ActiveRecord {
      */
     public function getContracts() {
         return $this->hasMany(Contract::className(), ['client_id' => 'id']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getContractsCount() {
+        return $this->hasMany(Contract::className(), ['client_id' => 'id'])->count();
     }
 
     /**

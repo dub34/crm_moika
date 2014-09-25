@@ -9,6 +9,9 @@ $config = [
             'enableAutoLogin' => true,
             'loginUrl' => ['employee/default/login'],
         ],
+//        'authManager' => [
+//            'class' => 'yii\rbac\Rule',
+//        ],
         'errorHandler' => [
             'errorAction' => 'main/default/error',
             'errorView'=>'app\themes\adminlte\views\error'

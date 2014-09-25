@@ -37,6 +37,7 @@ class ClientSearch extends Client
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+        $query->orderBy='name';
 
         $query->andFilterWhere([
             'id' => $this->id,

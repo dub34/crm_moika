@@ -3,7 +3,7 @@
 namespace app\modules\contract\models;
 
 use Yii;
-
+use app\modules\client\models\Client;
 /**
  * This is the model class for table "contract".
  *
@@ -19,6 +19,10 @@ use Yii;
  */
 class Contract extends \yii\db\ActiveRecord
 {
+    public $tstCreatedAt;
+    
+    public $visibleDateFormat = 'd.m.Y';
+    public $storeDateFormat = 'Y-m-d H:i:s';
     /**
      * @inheritdoc
      */
@@ -33,9 +37,10 @@ class Contract extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['client_id', 'employee_id'], 'required'],
+            [['client_id','number'], 'required'],
             [['client_id', 'employee_id'], 'integer'],
-            [['created_at'], 'safe'],
+            [['created_at'], 'required'],
+            [['created_at'], 'date','format'=>  $this->visibleDateFormat,'timestampAttribute'=>'tstCreatedAt'],
             [['number'], 'string', 'max' => 45]
         ];
     }
@@ -48,11 +53,24 @@ class Contract extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('contract', 'ID'),
             'client_id' => Yii::t('contract', 'Client ID'),
+            'client' => Yii::t('contract', 'Client'),
             'employee_id' => Yii::t('contract', 'Employee ID'),
             'number' => Yii::t('contract', 'Number'),
             'created_at' => Yii::t('contract', 'Created At'),
         ];
     }
+
+    public function beforeSave($insert) {
+        
+        $this->created_at = date($this->storeDateFormat,$this->tstCreatedAt);        
+        return parent::beforeSave($insert);
+    }
+    
+    public function afterFind() {
+        $this->created_at = date_format(date_create_from_format($this->storeDateFormat, $this->created_at), $this->visibleDateFormat);
+        return parent::afterFind();
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery

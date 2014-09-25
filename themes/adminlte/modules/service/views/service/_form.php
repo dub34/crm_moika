@@ -10,16 +10,23 @@ use yii\widgets\ActiveForm;
  */
 ?>
 
-<div class="service-form">
+<div class="service-form col-md-6">
+    <div class="box box-primary">
+        <div class="box-body">
 
-    <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($model, 'name')->textarea(['rows' => 6]) ?>
-    <?= $form->field($model, 'price')->textInput(); ?>
-    
-    <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+            <?php $form = ActiveForm::begin(); ?>
+            <?= $form->field($model, 'name')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'price')->textInput(); ?>
+        </div>
+
+        <div class="box-footer">
+            <div class="form-group">
+                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+            </div>
+        </div>
+
+
+        <?php ActiveForm::end(); ?>
+
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>

@@ -78,6 +78,9 @@ return [
          'contract' => [
             'class' => 'app\modules\contract\Module',
         ],
+         'payment' => [
+            'class' => 'app\modules\payment\Module',
+        ],
     ],
     'params' => $params,
 ];
