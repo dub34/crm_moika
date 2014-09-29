@@ -82,14 +82,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'urlCreator' => function($action, $model, $key, $index) {
-                    return '/contract/contract/' . $action . '/' . $key;
-                },
+                            return '/contract/contract/' . $action . '/' . $key;
+                        },
                         'options' => ['class' => 'col-md-2']
                     ],
                     [
                         'value' => function($model, $key, $index) {
-                    return Html::a(Html::tag('span', '', ['class' => 'ion ion-chevron-right']), '#', ['class' => 'load-contracts', 'data-container' => 'contract_payments', 'data-url' => Url::to('/payment/payment'), 'data-id' => $model->id]);
-                },
+                            return Html::a(Html::tag('span', '', ['class' => 'ion ion-chevron-right']), ['/payment/payment/loadpaymentgrid','id'=>$model->id], ['class' => 'load-contracts', 'data-container' => 'contract_payments_pjax_container']);
+                        },
                         'format' => 'raw'
                     ]
                 ],
@@ -121,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h3 class="box-title"><?= Yii::t('payment', 'Show Payments'); ?></h3>
             </div>
             <div class="box-body">
-                <?php Pjax::begin(['id' => 'contract_payments', 'clientOptions' => ['history'=>false,'replace' => false]]); ?>
+                <?php Pjax::begin(['id' => 'contract_payments_pjax_container', 'clientOptions'=>['replace'=>false,'history'=>false]]); ?>
                 <p><?= Yii::t('payment', 'Select contract to show payments'); ?></p>
                 <?php Pjax::end(); ?>
             </div>

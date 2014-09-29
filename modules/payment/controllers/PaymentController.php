@@ -46,7 +46,7 @@ class PaymentController extends Controller
             ],
         ]); 
         
-        if (Yii::$app->request->get('_pjax')=='#contract_payments')
+        if (Yii::$app->request->get('_pjax')=='#contract_payments_pjax_container')
         {
             return $this->render('_grid',['paymentDP'=>$paymentDP]);
         }else
@@ -55,12 +55,26 @@ class PaymentController extends Controller
                         'dataProvider' => $dataProvider,
                         'searchModel' => $searchModel,
                         'paymentDP'=>$paymentDP
-
             ]);
         }
         
     }
 
+    public function actionLoadpaymentgrid($id)
+    {
+       $query = Payment::find();
+                $query->where=["contract_id"=>$id];
+        $paymentDP = new \yii\data\ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]); 
+        
+        return $this->render('_grid',['paymentDP'=>$paymentDP]);
+    }
+    
+    
     /**
      * Displays a single Payment model.
      * @param integer $id
@@ -86,11 +100,17 @@ class PaymentController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id, 'contract_id' => $model->contract_id]);
         } else {
-            return $this->render('create', [
+                return $this->render('create', [
                 'model' => $model,
             ]);
         }
     }
+    
+    
+//    public function actionLoadform()
+//    {
+//        return $this->render('_form');
+//    }
 
     /**
      * Updates an existing Payment model.

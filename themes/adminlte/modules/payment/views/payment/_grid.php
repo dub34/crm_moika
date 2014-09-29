@@ -8,9 +8,17 @@ use yii\widgets\Pjax;
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var app\modules\contract\models\PaymentSearch $searchModel
  */
-
+//$script = <<<SKRIPT
+//
+//$(document).on('submit', 'form[data-pjax]', function(event) {
+//  $.pjax.submit(event, '#contract_payments')
+//})
+//
+//SKRIPT;
+//
+//$this->registerJs($script);
 ?>
-<?php Pjax::begin(['id'=>'contract_payments','clientOptions' =>['history'=>false,'replace'=> false]]);?>
+<?php Pjax::begin(['id'=>'contract_payments_pjax_container','clientOptions' =>['history'=>false,'replace'=> false]]);?>
     <?=
         '<div class="box box-primary">' . GridView::widget([
             'dataProvider' => $paymentDP,

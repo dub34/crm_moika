@@ -1,18 +1,23 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-
 /**
  * @var yii\web\View $this
  * @var app\modules\payment\models\Payment $model
  * @var yii\widgets\ActiveForm $form
  */
+
 ?>
-
 <div class="payment-form">
-
-    <?php $form = ActiveForm::begin(); ?>
+    
+    <?php $form = ActiveForm::begin([
+        'action'=>Url::to('/payment/payment/create'),
+        'enableClientValidation'=>true,
+        'enableAjaxValidation'=>false,
+        'options'=>['data-pjax'=>'#x1']
+    ]); ?>
 
     <?= $form->field($model, 'contract_id')->textInput() ?>
 

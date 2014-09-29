@@ -25,16 +25,16 @@ use yii\helpers\Html;
                 </ul>-->
     </li>
     <li>
-            <?= Html::a(Yii::t('employee','Employees'), 'employee/employee'); ?>
-    </li>
-    <li class="treeview">
-            <?= Html::a(Yii::t('client','Clients'), 'client/client'); ?>
-        <ul class="treeview-menu" >
-            <li><?= Html::a(Yii::t('client','All clients'), 'client/client'); ?></li>
-            <!--<li><?php //             Html::a(Yii::t('contract','Contracts'), 'contract/contract'); ?></li>-->
-        </ul>
+            <?= Html::a(Yii::t('employee','Employees'), '/employee/employee'); ?>
     </li>
     <li>
-        <?= Html::a('Услуги', 'service/service'); ?>
+            <?= Html::a(Yii::t('client','Clients'), '/client/client'); ?>
+        <!--<ul class="treeview-menu" >-->
+            <!--<li><?= Html::a(Yii::t('client','All clients'), '/client/client'); ?></li>-->
+            <!--<li><?php //             Html::a(Yii::t('contract','Contracts'), 'contract/contract'); ?></li>-->
+        <!--</ul>-->
+    </li>
+    <li>
+        <?= Html::a('Услуги', '/service/service'); ?>
     </li>
 </ul>
