@@ -14,5 +14,5 @@ $this->title = Yii::t('payment', 'Payments');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="payment-index">
-    <?= $this->render('_grid',['paymentDP'=>$paymentDP]); ?>
+    <?= $this->render('_grid',['paymentDP'=>$paymentDP,'model'=>$model]); ?>
 </div>

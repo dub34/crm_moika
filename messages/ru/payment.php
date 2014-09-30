@@ -19,9 +19,13 @@
  */
 return array(
     'Clients' => 'Клиенты',
-    'All clients' => 'Список клиентов',
-    'Create client' => 'Создать клиента',
-    'Update client' => 'Редактировать клиента',
-    'Delete client' => 'Удалить клиента',
+    'Create payment' => 'Создать платеж',
+    'Contract ID' => 'Номер договора',
     'Details' => 'Сведения',
+    'Show Payments'=>'Платежи',
+    'Select contract to show payments'=>'Выберите договор, чтобы показать платежи',
+    'Payment Sum'=>'Сумма платежа',
+    'Created At'=>'Добавлено',
+    'Updated At'=>'Изменено',
+    
 );

@@ -1,7 +1,9 @@
 <?php
+
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
-use app\modules\payment\models\Payment;
+
+
 /**
  * @var yii\web\View $this
  * @var app\modules\payment\models\Payment $model
@@ -9,16 +11,18 @@ use app\modules\payment\models\Payment;
  */
 ?>
 
-<?php 
+<?php
+
 Modal::begin([
-    'header' => '<h2>'.Yii::t('payment', 'Create payment').'</h2>',
-    'id'=>'paymentCreateDlg',
-    'toggleButton' => ['label' => Html::tag('span', '', ['class' => 'ion ion-clipboard','title'=>Yii::t('payment', 'Create payment')]),'class'=>'btn btn-success btn-sm font-white'],
+    'header' => '<h2>' . Yii::t('payment', 'Create payment') . '</h2>',
+    'id' => 'paymentCreateDlg',
+    'toggleButton' => ['label' => Html::tag('span', '', ['class' => 'ion ion-clipboard', 'title' => Yii::t('payment', 'Create payment')]), 'class' => 'btn btn-success btn-sm font-white'],
 ]);
 ?>
-<?= $this->render('_form',['model'=>new Payment]);?>
+<?= $this->render('_form', ['model' => $model, 'client_id' => $client_id]); ?>
 
 <?php
+
 Modal::end();
 ?>
     

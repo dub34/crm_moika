@@ -9,12 +9,10 @@ $(document).ready(function(){
     $('.load-contracts').click(function(e){
         e.preventDefault();
         var $this = $(this);
-//        var contract_id = $this.attr('data-id');
+        var contract_id = $this.attr('data-id');
         var load_url = $this.attr('href');
         var container = $this.attr('data-container');
+        $('#payment-contract_id').attr('readonly','readonly').val(contract_id);
         $.pjax.reload({container:'#'+container,history: false,replace:false,timeout:10000, url:load_url});
-    });
-    
-
-    
+    }); 
 });

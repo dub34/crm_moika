@@ -1,8 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
 use app\modules\client\models\Client;
 use kartik\widgets\DatePicker;
 
