@@ -40,7 +40,7 @@ class Contract extends \yii\db\ActiveRecord
             [['client_id','number'], 'required'],
             [['client_id', 'employee_id'], 'integer'],
             [['created_at'], 'required'],
-            [['created_at'], 'date','format'=>  $this->visibleDateFormat,'timestampAttribute'=>'tstCreatedAt'],
+            [['created_at'], 'date','format'=> 'd.m.yyyy','timestampAttribute'=>'tstCreatedAt']
             [['number'], 'string', 'max' => 45]
         ];
     }
