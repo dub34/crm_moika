@@ -214,6 +214,30 @@ class ModelVersioning extends  \yii\base\Behavior
 	    	return [];
 	    }
 	}
+        
+	/**
+	* Return the n last versions of the model.
+	* @param int $number Number of the last versions to return. Default to 1.
+	* @return array return an array containing the last versions or 
+	* an empty array if no versions are available
+	*/
+	public function getVersionByCreateDate($date)
+	{
+            $query=new Query;
+            $lastVersionsArray = $query
+			    ->select('*')
+			    ->from($this->versionTable)
+			    ->where('id=:id', [':id'=>$this->owner->primaryKey])
+                            ->andWhere(['<=','version_created_at',$date])
+			    ->orderBy('version DESC')
+			    ->limit(1)
+			    ->createCommand()->queryAll();
+	    if(!empty($lastVersionsArray)) {
+	    	return $this->populateActiveRecords($lastVersionsArray);
+	    } else {
+	    	return [];
+	    }
+	}
 	
 	/**
 	* Return a version of the model or false if the version number doesn't exist

@@ -60,17 +60,26 @@ class PaymentController extends Controller {
     public function actionLoadpaymentgrid($id) {
         $query = Payment::find();
         $query->where = ["contract_id" => $id];
-        $query->orderBy(['created_at' => 'DESC']);
+//        $query->orderBy(['created_at' => 'DESC']);
         $paymentDP = new \yii\data\ActiveDataProvider([
             'query' => $query,
             'pagination' => [
                 'pageSize' => 10,
             ],
+            'sort' => new \yii\data\Sort([
+                'attributes' => [
+                    'created_at' => [
+                        'asc' => ['created_at' => SORT_ASC],
+                        'desc' => ['created_at' => SORT_DESC],
+                        'default' => SORT_DESC,
+                        'label' => 'created_at',
+                    ],
+                ],
+            ])
         ]);
         $model = new Payment;
-
         $model::populateRecord($model, ['contract_id' => $id]);
-        return $this->render('_grid', ['paymentDP' => $paymentDP, 'model' => $model]);
+        return $this->renderAjax('_grid', ['paymentDP' => $paymentDP, 'model' => $model]);
     }
 
     /**
@@ -94,11 +103,11 @@ class PaymentController extends Controller {
         $model = new Payment;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            if (Yii::$app->request->isPjax) {
+            if (Yii::$app->request->isAjax) {
                 $client_id = (null !== $model->contract) ? $model->contract->client_id : null;
                 $contract_id = $model->contract_id;
                 $model = new Payment;
-                $model->contract_id=$contract_id;
+                $model->contract_id = $contract_id;
                 Yii::$app->getSession()->setFlash('payment_save_success', 'Оплата сохранена');
                 return $this->renderAjax('create', [
                             'model' => $model,
@@ -108,10 +117,17 @@ class PaymentController extends Controller {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
-            return $this->render('create', [
-                        'model' => $model,
-                        'client_id' => (null !== $model->contract) ? $model->contract->client_id : null
-            ]);
+            $model::populateRecord($model, ['contract_id' => Yii::$app->request->get('contract_id')]);
+            if (Yii::$app->request->isAjax) {
+                return $this->renderAjax('_form', [
+                            'model' => $model,
+                ]);
+            } else {
+                return $this->render('create', [
+                            'model' => $model,
+                            'client_id' => (null !== $model->contract) ? $model->contract->client_id : null
+                ]);
+            }
         }
     }
 

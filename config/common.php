@@ -11,8 +11,8 @@ return [
     'bootstrap' => ['log'],
     'name' => 'CW-CRM',
     'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
-	'language' => 'ru-BE',
-	'sourceLanguage' => 'ru-RU',
+    'language' => 'ru-BE',
+    'sourceLanguage' => 'ru-RU',
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
@@ -51,15 +51,18 @@ return [
         'log' => [
             'class' => 'yii\log\Dispatcher',
         ],
-	    'i18n' => [
-		    'translations' => [
-			    '*' => [
-				    'class' => 'yii\i18n\PhpMessageSource'
-			    ],
-		    ],
-	    ],
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => 'yii\i18n\PhpMessageSource'
+                ],
+            ],
+        ],
     ],
     'modules' => [
+        'gridview' => [
+            'class' => '\kartik\grid\Module'
+        ],
         'main' => [
             'class' => 'app\modules\main\Module',
         ],
@@ -75,11 +78,14 @@ return [
         'service' => [
             'class' => 'app\modules\service\Module',
         ],
-         'contract' => [
+        'contract' => [
             'class' => 'app\modules\contract\Module',
         ],
-         'payment' => [
+        'payment' => [
             'class' => 'app\modules\payment\Module',
+        ],
+        'ticket' => [
+            'class' => 'app\modules\ticket\Module',
         ],
     ],
     'params' => $params,

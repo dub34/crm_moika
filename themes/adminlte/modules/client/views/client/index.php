@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use app\modules\contract\models\SearchContract;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     // 'fax',
                     [
                         'value'=>function($model){
-                            return Html::a(Html::tag('span',$model->contractsCount,['class'=>'badge bg-light-blue']),['view','id'=>$model->id,'#'=>'contracts']);
+                            return Html::a(Html::tag('span',$model->contractsCount,['class'=>'badge bg-light-blue']),['/contract/contract','SearchContract[client_id]'=>$model->id]);
                         },
                         'format'=>'html',
                         'header'=>Yii::t('contract','Contracts')

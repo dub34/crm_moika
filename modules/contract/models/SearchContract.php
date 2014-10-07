@@ -32,14 +32,14 @@ class SearchContract extends Contract
     public function search($params)
     {
         $query = Contract::find();
-        $query->joinWith(['client']);
+//        $query->joinWith(['client']);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        $dataProvider->sort->attributes['client'] = [
-            'asc' => ['client.name' => SORT_ASC],
-            'desc' => ['client.name' => SORT_DESC],
-        ];
+//        $dataProvider->sort->attributes['client'] = [
+//            'asc' => ['client.name' => SORT_ASC],
+//            'desc' => ['client.name' => SORT_DESC],
+//        ];
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
@@ -51,8 +51,8 @@ class SearchContract extends Contract
             'created_at' => $this->created_at,
         ]);
 
-        $query->andFilterWhere(['like', 'number', $this->number])->
-                andFilterWhere(['like', 'client.name', $this->client]);
+//        $query->andFilterWhere(['like', 'number', $this->number])->
+//                andFilterWhere(['like', 'client.name', $this->client]);
         return $dataProvider;
     }
 }

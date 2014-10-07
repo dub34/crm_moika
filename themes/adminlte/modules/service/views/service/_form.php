@@ -15,7 +15,8 @@ use yii\widgets\ActiveForm;
         <div class="box-body">
 
             <?php $form = ActiveForm::begin(); ?>
-            <?= $form->field($model, 'name')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'name')->textInput(); ?>
+            <?= $form->field($model, 'description')->textarea(['rows' => 2]); ?>
             <?= $form->field($model, 'price')->textInput(); ?>
         </div>
 

@@ -14,23 +14,19 @@ use yii\bootstrap\Alert;
  * @var app\modules\payment\models\Payment $model
  * @var yii\widgets\ActiveForm $form
  */
-//$script = <<<SKRIPT
-//$(document).pjax('#payment_form_pjax_container');
-//SKRIPT;
-//$this->registerJs($script);
 ?>
 
-<?php Pjax::begin(['id' => 'payment_form_pjax_container', 'enablePushState'=>false,'enableReplaceState'=>false,'timeout'=>5000]); ?>
+<?php // Pjax::begin(['id' => 'payment_form_pjax_container', 'enablePushState' => false, 'enableReplaceState' => false, 'timeout' => 5000]); ?>
 
-
+<div class="payment-form">
 <?php
-if (is_array($messages = Yii::$app->getSession()->getAllFlashes()) && count($messages)>0) {
+if (is_array($messages = Yii::$app->getSession()->getAllFlashes()) && count($messages) > 0) {
 
     Alert::begin([
         'options' => [
             'class' => 'alert-success'
         ],
-        'id'=>'payment_form_alert'
+        'id' => 'payment_form_alert'
     ]);
     foreach ($messages as $message) {
         echo Html::tag('p', $message);
@@ -38,25 +34,30 @@ if (is_array($messages = Yii::$app->getSession()->getAllFlashes()) && count($mes
     Alert::end();
 }
 ?>
-<div class="payment-form">
 
     <?php
     $form = ActiveForm::begin([
                 'action' => Url::to('/payment/payment/create'),
-                'enableClientValidation' => true,
-                'enableAjaxValidation' => false,
-                'options' => ['data-pjax' => '#payment_form_pjax_container']
+                'options'=>['data-pjax'=>'0'],
+                'enableClientScript'=>true,
+                'id'=>'payment_form',
+        
+//                'enableClientValidation'=>false,
+//                'enableAjaxValidation'=>false,
+//        
+                
     ]);
     ?>
     <?php
     $contract = Contract::find();
-    if (isset($client_id))
-        $contract->where(['client_id' => $client_id]);
+    if (isset($model->contract_id))
+        $contract->where(['id' => $model->contract_id]);
     ?>
 
     <?= $form->field($model, 'contract_id', ['inputTemplate' => '<div class="input-group"><span class="input-group-addon"><i class="ion ion-briefcase"></i></span>{input}</div>',])->dropDownList(ArrayHelper::map($contract->all(), 'id', 'number'), ['prompt' => Yii::t('contract', 'Select contract')]); ?>
 
     <?=
+//    $form->field($model,'created_at')->textInput();
     DatePicker::widget([
         'model' => $model,
         'attribute' => 'created_at',
@@ -70,10 +71,10 @@ if (is_array($messages = Yii::$app->getSession()->getAllFlashes()) && count($mes
     <?= $form->field($model, 'payment_sum')->textInput(['maxlength' => 25]) ?>
 
     <div class="form-group">
-<?= Html::submitButton(Yii::t('yii', 'Save'), ['class' => 'btn btn-success', 'pjax:error' => 'function(){alert("11");}', 'data-pjax' => '#payment_form_pjax_container']) ?>
+        <?= Html::submitButton(Yii::t('yii', 'Save'), ['class' => 'btn btn-success','id'=>'submitPaymentForm']) ?>
     </div>
 
-<?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); ?>
 
 </div>
-<?php Pjax::end(); ?>
+<?php // Pjax::end(); ?>

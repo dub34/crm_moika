@@ -10,6 +10,7 @@ use app\components\behaviors\ModelVersioning;
  * @property integer $id
  * @property integer $service_history_id
  * @property string $name
+ * @property string $description
  * @property string $version
  *
  * @property ServiceHistory $serviceHistory
@@ -49,7 +50,7 @@ class Service extends \yii\db\ActiveRecord
             [['name'], 'required'],
 //            [['service_history_id'], 'integer'],
             [['name','price'], 'string'],
-            [['version'],'safe']
+            [['version','description'],'safe']
         ];
     }
 
@@ -63,6 +64,7 @@ class Service extends \yii\db\ActiveRecord
 //            'service_history_id' => 'Ревизия',
             'name' => 'Название',
             'price' => 'Стоимость',
+            'description' => Yii::t('service','Description'),
         ];
     }
 

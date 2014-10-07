@@ -4,6 +4,7 @@ namespace app\modules\contract\models;
 
 use Yii;
 use app\modules\client\models\Client;
+use app\modules\ticket\models\Ticket;
 /**
  * This is the model class for table "contract".
  *
@@ -40,7 +41,7 @@ class Contract extends \yii\db\ActiveRecord
             [['client_id','number'], 'required'],
             [['client_id', 'employee_id'], 'integer'],
             [['created_at'], 'required'],
-            [['created_at'], 'date','format'=>  $this->visibleDateFormat,'timestampAttribute'=>'tstCreatedAt'],
+            [['created_at'], 'date','format'=> 'd.m.yyyy','timestampAttribute'=>'tstCreatedAt'],
             [['number'], 'string', 'max' => 45]
         ];
     }

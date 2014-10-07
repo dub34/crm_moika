@@ -8,8 +8,10 @@ use Yii;
  * This is the model class for table "service_history".
  *
  * @property integer $id
- * @property string $price
- * @property boolean $is_active
+ * @property integer $service_history_id
+ * @property string $name
+ * @property string $description
+ * @property string $version
  *
  * @property Service $service
  * @property TicketHasService[] $ticketHasServices

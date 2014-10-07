@@ -18,11 +18,5 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return array(
-    'Clients' => 'Клиенты',
-    'All clients' => 'Список клиентов',
-    'Create client' => 'Создать клиента',
-    'Update client' => 'Редактировать клиента',
-    'Delete client' => 'Удалить клиента',
-    'Select client' => 'Выбрать клиента',
-    'Details' => 'Сведения',
+    'Description' => 'Описание',
 );

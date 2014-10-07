@@ -9,26 +9,18 @@ use yii\widgets\Pjax;
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var app\modules\contract\models\PaymentSearch $searchModel
  */
-//$script = <<<SKRIPT
-//
-//$(document).on('submit', 'form[data-pjax]', function(event) {
-//  $.pjax.submit(event, '#contract_payments')
-//})
-//
-//SKRIPT;
-//
-//$this->registerJs($script);
 ?>
-<?php Pjax::begin(['id' => 'contract_payments_pjax_container', 'clientOptions' => ['history' => false, 'replace' => false]]); ?>
+<?php // Pjax::begin(['id' =>'pjax-action-container']); ?>
+<div id="pjax-action-container">
 <?=
-
-'<div class="box box-primary">' . GridView::widget([
+'<div  class="box box-primary">' . GridView::widget([
     'dataProvider' => $paymentDP,
     'layout' => "<div class=\"box-header\">"
+    . '<h3 class="box-title">Платежи по договору '.$model->contract->number.'</h3>'
     . "<div class=\"box-tools\">"
-//            . "<p class=\"pull-left\">"
-//                .$this->render('_modal',['model'=>$model])
-//                . "</p>"
+            . "<p class=\"pull-left\">"
+                . $this->render('//modules/payment/views/payment/_modal',['model'=>$model])
+                . "</p>"
     . "{pager}</div></div>"
     . "<div class=\"box-body no-padding\">{items}</div>",
     'tableOptions' => ['class' => 'table table-stripped'],
@@ -60,4 +52,5 @@ use yii\widgets\Pjax;
     ],
 ]) . '</div>';
 ?>
-<?php Pjax::end(); ?>
+    </div>
+<?php // Pjax::end(); ?>
