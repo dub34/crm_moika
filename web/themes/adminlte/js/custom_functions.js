@@ -81,11 +81,14 @@ function handlePaymentFormActions() {
     $('#ticketMdlOpen').click(function () {
         $('#ticketCreateDlg').modal('show').find('.modal-body').load($(this).attr('data-url'), function () {
             var saveHandler = function () {
+                $('#ticketCreateDlg').modal('hide');
                 if ($('#ticket-ticket_count').length > 0)
                     window.open($('#ticketPrintCountForm').attr('data-printurl'));
-                $('#ticketCreateDlg').modal('hide');
-                var cid = $('#ticket-contract_id').val();
-                $('.load-tickets').filter('a[data-id="' + cid + '"]').click();
+                
+                setTimeout(function(){
+                    var cid = $('#ticket-contract_id').val();
+                    $('.load-tickets').filter('a[data-id="' + cid + '"]').click();
+                },1000);
             }
             $('#ticketPrintCountForm').on('beforeSubmit', {successHndl: saveHandler}, submitForm);
             $('#ticketPrintCountForm').on('submit',
@@ -96,7 +99,10 @@ function handlePaymentFormActions() {
         });
 //        })
     });
-
+    $('#printTickets').click(function(){
+        var url = $(this).attr('data-url');
+                    window.open(url);
+    });
 
 //    $('#').on('hidden.bs.modal',function(){
 //            $('.load-payments').filter('a[data-id="'+cid+'"]').click();

@@ -2,9 +2,11 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\ticket\models\Ticket */
+
 $script = <<<SKRIPT
     $('#closeticket-{$model->id}').on('shown.bs.modal', function(data){
         $(document).on('beforeSubmit','#closeticket-{$model->id} form',{successHndl:function(){
@@ -16,6 +18,7 @@ $script = <<<SKRIPT
         $('.load-tickets').filter('a[data-id="{$model->contract_id}"]').click();
         $(document).off('beforeSubmit','#closeticket-{$model->id} form');
         $(document).off('submit','#closeticket-{$model->id} form');
+        $(document).off('change','#closed_at-{$model->id}');
     });
 SKRIPT;
 

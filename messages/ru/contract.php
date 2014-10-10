@@ -31,5 +31,6 @@ return array (
   'Create'=>'Создать',
   'Select client'=>'-Выберите клиента-',
   'Select contract' => 'Выберите договор',
+  'Balance' => 'Баланс',
   '{attribute} should contain {length, number} {length, plural, one{character} other{characters}}.' => 'Значение «{attribute}» должно содержать {length, number} {length, plural, one{символ} few{символа} many{символов} other{символа}}.',
 );

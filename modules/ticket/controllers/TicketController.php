@@ -17,12 +17,12 @@ class TicketController extends Controller {
 
     public function behaviors() {
         $behaviors = [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
+//            'verbs' => [
+//                'class' => VerbFilter::className(),
+//                'actions' => [
+//                    'delete' => ['post','get'],
+//                ],
+//            ],
         ];
 
         return array_merge(parent::behaviors(), $behaviors);
@@ -59,7 +59,7 @@ class TicketController extends Controller {
 //                'pageSize' => 10,
 //            ],
 //        ]);
-        $dataProvider=$searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider=$searchModel->search(array_merge(Yii::$app->request->queryParams,['id'=>$id]));
         $model = new Ticket;
         $model::populateRecord($model, ['contract_id' => $id]);
             return $this->renderAjax('_grid', [
@@ -146,8 +146,12 @@ class TicketController extends Controller {
             {
                 $model = Ticket::find()->where(['contract_id'=>$contract_id])->orderBy('id DESC')->limit($limit)->all();
                 return $this->renderAjax('_ticketprintlayout',['model'=>$model]);
+            }else {
+               $searchModel = new SearchTicket();
+               $model=$searchModel->search(Yii::$app->request->queryParams)->getModels();
+                return $this->renderAjax('_ticketprintlayout',['model'=>$model]);
             }
-            else
+            
                 throw new NotFoundHttpException('No tickets to print','400');
         }
 
@@ -160,7 +164,7 @@ class TicketController extends Controller {
      */
     public function actionUpdate($id, $contract_id) {
         
-        $model = $this->findModel($id, $contract_id);
+        $model = $this->findModel($id);
         $model->scenario="update";
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success',Yii::t('ticket','Ticket saved'));
@@ -193,10 +197,16 @@ class TicketController extends Controller {
      * @param integer $contract_id
      * @return mixed
      */
-    public function actionDelete($id, $contract_id) {
-        $this->findModel($id, $contract_id)->delete();
-
-        return $this->redirect(['index']);
+    public function actionDelete($id) {
+        $model = $this->findModel($id);
+        if ($model->delete())
+        {
+            if (!Yii::$app->request->isPjax)
+                return $this->redirect(['index']);
+            else {
+                return $this->actionLoadticketsgrid($model->contract_id);
+            }
+        }
     }
 
     /**
@@ -207,8 +217,8 @@ class TicketController extends Controller {
      * @return Ticket the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id, $contract_id) {
-        if (($model = Ticket::findOne(['id' => $id, 'contract_id' => $contract_id])) !== null) {
+    protected function findModel($id) {
+        if (($model = Ticket::findOne(['id' => $id])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -872,12 +872,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widgets.git",
-                "reference": "b811a7a9c8745ce0fbd1ad2aa6c4c1b1c5154066"
+                "reference": "6e09f54dbaa4a596c65ea1087a3484bf282d2387"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/b811a7a9c8745ce0fbd1ad2aa6c4c1b1c5154066",
-                "reference": "b811a7a9c8745ce0fbd1ad2aa6c4c1b1c5154066",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/6e09f54dbaa4a596c65ea1087a3484bf282d2387",
+                "reference": "6e09f54dbaa4a596c65ea1087a3484bf282d2387",
                 "shasum": ""
             },
             "require": {
@@ -911,7 +911,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-10-05 16:06:54"
+            "time": "2014-10-08 04:44:21"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1059,12 +1059,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "cbd7c0da6c5f9acd82b6404104d573fd2adddc4d"
+                "reference": "aee59d63f963d46fb1bca8e6f5ecf74072cbc15f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/cbd7c0da6c5f9acd82b6404104d573fd2adddc4d",
-                "reference": "cbd7c0da6c5f9acd82b6404104d573fd2adddc4d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/aee59d63f963d46fb1bca8e6f5ecf74072cbc15f",
+                "reference": "aee59d63f963d46fb1bca8e6f5ecf74072cbc15f",
                 "shasum": ""
             },
             "require": {
@@ -1097,7 +1097,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2014-10-04 21:51:34"
+            "time": "2014-10-07 19:08:39"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -1315,12 +1315,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-codeception.git",
-                "reference": "e47cb29fce1b6f54c56736017b1ee62c694d063d"
+                "reference": "1688c5e363aca8d8ef738e4e4391df812a2565aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-codeception/zipball/e47cb29fce1b6f54c56736017b1ee62c694d063d",
-                "reference": "e47cb29fce1b6f54c56736017b1ee62c694d063d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-codeception/zipball/1688c5e363aca8d8ef738e4e4391df812a2565aa",
+                "reference": "1688c5e363aca8d8ef738e4e4391df812a2565aa",
                 "shasum": ""
             },
             "require": {
@@ -1352,7 +1352,7 @@
                 "codeception",
                 "yii2"
             ],
-            "time": "2014-09-28 05:44:31"
+            "time": "2014-10-06 20:04:59"
         },
         {
             "name": "yiisoft/yii2-debug",
@@ -1454,12 +1454,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "16f1cda56308b40c6bc96ace0507dbcf391096d3"
+                "reference": "e229a5f4422ed26f5f5cfb781531ab161de367eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/16f1cda56308b40c6bc96ace0507dbcf391096d3",
-                "reference": "16f1cda56308b40c6bc96ace0507dbcf391096d3",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/e229a5f4422ed26f5f5cfb781531ab161de367eb",
+                "reference": "e229a5f4422ed26f5f5cfb781531ab161de367eb",
                 "shasum": ""
             },
             "require": {
@@ -1495,7 +1495,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2014-10-03 13:49:54"
+            "time": "2014-10-06 21:13:17"
         }
     ],
     "aliases": [

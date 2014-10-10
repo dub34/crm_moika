@@ -18,6 +18,7 @@ use yii\helpers\Html;
             <li><?= Html::a('Услуги', '/service/service'); ?></li>
         </ul>
     </li>
+    
     <li><?= Html::a('<i class="glyphicon glyphicon-briefcase"></i><span>Договоры</span>', '/contract/contract'); ?></li>
 </ul>
 

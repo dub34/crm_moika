@@ -228,12 +228,12 @@ class ModelVersioning extends  \yii\base\Behavior
 			    ->select('*')
 			    ->from($this->versionTable)
 			    ->where('id=:id', [':id'=>$this->owner->primaryKey])
-                            ->andWhere(['<=','version_created_at',$date])
+                            ->andWhere(['<=','date_format(version_created_at,\'%Y-%m-%d\')',Yii::$app->formatter->asDate($date,'php:Y-m-d')])
 			    ->orderBy('version DESC')
 			    ->limit(1)
-			    ->createCommand()->queryAll();
+			    ->createCommand()->queryOne();
 	    if(!empty($lastVersionsArray)) {
-	    	return $this->populateActiveRecords($lastVersionsArray);
+	    	return $lastVersionsArray;
 	    } else {
 	    	return [];
 	    }
@@ -257,7 +257,7 @@ class ModelVersioning extends  \yii\base\Behavior
                                     ':id'=>$this->owner->primaryKey, 
                                     ':version'=>$versionNumber,
                                 ]
-		    	)->createCommand()->queryRow();
+		    	)->createCommand()->queryOne();
 	    if($versionArray) {
 	    	return $this->populateNewRecord($versionArray, get_class($this->owner));
 	    } else {
@@ -283,7 +283,7 @@ class ModelVersioning extends  \yii\base\Behavior
                                     ':id'=>$this->owner->primaryKey, 
                                     ':version'=>$versionNumber,
                                 ]
-		    	)->createCommand()->queryRow();
+		    	)->createCommand()->queryOne();
 	    if($versionArray) {
 	    	$this->populateActiveRecord($versionArray, $this->owner);
 	    	return true;
@@ -349,7 +349,7 @@ class ModelVersioning extends  \yii\base\Behavior
                                     ':id'=>$this->owner->primaryKey, 
                                     ':version'=>$versionNumber,
                                 ]
-		    	)->createCommand()->queryRow();
+		    	)->createCommand()->queryOne();
 		if($versionArray) {
 			$differences = [];
 			$thisVersion = $this->unsetVersionedAttributes($this->owner->getAttributes(false));

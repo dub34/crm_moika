@@ -47,11 +47,11 @@
     </tr>
     <tr>
         <td>
-            № пр.
+            № пр. <?= $model->programms?>
             <br />
         </td>
         <td>
-            № пр.
+            № пр. <?= $model->programms?>
             <br />
         </td>
     </tr>
@@ -65,10 +65,10 @@
                     <td style="border-left:1px solid #000;">Всего с НДС, руб.</td>
                 </tr>
                 <tr>
-                    <td >&nbsp;</td>
+                    <td><?= $model->summWithoutNDS; ?></td>
                     <td style="border-left:1px solid #000;">18</td>
-                    <td style="border-left:1px solid #000;">&nbsp;</td>
-                    <td style="border-left:1px solid #000;">&nbsp;</td>
+                    <td style="border-left:1px solid #000;"><?= $model->summNDS; ?></td>
+                    <td style="border-left:1px solid #000;"><?= $model->summ;?></td>
                 </tr>
             </table>
         </td>
@@ -81,16 +81,16 @@
                     <td style="border-left:1px solid #000;">Всего с НДС, руб.</td>
                 </tr>
                 <tr>
-                    <td >&nbsp;</td>
+                    <td><?= $model->summWithoutNDS; ?></td>
                     <td style="border-left:1px solid #000;">18</td>
-                    <td style="border-left:1px solid #000;">&nbsp;</td>
-                    <td style="border-left:1px solid #000;">&nbsp;</td>
+                    <td style="border-left:1px solid #000;"><?= $model->summNDS; ?></td>
+                    <td style="border-left:1px solid #000;"><?= $model->summ;?></td>
                 </tr>
             </table>
         </td>
     </tr>
     <tr>
-        <td><p>Дата&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <td><p>Дата <?= $model->closed_at;?>&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 Заказчик________________________</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -105,7 +105,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(ФИО)</small></p>
             
         </td>
-        <td><p>Дата&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <td><p>Дата <?= $model->closed_at;?>&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 Заказчик________________________</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -58,6 +58,7 @@ class Contract extends \yii\db\ActiveRecord
             'employee_id' => Yii::t('contract', 'Employee ID'),
             'number' => Yii::t('contract', 'Number'),
             'created_at' => Yii::t('contract', 'Created At'),
+            'balance' => Yii::t('contract', 'Balance'),
         ];
     }
 

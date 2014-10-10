@@ -9,7 +9,8 @@ use app\modules\service\models\ServiceHistory;
 use app\components\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\helpers\Json;
+use yii\helpers\Html;
 /**
  * ServiceController implements the CRUD actions for Service model.
  */
@@ -120,6 +121,25 @@ class ServiceController extends Controller
 
         return $this->redirect(['index']);
     }
+
+    public function actionGetactualversionsbydate(){
+        $out = [];
+        if (Yii::$app->request->post('date') && Yii::$app->request->post('ticket_id'))
+        {
+            $services = ServiceHistory::getActualVersionsByDate(Yii::$app->request->post('date'));
+            if (count($services)>0)
+            {
+                foreach ($services as $service)
+                {
+                    $out[]=Html::tag('option',$service->name,['value'=>$service->id]);
+                }
+            }
+//            \Yii::$app->response->format = 'json';
+            return implode('',$out);
+            
+        }
+    }
+
 
     /**
      * Finds the Service model based on its primary key value.

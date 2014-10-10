@@ -8,7 +8,6 @@ use app\modules\contract\models\SearchContract;
 use app\components\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 /**
  * ContractController implements the CRUD actions for Contract model.
  */
@@ -17,18 +16,6 @@ class ContractController extends Controller
     public function behaviors()
     {
         $behaviors = [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['update'],
-                'rules' => [
-                    [
-                        'actions' => ['update'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

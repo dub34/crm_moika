@@ -43,12 +43,12 @@ class SearchTicket extends Ticket {
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => isset($params['print'])?null:10,
             ],
         ]);
 
         //if contract_id present in url, set it to the model
-        if ($params['id']) {
+        if (is_array($params) && isset($params['id'])) {
             $params['SearchTicket']['contract_id'] = $params['id'];
         }
 

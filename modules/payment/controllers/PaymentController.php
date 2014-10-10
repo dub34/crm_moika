@@ -105,6 +105,8 @@ class PaymentController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if (Yii::$app->request->isAjax) {
                 $client_id = (null !== $model->contract) ? $model->contract->client_id : null;
+//                $model->contract->balance = $model->contract->balance+$model->payment_sum;
+//                $model->contract->save();
                 $contract_id = $model->contract_id;
                 $model = new Payment;
                 $model->contract_id = $contract_id;

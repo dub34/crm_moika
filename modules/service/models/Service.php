@@ -67,7 +67,7 @@ class Service extends \yii\db\ActiveRecord
             'description' => Yii::t('service','Description'),
         ];
     }
-
+    
     /**
      * @return \yii\db\ActiveQuery
      */

@@ -71,6 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         'created_at',
     //                        ['class' => 'yii\grid\ActionColumn', 'options' => ['class' => 'col-md-1']],
+                        'balance',
                         [
                             'value' => function($model, $key, $index) {
                                 return Html::a(Html::tag('span', '', ['class' => 'glyphicon glyphicon-usd']), ['/payment/payment/loadpaymentgrid', 'id' => $model->id], ['class' => 'load-payments', 'title' => Yii::t('payment', 'Show Payments'), 'data-id' => $model->id, 'data-pjax' => '#pjax-action-container']);
