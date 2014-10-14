@@ -66,7 +66,7 @@
                 </tr>
                 <tr>
                     <td><?= $model->summWithoutNDS; ?></td>
-                    <td style="border-left:1px solid #000;">18</td>
+                    <td style="border-left:1px solid #000;"><?= $model->nds; ?></td>
                     <td style="border-left:1px solid #000;"><?= $model->summNDS; ?></td>
                     <td style="border-left:1px solid #000;"><?= $model->summ;?></td>
                 </tr>
@@ -82,7 +82,7 @@
                 </tr>
                 <tr>
                     <td><?= $model->summWithoutNDS; ?></td>
-                    <td style="border-left:1px solid #000;">18</td>
+                    <td style="border-left:1px solid #000;"><?= $model->nds; ?></td>
                     <td style="border-left:1px solid #000;"><?= $model->summNDS; ?></td>
                     <td style="border-left:1px solid #000;"><?= $model->summ;?></td>
                 </tr>

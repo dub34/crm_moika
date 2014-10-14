@@ -14,8 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="service-create">
 
     <?= $this->render('_form', [
-        'model' => $model,
-        'history_model'=>$history_model
+        'model' => $model
     ]) ?>
 
 </div>

@@ -49,7 +49,9 @@ class ServiceHistory extends \yii\db\ActiveRecord
 
     public static function getActualVersionsByDate($date=null){
         if ($date !== null)
-            $result = ServiceHistory::find()->where(['<=','date_format(version_created_at,\'%Y-%m-%d\')',Yii::$app->formatter->asDate($date,'php:Y-m-d')])->all();
+            $result = ServiceHistory::findBySql ('SELECT * FROM (SELECT * FROM `service_history` '
+                    . 'WHERE date_format(version_created_at,\'%Y-%m-%d\') <= :date ORDER by version DESC) as dataset GROUP BY id',[':date'=>Yii::$app->formatter->asDate($date,'php:Y-m-d')])->all();            
+////            $result = ServiceHistory::find()->where(['<=','date_format(version_created_at,\'%Y-%m-%d\')',->all();
         else $result = [];
             return $result;
     }

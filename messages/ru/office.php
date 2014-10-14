@@ -18,9 +18,17 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return array(
-    'Description' => 'Описание',
-    'Name'=>'Наименование',
-    'Price'=>'Стоимость',
-    'Nds'=>'НДС',
-    
+    'Name'=>'Имя',
+    'Register Address'=>'Юридический адрес',
+    'Chief Name'=>'ФИО директора',
+    'Glbuh Name'=>'ФИО гл. бухгалтера',
+    'Check Buh Name'=>'ФИО бух. проверяющеко с\ф',
+    'Bank Name'=>'Банк',
+    'Bank Code'=>'МФО',
+    'Payment Account'=>'Расчетный счет',
+    'Unp'=>'УНН',
+    'Okpo'=>'ОКПО',
+    'Telephone'=>'Телефон',
+    'Fax'=>'Факс',
+    'Email'=>'E-mail'
 );

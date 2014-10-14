@@ -18,7 +18,7 @@ class SearchTicket extends Ticket {
     public function rules() {
         return [
             [['id', 'contract_id', 'priznak'], 'integer'],
-            [['created_at', 'closed_at', 'pometka', 'to_date'], 'safe'],
+            [['created_at', 'closed_at', 'pometka', 'to_date','closed_to_date'], 'safe'],
         ];
     }
 
@@ -57,21 +57,36 @@ class SearchTicket extends Ticket {
         }
 
 //        if (null !== $this->created_at || null !== $this->to_date) {
-        if ($this->created_at !==null)
+        if ($this->created_at !==null && strlen($this->created_at) > 0 )
         {
             $this->to_date == null ?$this->to_date=$this->created_at:null;
-            
             $query->andWhere(['between', 'created_at', Yii::$app->formatter->asDate($this->created_at, 'php:Y-m-d 00:00'), Yii::$app->formatter->asDate($this->to_date, 'php:Y-m-d 23:59')]);
         }
+        
+        if ($this->closed_at !==null && strlen($this->closed_at) > 0 )
+        {
+            $this->closed_to_date == null ?$this->closed_to_date=$this->closed_at:null;
+            $query->andWhere(['between', 'closed_at', Yii::$app->formatter->asDate($this->closed_at, 'php:Y-m-d 00:00'), Yii::$app->formatter->asDate($this->closed_to_date, 'php:Y-m-d 23:59')]);
+            $query->andWhere('closed_at IS NOT NULL');
+        }
+        
+        if ($this->closed_at =='1')
+        {
+            $query->andWhere('closed_at IS NOT NULL');
+        }elseif ($this->closed_at =='0')
+        {
+            $query->andWhere('closed_at IS NULL');
+        }
 
+        
         $query->andFilterWhere([
             'id' => $this->id,
             'contract_id' => $this->contract_id,
 //            'created_at' => $this->created_at !==null ?Yii::$app->formatter->asDate($this->created_at, 'php:Y-m-d'):null,
-            'closed_at' => $this->closed_at,
+//            'closed_at' => $this->closed_at,
             'priznak' => $this->priznak,
         ]);
-
+        
         $query->andFilterWhere(['like', 'pometka', $this->pometka]);
 
         return $dataProvider;

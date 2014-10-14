@@ -18,6 +18,9 @@ return [
             'class' => 'yii\db\Connection',
             'charset' => 'utf8',
         ],
+//        'formatter'=>[
+//            'locale'=>''
+//        ],
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
@@ -41,6 +44,9 @@ return [
                     '@app/modules' => '@app/themes/adminlte/modules',
                 ],
             ],
+        ],
+        'settings' => [
+            'class' => 'pheme\settings\components\Settings'
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -86,6 +92,9 @@ return [
         ],
         'ticket' => [
             'class' => 'app\modules\ticket\Module',
+        ],
+        'settings' => [
+            'class' => 'pheme\settings\Module',
         ],
     ],
     'params' => $params,

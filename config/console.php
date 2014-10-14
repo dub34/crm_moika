@@ -10,10 +10,15 @@ return [
     'modules' => [
         'gii' => 'yii\gii\Module',
     ],
+    
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
             'defaultRoles' => ['admin'],
+        ],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'charset' => 'utf8',
         ],
     ],
 ];

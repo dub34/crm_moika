@@ -24,6 +24,7 @@ return array (
   'Update contract' => 'Редактировать договор: ',
   'Client ID'=>'ID клиента',
   'Client'=>'Клиент',
+  'Print act'=>'Печать акта',
   'Employee ID'=>'Сотрудник',
   'Number'=>'Номер договора',
   'Created At'=>'Создан',

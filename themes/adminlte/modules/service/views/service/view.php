@@ -28,7 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'name:ntext',
-            'price'
+            'price',
+            'description',
+            'nds'
         ],
     ]) ?>
     

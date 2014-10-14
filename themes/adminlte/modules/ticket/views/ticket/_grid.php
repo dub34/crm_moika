@@ -14,9 +14,8 @@ use yii\helpers\Url;
     <?php 
     //Prepare params for print button. Add to print URL grid-filter params
        $print_ticket_params =Yii::$app->request->queryParams;
-       $print_ticket_params['print']=true;
-    
-        array_unshift($print_ticket_params, '/ticket/ticket/printtickets');
+       $print_ticket_params['print']=true;    
+       array_unshift($print_ticket_params, '/ticket/ticket/printtickets');
     ?>
     <?=
     '<div  class="box box-primary">' . GridView::widget([
@@ -40,18 +39,10 @@ use yii\helpers\Url;
             'maxButtonCount' => 5
         ],
         'tableOptions' => ['class' => 'table table-stripped'],
-//        'striped'=>true,
-//        'bordered'=>false,
-//        'pjax'=>true,
-//        'pjaxSettings'=>[
-//            'options'=>[
-//                'enableReplaceState'=>false,
-//                'enablePushState'=>false,
-//            ]
-//        ],
+        'id'=>'ticket-grid',
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-//            'id',
+//            ['class' => 'yii\grid\SerialColumn'],
+            'id',
 //            'contract_id',
             [
                 'attribute' => 'created_at',
@@ -80,25 +71,26 @@ use yii\helpers\Url;
 
                     return $value;
                 },
-                        'format' => 'raw',
-                        'attribute' => 'closed_at',
-                        'filter' => false
-                    ],
-                    [
-                        'value' => function($model) {
-                            return implode(',', \yii\helpers\ArrayHelper::map($model->services, 'id', 'name'));
-                        },
-                        'header' => Yii::t('ticket', 'Services')
-                    ],
-                    [
-                        'class' => 'yii\grid\ActionColumn',
-                        'template' => '{delete}',
-                        'buttons' => [
-                            'delete' => function ($url, $model, $key) {
-                                return Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-trash']), $url,['data-pjax'=>'#pjax-action-container']);
-                            }
-                        ]
-                    ]
+                'format' => 'raw',
+                'attribute' => 'closed_at',
+//                'filter' => Html::activeDropDownList($searchModel,'closed_at',['0'=>Yii::t('ticket','not Closed'),'1'=>Yii::t('ticket','Closed')],['prompt'=>'--','class'=>'form-control'])
+                        'filter'=>false
+            ],
+            [
+                'value' => function($model) {
+                    return $model->getFormattedServices('withprice');
+                },
+                'header' => Yii::t('ticket', 'Services')
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{delete}',
+                'buttons' => [
+                    'delete' => function ($url, $model, $key) {
+                        return Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-trash']), $url,['data-pjax'=>'#pjax-action-container']);
+                    }
+                ]
+            ]
 
 //                        'priznak',
                 // 'pometka',

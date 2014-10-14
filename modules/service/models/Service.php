@@ -62,9 +62,10 @@ class Service extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
 //            'service_history_id' => 'Ревизия',
-            'name' => 'Название',
-            'price' => 'Стоимость',
+            'name' => Yii::t('service','Name'),
+            'price' => Yii::t('service','Price'),
             'description' => Yii::t('service','Description'),
+            'nds' => Yii::t('service','Nds'),
         ];
     }
     

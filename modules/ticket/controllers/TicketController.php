@@ -51,14 +51,6 @@ class TicketController extends Controller {
     public function actionLoadticketsgrid($id)
     {
         $searchModel = new SearchTicket();
-//        $query = Ticket::find();
-//        $query->where = ["contract_id" => $id];
-//        $dataProvider = new \yii\data\ActiveDataProvider([
-//            'query' => $query,
-//            'pagination' => [
-//                'pageSize' => 10,
-//            ],
-//        ]);
         $dataProvider=$searchModel->search(array_merge(Yii::$app->request->queryParams,['id'=>$id]));
         $model = new Ticket;
         $model::populateRecord($model, ['contract_id' => $id]);
@@ -69,6 +61,17 @@ class TicketController extends Controller {
             ]);
     }
 
+    
+    public function actionPrintact()
+    {
+        $searchModel = new SearchTicket;
+        
+        $tickets = $searchModel->search(Yii::$app->request->queryParams)->getModels();
+        
+        $payments = Ticket::getPaymentsForAct($searchModel->closed_at,$searchModel->closed_to_date,$searchModel->contract_id);
+        
+        return $this->renderAjax('_act_layout',['tickets'=>  $tickets,'model'=>$searchModel,'payments'=>$payments]);
+    }
 
 
     /**

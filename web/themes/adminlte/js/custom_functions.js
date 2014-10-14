@@ -25,6 +25,19 @@ $(document).ready(function () {
         $.pjax.reload({container: container, history: false, replace: false, timeout: 10000, url: load_url});
     });
 
+    $('.print-act').click(function (e) {
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+        $('#printAct-' + id).modal('show');
+    });
+   
+    $('.printActForm').on('submit',
+        function (e) {
+            var $this=$(this);
+            e.preventDefault();
+            $this.parent().find('.act').load($this.attr("action"), $this.serialize());
+        }
+    );
     // listen click, open modal and .load content
 //$('#paymentMdlOpen').click(function (){
 //    $('#paymentCreateDlg').modal('show')
@@ -36,27 +49,27 @@ $(document).ready(function () {
 function submitForm(e) {
     var $this = $(this);
     $.post($this.attr("action"), $this.serialize())
-            .done(function (result) {
-                if (typeof result == 'object')
-                {
-                    $this.parent().html(result.data);
-                } else
-                    $this.parent().html(result);
-            }).success(function (data) {
-                setTimeout(function () {
-                    $('.alert button[class="close"]').click();
-                }, 3000);
-                if (typeof data == 'object' && data.hasOwnProperty('message') && data.message == "success")
-                {
-                    if (typeof e.data === "object" && e.data.hasOwnProperty('successHndl') && $.isFunction(e.data.successHndl))
-                    {
-                        e.data.successHndl.call();
-                    }
-                }
-            }).fail(function () {
-                console.log("server error");
-                $this.replaceWith('SERVER ERROR').fadeOut()
-            });
+        .done(function (result) {
+            if (typeof result == 'object')
+            {
+                $this.parent().html(result.data);
+            } else
+                $this.parent().html(result);
+        }).success(function (data) {
+        setTimeout(function () {
+            $('.alert button[class="close"]').click();
+        }, 3000);
+        if (typeof data == 'object' && data.hasOwnProperty('message') && data.message == "success")
+        {
+            if (typeof e.data === "object" && e.data.hasOwnProperty('successHndl') && $.isFunction(e.data.successHndl))
+            {
+                e.data.successHndl.call();
+            }
+        }
+    }).fail(function () {
+        console.log("server error");
+        $this.replaceWith('SERVER ERROR').fadeOut()
+    });
     return false;
 }
 
@@ -84,11 +97,11 @@ function handlePaymentFormActions() {
                 $('#ticketCreateDlg').modal('hide');
                 if ($('#ticket-ticket_count').length > 0)
                     window.open($('#ticketPrintCountForm').attr('data-printurl'));
-                
-                setTimeout(function(){
+
+                setTimeout(function () {
                     var cid = $('#ticket-contract_id').val();
                     $('.load-tickets').filter('a[data-id="' + cid + '"]').click();
-                },1000);
+                }, 1000);
             }
             $('#ticketPrintCountForm').on('beforeSubmit', {successHndl: saveHandler}, submitForm);
             $('#ticketPrintCountForm').on('submit',
@@ -99,9 +112,9 @@ function handlePaymentFormActions() {
         });
 //        })
     });
-    $('#printTickets').click(function(){
+    $('#printTickets').click(function () {
         var url = $(this).attr('data-url');
-                    window.open(url);
+        window.open(url);
     });
 
 //    $('#').on('hidden.bs.modal',function(){

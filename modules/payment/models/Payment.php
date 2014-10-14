@@ -19,8 +19,8 @@ class Payment extends \yii\db\ActiveRecord
 {
     public $tstCreatedAt;
     
-    public $visibleDateFormat = 'd.m.y';
-    public $storeDateFormat = 'Y-m-d H:i:s';
+    public $visibleDateFormat = 'php:d.m.Y';
+    public $storeDateFormat = 'php:Y-m-d H:i:s';
     /**
      * @inheritdoc
      */
@@ -38,7 +38,7 @@ class Payment extends \yii\db\ActiveRecord
             [['contract_id','created_at','payment_sum'], 'required'],
             [['contract_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['created_at'], 'date','format'=> 'd.m.yyyy','timestampAttribute'=>'tstCreatedAt'],
+            [['created_at'], 'date','format'=> 'php:d.m.Y'],
             [['payment_sum'], 'string', 'max' => 25],
         ];
     }
@@ -59,13 +59,13 @@ class Payment extends \yii\db\ActiveRecord
 
     public function beforeSave($insert) {
         
-        $this->created_at = date($this->storeDateFormat,$this->tstCreatedAt);        
+        $this->created_at = Yii::$app->formatter->asDate($this->created_at,$this->storeDateFormat);
         return parent::beforeSave($insert);
     }
     
     public function afterFind() {
         if (null!==$this->created_at)
-            $this->created_at = date_format(date_create_from_format($this->storeDateFormat, $this->created_at), $this->visibleDateFormat);
+            $this->created_at = Yii::$app->formatter->asDate($this->created_at,$this->visibleDateFormat);
         return parent::afterFind();
     }
     

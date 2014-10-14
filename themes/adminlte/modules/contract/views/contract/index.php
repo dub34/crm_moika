@@ -13,12 +13,13 @@ $script = <<<SKRIPT
     $('#pjax-action-container').on('pjax:success', function(data){
          handlePaymentFormActions();
      });
+   
 SKRIPT;
 
-$this->registerJs($script);
 \yii\widgets\ActiveFormAsset::register($this);
 \yii\bootstrap\BootstrapPluginAsset::register($this);
 $this->registerJsFile('/themes/adminlte/js/plugins/datepicker/bootstrap-datepicker.js', ['depends' => [JqueryAsset::className()], 'position' => $this::POS_END]);
+$this->registerJs($script);
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
@@ -84,6 +85,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                                     'format' => 'raw'
                         ],
+                        [
+                            'value' => function($model, $key, $index) {
+                                return Html::a(Html::tag('span', '', ['class' => 'glyphicon glyphicon-list-alt']), '#', ['class' => 'print-act', 'title' => Yii::t('contract', 'Print act'), 'data-id' => $model->id, 'data-pjax' => '0'])
+                                        .$this->render('//modules/ticket/views/ticket/_act_modal',['id'=>$key]);
+                            },
+                            'format' => 'raw'
+                        ],
                     ],
                     'pjax' => false,
                     'pjaxSettings' => [
@@ -91,8 +99,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'options' => [
                             'linkSelector' => 'a[data-pjax!="#pjax-action-container"]'
                         ]
-////                    'beforeGrid' => 'My fancy content before.',
-//                    'afterGrid' => 'My fancy content after.',
                     ]
                     ]);
                                 ?>

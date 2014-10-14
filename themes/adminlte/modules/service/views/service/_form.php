@@ -18,6 +18,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'name')->textInput(); ?>
             <?= $form->field($model, 'description')->textarea(['rows' => 2]); ?>
             <?= $form->field($model, 'price')->textInput(); ?>
+            <?= $form->field($model, 'nds')->textInput(); ?>
         </div>
 
         <div class="box-footer">

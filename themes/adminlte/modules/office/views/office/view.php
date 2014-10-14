@@ -32,6 +32,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
+            'register_address:ntext',
+            [
+               'attribute'=> 'chief.name',
+                'label'=>$model->getAttributeLabel('chief_name')
+            ],
+            [
+               'attribute'=> 'glbuh.name',
+                'label'=>$model->getAttributeLabel('glbuh_name')
+            ],
+            [
+               'attribute'=> 'checkbuh.name',
+                'label'=>$model->getAttributeLabel('check_buh_name')
+            ],
+            'bank_name:ntext',
+            'bank_code',
+            'payment_account',
+            'unp',
+            'okpo',
+            'telephone:ntext',
+            'fax:ntext',
+            'email:email',
         ],
     ])
     ?>

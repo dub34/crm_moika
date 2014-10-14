@@ -29,7 +29,8 @@ class ServiceController extends Controller
         return array_merge(parent::behaviors(),$behaviors);
     }
 
-    /**
+
+        /**
      * Lists all Service models.
      * @return mixed
      */
@@ -67,26 +68,21 @@ class ServiceController extends Controller
     public function actionCreate()
     {
         $model = new Service;
-        $history_model = new ServiceHistory;
-
+        $model->nds = Yii::$app->settings->get('.nds');
         if ($model->load(Yii::$app->request->post())) {
-            
-            
             if ($model->validate())
             {
-//                $history_model->save();
-//                $model->service_history_id = $history_model->id;
                 $model->save();
-//                $model->link('ServiceHistory',$history_model);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }
         return $this->render('create', [
                 'model' => $model,
-                'history_model'=>$history_model
             ]);
     }
 
+    
+    
     /**
      * Updates an existing Service model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -97,13 +93,12 @@ class ServiceController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $history_model = $model->serviceHistory;
+//        $model->nds = Yii::$app->settings->get('nds');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'history_model'=>$history_model
             ]);
         }
     }

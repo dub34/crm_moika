@@ -54,6 +54,7 @@ return array (
   'Unknown option: --{name}' => 'Неизвестная опция: --{name}',
   'Update' => 'Редактировать',
   'Yes' => 'Да',
+  'Save'=>'Сохранить',
   'You are not allowed to perform this action.' => 'Вам не разрешено производить данное действие.',
   'You can upload at most {limit, number} {limit, plural, one{file} other{files}}.' => 'Вы не можете загружать более {limit, number} {limit, plural, one{файла} few{файлов} many{файлов} other{файла}}.',
   'the input value' => 'введённое значение',
