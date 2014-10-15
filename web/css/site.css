@@ -93,3 +93,6 @@ a.desc:after {
 {
     color: white !important;
 }
+iframe{
+    border: none;
+}

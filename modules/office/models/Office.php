@@ -88,9 +88,14 @@ class Office extends \yii\db\ActiveRecord {
         return $this->hasOne(Employee::className(), ['id' => 'check_buh_name']);
     }
     
-   public function getTickets()
-   {
-       return $this->hasMany(Ticket::className(), ['office_id' => 'id']);
-   }
+    public function getDefaultOffice()
+    {
+        return $this->findOne([Yii::$app->settings->get('office.defaultOffice')]);
+    }
+    
+    public function getTickets()
+    {
+        return $this->hasMany(Ticket::className(), ['office_id' => 'id']);
+    }
 
 }

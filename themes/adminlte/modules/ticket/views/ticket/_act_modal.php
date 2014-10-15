@@ -8,6 +8,8 @@ use yii\widgets\ActiveForm;
  * Print act modal window with form
  * @var $model instance of Contract model class
  */
+
+
 $model = new app\modules\ticket\models\SearchTicket();
 $model->contract_id = $id;
 ?>
@@ -42,5 +44,6 @@ $model->contract_id = $id;
 
 <?php ActiveForm::end(); ?>
 
-<div class="act"></div>
+<br />
+<iframe class="act" width="100%" height="0"></iframe>
 <?php Modal::end();?>

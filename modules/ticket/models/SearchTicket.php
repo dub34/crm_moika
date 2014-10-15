@@ -18,7 +18,7 @@ class SearchTicket extends Ticket {
     public function rules() {
         return [
             [['id', 'contract_id', 'priznak'], 'integer'],
-            [['created_at', 'closed_at', 'pometka', 'to_date','closed_to_date'], 'safe'],
+            [['created_at', 'closed_at', 'pometka', 'to_date', 'closed_to_date'], 'safe'],
         ];
     }
 
@@ -41,9 +41,14 @@ class SearchTicket extends Ticket {
         $query = Ticket::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => isset($params['print'])?null:10,
+        'query' => $query,
+        'pagination' => [
+            'pageSize' => isset($params['print'])?null:Yii::$app->settings->get('ticket.GridDefaultSize'),
+        ],
+            'sort' => [
+                'defaultOrder' => [
+                    'created_at' => SORT_DESC
+                ]
             ],
         ]);
 

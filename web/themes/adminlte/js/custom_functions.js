@@ -35,7 +35,9 @@ $(document).ready(function () {
         function (e) {
             var $this=$(this);
             e.preventDefault();
-            $this.parent().find('.act').load($this.attr("action"), $this.serialize());
+//            $this.parent().find('.act').load($his.attr("action"), $this.serialize());
+            $this.parent().find('.act')[0].height=500;
+            $this.parent().find('.act')[0].src=$this.attr("action")+'?'+$this.serialize();
         }
     );
     // listen click, open modal and .load content

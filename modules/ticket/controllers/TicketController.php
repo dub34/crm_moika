@@ -65,7 +65,7 @@ class TicketController extends Controller {
     public function actionPrintact()
     {
         $searchModel = new SearchTicket;
-        
+       
         $tickets = $searchModel->search(Yii::$app->request->queryParams)->getModels();
         
         $payments = Ticket::getPaymentsForAct($searchModel->closed_at,$searchModel->closed_to_date,$searchModel->contract_id);

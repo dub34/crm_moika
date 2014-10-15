@@ -66,16 +66,11 @@ class PaymentController extends Controller {
             'pagination' => [
                 'pageSize' => 10,
             ],
-            'sort' => new \yii\data\Sort([
-                'attributes' => [
-                    'created_at' => [
-                        'asc' => ['created_at' => SORT_ASC],
-                        'desc' => ['created_at' => SORT_DESC],
-                        'default' => SORT_DESC,
-                        'label' => 'created_at',
-                    ],
-                ],
-            ])
+            'sort' => [
+                'defaultOrder' => [
+                    'created_at' => SORT_DESC
+                ]
+            ],
         ]);
         $model = new Payment;
         $model::populateRecord($model, ['contract_id' => $id]);

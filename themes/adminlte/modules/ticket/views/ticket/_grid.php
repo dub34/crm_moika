@@ -42,11 +42,14 @@ use yii\helpers\Url;
         'id'=>'ticket-grid',
         'columns' => [
 //            ['class' => 'yii\grid\SerialColumn'],
-            'id',
+            [
+                'attribute'=>'id',
+                'options' => ['class' => 'col-md-1']
+            ],
 //            'contract_id',
             [
                 'attribute' => 'created_at',
-                'format' => ['date', 'php:d.m.Y H:i'],
+                'format' => ['date', 'php:d.m.Y'],
                 'filter' => DatePicker::widget(
                         [
                             'model' => $searchModel,
@@ -67,20 +70,20 @@ use yii\helpers\Url;
             [
                 'value' => function($model) {
                     $value = $this->render('_close_modal', ['model' => $model]);
-                    $value = $model->closed_at !== null ? Yii::$app->formatter->asDate($model->closed_at, 'php:d.m.Y H:i') . $value : $value;
-
+                    $value = $model->closed_at !== null ? Yii::$app->formatter->asDate($model->closed_at, 'php:d.m.Y') . $value : $value;
                     return $value;
                 },
                 'format' => 'raw',
                 'attribute' => 'closed_at',
 //                'filter' => Html::activeDropDownList($searchModel,'closed_at',['0'=>Yii::t('ticket','not Closed'),'1'=>Yii::t('ticket','Closed')],['prompt'=>'--','class'=>'form-control'])
-                        'filter'=>false
+                'filter'=>false
             ],
             [
                 'value' => function($model) {
                     return $model->getFormattedServices('withprice');
                 },
-                'header' => Yii::t('ticket', 'Services')
+                'header' => Yii::t('ticket', 'Services'),
+                'options' => ['class' => 'col-md-3']
             ],
             [
                 'class' => 'yii\grid\ActionColumn',

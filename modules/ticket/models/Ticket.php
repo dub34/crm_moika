@@ -50,7 +50,8 @@ class Ticket extends \yii\db\ActiveRecord
             [['services_list','office_id'], 'safe','on'=>'update'],
             [['contract_id', 'priznak','ticket_count'], 'integer'],
             [['created_at', 'closed_at', 'to_date','closed_to_date','services_list'], 'safe'],
-            [['pometka'], 'string', 'max' => 45]
+            [['pometka'], 'string', 'max' => 45],
+            [['closed_at'],'compare','compareAttribute'=>'created_at','operator'=>'>=']
         ];
     }
 
@@ -158,7 +159,7 @@ class Ticket extends \yii\db\ActiveRecord
                         {
                             $f[] = $service->name.'('.$service->price.')';
                         }
-                        return implode(',',$f);
+                        return implode(', ',$f);
                 break;
         }
     }

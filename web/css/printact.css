@@ -1,0 +1,36 @@
+/* 
+    Created on : 15.10.2014, 12:51:08
+    Author     : vkriuchkov
+*/
+
+@media print
+{
+    #non-printable { display: none; }
+}
+.center {
+        text-align: center;
+    }
+.bold {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.table p {
+    
+   
+}
+
+.table p {
+        margin: 1px;
+        line-height: 1em;
+    }
+    
+body
+{
+    font-size: 14px !important;
+    margin: 1px;
+        line-height: 1em;
+}
+.right{
+    text-align: right;
+}
