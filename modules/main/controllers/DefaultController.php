@@ -19,7 +19,6 @@ class DefaultController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                    
                 ],
             ],
         ];
@@ -36,8 +35,7 @@ class DefaultController extends Controller
     
     public function actionIndex()
     {
-//        $this->params['breadcrumbs'][] = 'About Us';
-        return $this->render('index');
+        $this->redirect('/contract/contract');
     }
  
     public function actionAbout()

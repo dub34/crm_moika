@@ -17,8 +17,10 @@ use Yii;
  */
 class Payment extends \yii\db\ActiveRecord
 {
+    const PAYMENT_ACTIVE=1;
+    const PAYMENT_NONACTIVE=0;
+
     public $tstCreatedAt;
-    
     public $visibleDateFormat = 'php:d.m.Y';
     public $storeDateFormat = 'php:Y-m-d H:i:s';
     /**
@@ -36,8 +38,8 @@ class Payment extends \yii\db\ActiveRecord
     {
         return [
             [['contract_id','created_at','payment_sum'], 'required'],
-            [['contract_id'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['contract_id','status'], 'integer'],
+            [['created_at', 'updated_at','status'], 'safe'],
             [['created_at'], 'date','format'=> 'php:d.m.Y'],
             [['payment_sum'], 'string', 'max' => 25],
         ];

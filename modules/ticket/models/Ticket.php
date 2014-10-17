@@ -6,7 +6,6 @@ use Yii;
 use app\modules\contract\models\Contract;
 use app\modules\service\models\Service;
 use app\modules\service\models\ActualService;
-use \yii\db\mssql\PDO;
 
 /**
  * This is the model class for table "ticket".
@@ -30,6 +29,8 @@ class Ticket extends \yii\db\ActiveRecord
     public $to_date;
     public $closed_to_date;
     public $services_list=[];
+    
+    
     /**
      * @inheritdoc
      */
@@ -51,7 +52,7 @@ class Ticket extends \yii\db\ActiveRecord
             [['contract_id', 'priznak','ticket_count'], 'integer'],
             [['created_at', 'closed_at', 'to_date','closed_to_date','services_list'], 'safe'],
             [['pometka'], 'string', 'max' => 45],
-            [['closed_at'],'compare','compareAttribute'=>'created_at','operator'=>'>=']
+            [['closed_at'], \nepstor\validators\DateTimeCompareValidator::className(), 'format' => 'd.m.Y', 'compareAttribute'=>'created_at','operator'=>'>=']
         ];
     }
 
@@ -176,7 +177,6 @@ class Ticket extends \yii\db\ActiveRecord
         return \app\modules\payment\models\Payment::find()->where(['between','date_format(created_at,\'%Y-%m-%d\')',Yii::$app->formatter->asDate($start_period,'php:Y-m-d'),Yii::$app->formatter->asDate($end_period,'php:Y-m-d')])
                 ->andWhere('contract_id=:contract_id',[':contract_id'=>$contract_id])
                 ->all();
-    //[':start_period'=>Yii::$app->formatter->asDate($start_period,'php:Y-m-d'),':end_period'=>Yii::$app->formatter->asDate($end_period,'php:Y-m-d')])->all();
     }
     
     /**

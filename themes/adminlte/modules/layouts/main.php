@@ -39,26 +39,8 @@ AppAsset::register($this);
                             <?= Html::a('Login','/employee/default/login');?>
                         </li>
                         <?php else:?>
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span><?= Yii::$app->user->identity->employeename; ?> <i class="caret"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header bg-light-blue">
-                                    <img src="../../img/avatar3.png" class="img-circle" alt="User Image" />
-                                </li>
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <?= Html::a('Profile','/employee/default/profile',['class'=>"btn btn-default btn-flat"]);?>
-                                    </div>
-                                    <div class="pull-right">
-                                        <?= Html::a('Logout','/employee/default/logout',['class'=>"btn btn-default btn-flat",'method'=>'post']);?>
-                                    </div>
-                                </li>
-                            </ul>
+                        <li>
+                             <?= Html::a('<i class="glyphicon glyphicon-user"></i> '.Yii::$app->user->identity->employeename.' '.Html::tag('span','',['class'=>'glyphicon glyphicon-log-out']),'/employee/default/logout',['class'=>"",'method'=>'post','title'=>Yii::t('yii','Logout')]);?>
                         </li>
                         <?php endif;?>
                     </ul>

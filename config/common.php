@@ -18,15 +18,16 @@ return [
             'class' => 'yii\db\Connection',
             'charset' => 'utf8',
         ],
-//        'formatter'=>[
-//            'locale'=>''
-//        ],
+        'formatter'=>[
+            'locale'=>'be_BY',
+            'currencyCode'=>''
+        ],
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '' => 'main/default/index',
+                '' => 'contract',
                 'contact' => 'contact/default/index',
                 '<_a:(about|error)>' => 'main/default/<_a>',
                 '<_a:(login|logout)>' => 'employee/default/<_a>',

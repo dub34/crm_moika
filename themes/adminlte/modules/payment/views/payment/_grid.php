@@ -19,8 +19,10 @@ use yii\widgets\Pjax;
     . '<h3 class="box-title">Платежи по договору '.$model->contract->number.'</h3>'
     . "<div class=\"box-tools\">"
             . "<p class=\"pull-left\">"
-                . $this->render('//modules/payment/views/payment/_modal',['model'=>$model])
-                . "</p>"
+            . $this->render('//modules/payment/views/payment/_modal',['model'=>$model])
+            .'&nbsp'
+            . $this->render('//modules/payment/views/payment/_invoice_modal',['model'=>$model])
+            . "</p>"
     . "{pager}</div></div>"
     . "<div class=\"box-body no-padding\">{items}</div>",
     'tableOptions' => ['class' => 'table table-stripped'],
@@ -42,13 +44,12 @@ use yii\widgets\Pjax;
         'payment_sum',
         'created_at',
 //        'contract_id'
-//                [
-//                    'class' => 'yii\grid\ActionColumn',
-//                    'urlCreator' => function($action, $model, $key, $index) {
-//                return '/contract/contract/' . $action . '/' . $key;
-//            },
-//                    'options' => ['class' => 'col-md-2']
-//                ],
+        [
+            'value'=>function($model, $key, $index){
+                return Html::radio('payments',false,['value'=>$key['id']]);
+            },
+            'format'=>'raw'
+        ],
     ],
 ]) . '</div>';
 ?>

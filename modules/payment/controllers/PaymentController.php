@@ -5,10 +5,14 @@ namespace app\modules\payment\controllers;
 use Yii;
 use app\modules\payment\models\Payment;
 use app\modules\payment\models\PaymentSearch;
-use app\modules\contract\models\Contract;
 use app\components\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use alexgx\phpexcel\PhpExcel;
+use app\modules\office\models\Office;
+use yii\helpers\Html;
+use PHPExcel_IOFactory;
+use php_rutils\RUtils;
 
 /**
  * PaymentController implements the CRUD actions for Payment model.
@@ -57,10 +61,16 @@ class PaymentController extends Controller {
         }
     }
 
-    public function actionLoadpaymentgrid($id) {
+    public function actionLoadpaymentgrid() {
+        $id = Yii::$app->request->get('id', Yii::$app->request->post('id', null));
+        $contract_id = Yii::$app->request->get('contract_id', Yii::$app->request->post('contract_id', null));
+
+        if (!$id && !$contract_id) {
+            throw NotFoundHttpException;
+        }
+
         $query = Payment::find();
-        $query->where = ["contract_id" => $id];
-//        $query->orderBy(['created_at' => 'DESC']);
+        $query->where = ["contract_id" => $contract_id];
         $paymentDP = new \yii\data\ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -73,7 +83,8 @@ class PaymentController extends Controller {
             ],
         ]);
         $model = new Payment;
-        $model::populateRecord($model, ['contract_id' => $id]);
+        $model::populateRecord($model, ['contract_id' => $contract_id, 'id' => $id]);
+//        $model->load(Yii::$app->request->queryParams);
         return $this->renderAjax('_grid', ['paymentDP' => $paymentDP, 'model' => $model]);
     }
 
@@ -106,10 +117,14 @@ class PaymentController extends Controller {
                 $model = new Payment;
                 $model->contract_id = $contract_id;
                 Yii::$app->getSession()->setFlash('payment_save_success', 'Оплата сохранена');
-                return $this->renderAjax('create', [
-                            'model' => $model,
-                            'client_id' => $client_id
-                ]);
+                \Yii::$app->response->format = 'json';
+                return ['message' => 'success', 'data' => $this->renderAjax('create', [
+                        'model' => $model,
+                        'client_id' => $client_id
+                ])];
+//                return $this->renderAjax('create', [
+//                            'model' => $model,
+//                ]);
             } else {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -128,10 +143,62 @@ class PaymentController extends Controller {
         }
     }
 
-//    public function actionLoadform()
-//    {
-//        return $this->render('_form');
-//    }
+    public function actionPrintinvoice() {
+        if (!($id = Yii::$app->request->get('id', null))) {
+            $model = new Payment();
+            $model->load(Yii::$app->request->queryParams);
+            $model->status = Payment::PAYMENT_NONACTIVE;
+            $model->created_at = Yii::$app->formatter->asDate(time(), $model->visibleDateFormat);
+        } else {
+            $model = Payment::findOne([$id]);
+        }
+        if (!$model->isNewRecord) {
+            $this->createExcellReport($model);
+        } elseif ($model->save()) {
+            $this->createExcellReport($model);
+        } else {
+            return 'Ошибка при сохранении счета';
+        }
+    }
+
+    private function createExcellReport($model) {
+        $excel = new PhpExcel;
+        $tmpl = $excel->load('files/invoice_1.xls');
+        $office = new Office;
+        $office = $office->defaultOffice;
+        $nds = $model->payment_sum * Yii::$app->settings->get('nds') / 100;
+        $sum_bez_nds = $model->payment_sum - $nds;
+        $tmpl->setActiveSheetIndex(0)
+                ->setCellValue('B1', $office->name)
+                ->setCellValue('J2', $model->id)
+                ->setCellValue('B5', $office->register_address)
+                ->setCellValue('B6', 'Тел. ' . $office->telephone . ' факс. ' . $office->fax)
+                ->setCellValue('B7', 'р/с.' . $office->payment_account . ' в ' . $office->bank_name)
+                ->setCellValue('B8', 'код ' . $office->bank_code)
+                ->setCellValue('B9', 'УНП ' . $office->unp . ' ОКПО ' . $office->okpo)
+                ->setCellValue('H6', Yii::$app->formatter->asDate(time(), 'php:d.m.Y'))
+                ->setCellValue('B11', $model->contract->client->name)
+                ->setCellValue('C14', Yii::$app->settings->get('nds'))
+                ->setCellValue('C15', $sum_bez_nds)
+                ->setCellValue('E15', RUtils::numeral()->getRubles($sum_bez_nds))
+                ->setCellValue('C16', $nds)
+                ->setCellValue('E16', RUtils::numeral()->getRubles($nds))
+                ->setCellValue('C17', $model->payment_sum)
+                ->setCellValue('E17', RUtils::numeral()->getRubles($model->payment_sum));
+        header('Content-Type: text/html');
+        $contentDisposition = 'inline';
+        $fileName = 'invoice.xls';
+        $objWriter = PHPExcel_IOFactory::createWriter($tmpl, 'HTML');
+        header("Content-Disposition: {$contentDisposition};filename='" . $fileName . "'");
+        header('Cache-Control: max-age=0');
+        header('Cache-Control: max-age=1');
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header('Pragma: public'); // HTTP/1.0
+        $objWriter->save('php://output');
+        Yii::$app->end();
+    }
 
     /**
      * Updates an existing Payment model.

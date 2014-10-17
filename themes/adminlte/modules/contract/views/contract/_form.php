@@ -18,7 +18,6 @@ use kartik\widgets\DatePicker;
         <div class="box-body">
             <?php $form = ActiveForm::begin(); ?>
             <?= $form->errorSummary($model); ?>
-            <?= $form->field($model, 'number')->textInput(['maxlength' => 45]) ?>
             <?= $form->field($model, 'client_id', ['inputTemplate' => '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>{input}</div>',])->dropDownList(ArrayHelper::map(Client::find()->all(), 'id', 'name'), ['prompt' => Yii::t('contract', 'Select client')]); ?>
             <?php //  $form->field($model, 'employee_id')->textInput() ?>
             <?=

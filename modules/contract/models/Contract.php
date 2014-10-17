@@ -38,11 +38,10 @@ class Contract extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['client_id','number'], 'required'],
+            [['client_id'], 'required'],
             [['client_id', 'employee_id'], 'integer'],
             [['created_at'], 'required'],
             [['created_at'], 'date','format'=> 'd.m.yyyy','timestampAttribute'=>'tstCreatedAt'],
-            [['number'], 'string', 'max' => 45]
         ];
     }
 
@@ -63,8 +62,8 @@ class Contract extends \yii\db\ActiveRecord
     }
 
     public function beforeSave($insert) {
-        
-        $this->created_at = date($this->storeDateFormat,$this->tstCreatedAt);        
+        $this->created_at = date($this->storeDateFormat,$this->tstCreatedAt);
+        ($this->number == null)?$this->getContractNumber():null;
         return parent::beforeSave($insert);
     }
     
@@ -73,7 +72,14 @@ class Contract extends \yii\db\ActiveRecord
         return parent::afterFind();
     }
 
-
+    //Get number for new contract
+    protected function getContractNumber()
+    {
+        $number = Yii::$app->db->createCommand('SELECT MAX(CAST(number as UNSIGNED))+1 FROM contract')->queryScalar();
+        $this->number = $number;
+    }
+            
+    
     /**
      * @return \yii\db\ActiveQuery
      */

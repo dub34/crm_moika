@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\contract\models;
+namespace app\modules\payment\models;
 
 use Yii;
 use yii\base\Model;

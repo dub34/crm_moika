@@ -30,6 +30,7 @@ $model->contract_id = $id;
     'attribute1' => 'closed_at',
     'attribute2' => 'closed_to_date',
     'useAddons'=>false,
+    'separator' => '&larr;&rarr;',
     'type' => FieldRange::INPUT_DATE,
     'widgetOptions1' => [
             'pluginOptions' => ['autoclose' => true,'format' => 'dd.mm.yyyy'],

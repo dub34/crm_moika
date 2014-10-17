@@ -34,3 +34,15 @@ body
 .right{
     text-align: right;
 }
+
+hr{
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+.table, .table th, .table tr, .table td{
+    border:1px solid #000 !important;
+}
+.table 
+{
+    font-size: 12px !important;
+}

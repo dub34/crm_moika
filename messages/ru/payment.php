@@ -27,5 +27,7 @@ return array(
     'Payment Sum'=>'Сумма платежа',
     'Created At'=>'Добавлено',
     'Updated At'=>'Изменено',
+    'Invoice Summ'=>"Cумма счета",
+    'Create invoice'=>"Создать счет-фактуру",
     
 );

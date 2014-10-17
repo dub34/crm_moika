@@ -27,6 +27,7 @@ return array (
   'Home' => 'Главная',
   'Invalid data received for parameter "{param}".' => 'Неправильное значение параметра "{param}".',
   'Login Required' => 'Требуется вход.',
+  'Logout'=>'Выйти',
   'Missing required arguments: {params}' => 'Отсутствуют обязательные аргументы: {params}',
   'Missing required parameters: {params}' => 'Отсутствуют обязательные параметры: {params}',
   'No' => 'Нет',

@@ -21,7 +21,10 @@
         "kartik-v/yii2-widgets": "dev-master",
         "kartik-v/yii2-grid": "*",
         "kartik-v/yii2-field-range": "*",
-        "pheme/yii2-settings": "dev-master"
+        "pheme/yii2-settings": "dev-master",
+        "nepstor/yii2-datetime-compare-validator": "*",
+        "alexgx/yii2-phpexcel" : "*",
+        "andre_487/php_rutils": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

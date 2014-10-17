@@ -24,6 +24,7 @@ return array(
     'Tickets saved'=>"Талоны сохранены",
     'Act date range'=>"Выберите период формирования акта",
     'Form act'=>"Сформировать акт",
+    'Form invoice'=>"Сформировать счет-фактуру",    
     'Create ticket'=>"Создать талоны",
     'Save Ticket'=>"Сохранить талон",
     'Created At'=>"Создан",

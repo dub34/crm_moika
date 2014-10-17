@@ -7,8 +7,6 @@ use app\modules\ticket\models\Ticket;
 use app\modules\ticket\models\SearchTicket;
 use app\components\controllers\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\db\Connection;
 
 /**
  * TicketController implements the CRUD actions for Ticket model.
@@ -72,7 +70,6 @@ class TicketController extends Controller {
         
         return $this->renderAjax('_act_layout',['tickets'=>  $tickets,'model'=>$searchModel,'payments'=>$payments]);
     }
-
 
     /**
      * Displays a single Ticket model.

@@ -35,6 +35,12 @@ class SearchContract extends Contract
 //        $query->joinWith(['client']);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=>[
+                'defaultOrder' => [
+                    'client_id'=>SORT_ASC,
+                    'number' => SORT_ASC,
+                ]
+            ]
         ]);
 //        $dataProvider->sort->attributes['client'] = [
 //            'asc' => ['client.name' => SORT_ASC],
@@ -46,6 +52,7 @@ class SearchContract extends Contract
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'number'=>$this->number,
             'client_id' => $this->client_id,
             'employee_id' => $this->employee_id,
             'created_at' => $this->created_at,

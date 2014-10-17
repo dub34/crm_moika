@@ -4,8 +4,89 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f31a68bbb399238b891173cdadbf0bc4",
+    "hash": "580dc2a1e40685e00c7d5fed26f12b48",
     "packages": [
+        {
+            "name": "alexgx/yii2-phpexcel",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AlexGx/yii2-phpexcel.git",
+                "reference": "da24f2b83a18092dc41c2770eb0bab7f85b7e9eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AlexGx/yii2-phpexcel/zipball/da24f2b83a18092dc41c2770eb0bab7f85b7e9eb",
+                "reference": "da24f2b83a18092dc41c2770eb0bab7f85b7e9eb",
+                "shasum": ""
+            },
+            "require": {
+                "phpoffice/phpexcel": "1.8.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "alexgx\\phpexcel\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Gubarev",
+                    "email": "gubarev.alex@gmail.com",
+                    "homepage": "http://actionmedia-labs.net"
+                }
+            ],
+            "description": "PhpExcel component extension for Yii2.",
+            "keywords": [
+                "PHPExcel",
+                "component",
+                "extension",
+                "yii"
+            ],
+            "time": "2014-08-22 06:31:24"
+        },
+        {
+            "name": "andre_487/php_rutils",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Andre-487/php_rutils.git",
+                "reference": "5b17fd0ac4a4bcdefc8bb20b38623c6b2a64ac43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Andre-487/php_rutils/zipball/5b17fd0ac4a4bcdefc8bb20b38623c6b2a64ac43",
+                "reference": "5b17fd0ac4a4bcdefc8bb20b38623c6b2a64ac43",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "php_rutils": ".."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "RUtils is a Russian-specific string utils (transliteration, numeral is words, russian dates, typography)",
+            "homepage": "https://github.com/Andre-487/php_rutils",
+            "keywords": [
+                "numeral is words",
+                "russian dates",
+                "transliteration",
+                "typography"
+            ],
+            "time": "2013-11-19 20:48:08"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.2.0",
@@ -102,16 +183,16 @@
         },
         {
             "name": "bower-asset/jquery.inputmask",
-            "version": "3.1.31",
+            "version": "3.1.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
-                "reference": "2b485a3f9329c829b40872e4463c42143b0c6405"
+                "reference": "0c6ce85c1bc12e81ecb0df62fbc62db116b7b53d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/2b485a3f9329c829b40872e4463c42143b0c6405",
-                "reference": "2b485a3f9329c829b40872e4463c42143b0c6405",
+                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/0c6ce85c1bc12e81ecb0df62fbc62db116b7b53d",
+                "reference": "0c6ce85c1bc12e81ecb0df62fbc62db116b7b53d",
                 "shasum": ""
             },
             "require": {
@@ -316,12 +397,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-checkbox-x.git",
-                "reference": "516ccecc97972e84f7228badaffc41e88972745a"
+                "reference": "866beb16f73210ce7ab89c3c2d209a9a73d10cc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-checkbox-x/zipball/516ccecc97972e84f7228badaffc41e88972745a",
-                "reference": "516ccecc97972e84f7228badaffc41e88972745a",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-checkbox-x/zipball/866beb16f73210ce7ab89c3c2d209a9a73d10cc7",
+                "reference": "866beb16f73210ce7ab89c3c2d209a9a73d10cc7",
                 "shasum": ""
             },
             "type": "library",
@@ -352,7 +433,7 @@
                 "state",
                 "three"
             ],
-            "time": "2014-10-10 16:08:37"
+            "time": "2014-10-16 10:16:54"
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
@@ -360,12 +441,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "f88e690a0b99d95ada629933bcc715e117cd7b2b"
+                "reference": "b4485c41d6da70abcaffd561651ad057169a01d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/f88e690a0b99d95ada629933bcc715e117cd7b2b",
-                "reference": "f88e690a0b99d95ada629933bcc715e117cd7b2b",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/b4485c41d6da70abcaffd561651ad057169a01d1",
+                "reference": "b4485c41d6da70abcaffd561651ad057169a01d1",
                 "shasum": ""
             },
             "type": "library",
@@ -397,7 +478,7 @@
                 "preview",
                 "upload"
             ],
-            "time": "2014-10-10 10:07:11"
+            "time": "2014-10-15 18:46:14"
         },
         {
             "name": "kartik-v/bootstrap-popover-x",
@@ -449,12 +530,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-star-rating.git",
-                "reference": "5f9dedc14fbf13477ea72322b7b608676b046cbc"
+                "reference": "3562bf0f1929076da6c3f961d82021cb5d3e9159"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/5f9dedc14fbf13477ea72322b7b608676b046cbc",
-                "reference": "5f9dedc14fbf13477ea72322b7b608676b046cbc",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/3562bf0f1929076da6c3f961d82021cb5d3e9159",
+                "reference": "3562bf0f1929076da6c3f961d82021cb5d3e9159",
                 "shasum": ""
             },
             "type": "library",
@@ -482,7 +563,7 @@
                 "jquery",
                 "star"
             ],
-            "time": "2014-10-05 14:55:58"
+            "time": "2014-10-17 04:19:30"
         },
         {
             "name": "kartik-v/dependent-dropdown",
@@ -872,12 +953,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widgets.git",
-                "reference": "9456c1c158faa84b50a656787e782d7c6288a32d"
+                "reference": "8a90b7066622b295fe6b4669309ad8b1f348704f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/9456c1c158faa84b50a656787e782d7c6288a32d",
-                "reference": "9456c1c158faa84b50a656787e782d7c6288a32d",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/8a90b7066622b295fe6b4669309ad8b1f348704f",
+                "reference": "8a90b7066622b295fe6b4669309ad8b1f348704f",
                 "shasum": ""
             },
             "require": {
@@ -911,7 +992,49 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-10-11 19:34:42"
+            "time": "2014-10-15 13:14:24"
+        },
+        {
+            "name": "nepstor/yii2-datetime-compare-validator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nepstor/yii2-datetime-compare-validator.git",
+                "reference": "094a93b9c8d5258db3cca3ba2d300acba4ff8d30"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nepstor/yii2-datetime-compare-validator/zipball/094a93b9c8d5258db3cca3ba2d300acba4ff8d30",
+                "reference": "094a93b9c8d5258db3cca3ba2d300acba4ff8d30",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "nepstor\\validators\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Krytskiy"
+                }
+            ],
+            "description": "Yii2 validator for compare datetime.",
+            "homepage": "https://github.com/nepstor/yii2-datetime-compare-validator",
+            "keywords": [
+                "datetime",
+                "extension",
+                "validator",
+                "yii2"
+            ],
+            "time": "2014-08-25 03:52:49"
         },
         {
             "name": "pheme/yii2-settings",
@@ -919,12 +1042,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phemellc/yii2-settings.git",
-                "reference": "38e4b199525d0cc180854b5d44d4796887381838"
+                "reference": "65af2ac8b30518e96cd7efcbcd70d082a4cc530f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phemellc/yii2-settings/zipball/38e4b199525d0cc180854b5d44d4796887381838",
-                "reference": "38e4b199525d0cc180854b5d44d4796887381838",
+                "url": "https://api.github.com/repos/phemellc/yii2-settings/zipball/65af2ac8b30518e96cd7efcbcd70d082a4cc530f",
+                "reference": "65af2ac8b30518e96cd7efcbcd70d082a4cc530f",
                 "shasum": ""
             },
             "require": {
@@ -953,7 +1076,7 @@
                 "config",
                 "yii2"
             ],
-            "time": "2014-10-01 16:00:46"
+            "time": "2014-10-16 11:53:18"
         },
         {
             "name": "pheme/yii2-toggle-column",
@@ -996,6 +1119,63 @@
                 "yii2"
             ],
             "time": "2014-10-12 15:54:14"
+        },
+        {
+            "name": "phpoffice/phpexcel",
+            "version": "1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPOffice/PHPExcel.git",
+                "reference": "e69a5e4d0ffa7fb6f171859e0a04346e580df30b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/e69a5e4d0ffa7fb6f171859e0a04346e580df30b",
+                "reference": "e69a5e4d0ffa7fb6f171859e0a04346e580df30b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-xml": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPExcel": "Classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Maarten Balliauw",
+                    "homepage": "http://blog.maartenballiauw.be"
+                },
+                {
+                    "name": "Mark Baker"
+                },
+                {
+                    "name": "Franck Lefevre",
+                    "homepage": "http://blog.rootslabs.net"
+                },
+                {
+                    "name": "Erik Tilt"
+                }
+            ],
+            "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
+            "homepage": "http://phpexcel.codeplex.com",
+            "keywords": [
+                "OpenXML",
+                "excel",
+                "php",
+                "spreadsheet",
+                "xls",
+                "xlsx"
+            ],
+            "time": "2014-03-02 15:22:49"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1143,12 +1323,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "b1a65a1aa265be15fbb79f99ce11c77c37d4f5ca"
+                "reference": "0dfd8e9dc6fc102b25a2b8ca2551f16c53739d89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/b1a65a1aa265be15fbb79f99ce11c77c37d4f5ca",
-                "reference": "b1a65a1aa265be15fbb79f99ce11c77c37d4f5ca",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/0dfd8e9dc6fc102b25a2b8ca2551f16c53739d89",
+                "reference": "0dfd8e9dc6fc102b25a2b8ca2551f16c53739d89",
                 "shasum": ""
             },
             "require": {
@@ -1181,7 +1361,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2014-10-12 20:44:45"
+            "time": "2014-10-13 21:52:05"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -1315,12 +1495,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "1ce76e851997c7ac51d7f76e5b4cd01ae50e607f"
+                "reference": "b6d383161d84092a7a9f5b14db6e2637edbd3a6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/1ce76e851997c7ac51d7f76e5b4cd01ae50e607f",
-                "reference": "1ce76e851997c7ac51d7f76e5b4cd01ae50e607f",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/b6d383161d84092a7a9f5b14db6e2637edbd3a6e",
+                "reference": "b6d383161d84092a7a9f5b14db6e2637edbd3a6e",
                 "shasum": ""
             },
             "require": {
@@ -1357,7 +1537,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2014-10-01 07:35:35"
+            "time": "2014-10-14 14:30:56"
         },
         {
             "name": "phpspec/php-diff",
@@ -1444,12 +1624,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "038e16408c199ca9e37b51af66cffbbe382ee7f7"
+                "reference": "a2ddfffa4b330e7476d19f350a6bc04ef6f4a6a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/038e16408c199ca9e37b51af66cffbbe382ee7f7",
-                "reference": "038e16408c199ca9e37b51af66cffbbe382ee7f7",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/a2ddfffa4b330e7476d19f350a6bc04ef6f4a6a2",
+                "reference": "a2ddfffa4b330e7476d19f350a6bc04ef6f4a6a2",
                 "shasum": ""
             },
             "require": {
@@ -1483,7 +1663,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2014-10-12 20:44:45"
+            "time": "2014-10-17 04:42:26"
         },
         {
             "name": "yiisoft/yii2-faker",
@@ -1538,12 +1718,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "ab1545dc9fbccf42a344c84381982a114bfdfc51"
+                "reference": "e727a0c97d1921315e0a722dca56cb1fecb90c1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/ab1545dc9fbccf42a344c84381982a114bfdfc51",
-                "reference": "ab1545dc9fbccf42a344c84381982a114bfdfc51",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/e727a0c97d1921315e0a722dca56cb1fecb90c1d",
+                "reference": "e727a0c97d1921315e0a722dca56cb1fecb90c1d",
                 "shasum": ""
             },
             "require": {
@@ -1579,7 +1759,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2014-10-12 20:44:45"
+            "time": "2014-10-17 00:38:08"
         }
     ],
     "aliases": [
@@ -1588,7 +1768,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "kartik-v/yii2-widgets": 20,
-        "pheme/yii2-settings": 20
+        "pheme/yii2-settings": 20,
+        "andre_487/php_rutils": 20
     },
     "prefer-stable": false,
     "platform": {

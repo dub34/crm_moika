@@ -37,9 +37,9 @@ $office = $office->defaultOffice;
 </div>
 <div class="row center">
     <div class="col-xs-12">
-        <p> Выполненных работ <?= $office->name; ?> 
-            <br>
-            по обслуживанию автомобилей согласно договору № <?= $model->contract->number; ?> от <?= $model->contract->created_at; ?></p>
+        <p> Выполненных работ <?= $office->name; ?> </p>
+
+            <p>по обслуживанию автомобилей согласно договору № <?= $model->contract->number; ?> от <?= $model->contract->created_at; ?></p>
     </div>
 </div>
 <div class="row">
@@ -54,10 +54,10 @@ $office = $office->defaultOffice;
 </div>
 <div class="row">
     <div class="col-xs-6">
-       Сальдо расчетов на начало периода:</strong>
+      <strong> Сальдо расчетов на начало периода:</strong>
     </div>
     <div class="col-xs-6 right">
-        <strong><?= $startBalance = app\modules\ticket\models\Ticket::getStartBalance($model->contract_id, $model->closed_at); ?></strong>
+        <strong><?= $startBalance = app\modules\ticket\models\Ticket::getStartBalance($model->contract_id, $model->closed_at); ?> руб.</strong>
     </div>
 </div>
 <hr />
@@ -120,14 +120,31 @@ $office = $office->defaultOffice;
 </div>    
 <hr />
 <?php $summPayments = array_sum(\yii\helpers\ArrayHelper::getColumn($payments, 'payment_sum')) ?>
-
-
 <div class="row">
     <div class="col-xs-6"> <strong>Сальдо расчетов на конец периода </strong></div>
-    <div class="col-xs-6 right"><strong><?= (int) $startBalance - (int) $summ + (int) $summPayments; ?></strong></div>
+    <div class="col-xs-6 right"><strong><?= (int) $startBalance - (int) $summ + (int) $summPayments; ?> руб.</strong></div>
 </div>
 <hr />
 <div class="row">
-    <div class="col-xs-6"> <strong>Итого к оплате за расчетный период: </strong></div>
-    <div class="col-xs-6 right"><strong><?= $summPayments; ?></strong></div>
+    <div class="col-xs-6"> <h5><strong>Итого к оплате за расчетный период:</strong></h5></div>
+    <div class="col-xs-6 right"><h5><strong><?= $summPayments; ?> руб.</h5></strong></div>
+</div>
+<div class="row">
+    <div class="col-xs-6 center"><p>Исполнитель</p></div>
+    <div class="col-xs-6 center"><p>Клиент</p></div>
+</div>
+<div class="row">
+    <div class="col-xs-6 center"><p><strong><?= $office->name;?></strong></p></div>
+    <div class="col-xs-6 center"><p><strong><?= $model->contract->client->name;?></strong></p></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-xs-6"><p>Директор_____________________/<?= $office->chief->name;?>/</p></div>
+    <div class="col-xs-6"><p>_____________________/<?= $model->contract->client->chief_name;?>/</p></div>
+</div>
+<br/>
+<br/>
+<div class="row">
+    <div class="col-xs-12"><p>Претензии по настоящему акту просим предъявлять до 18 числа следующего месяца. В противном случае акт будет принят к исполнению.</p>
+    <p>Цены указаны согласно прейскуранта (приказ №____ от ____г. )</p></div>
 </div>
