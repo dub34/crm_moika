@@ -19,7 +19,7 @@ if ($model->id){
     'size'=>  Modal::SIZE_DEFAULT,
     'options'=>['data-url'=>Url::to(['/payment/payment/loadpaymentgrid','contract_id'=>$model->contract_id])],
     'toggleButton'=> ['label' => Html::tag('span', '', ['class' => 'glyphicon glyphicon-tasks']),
-        'title' => Yii::t('contract', 'Print invoice'), 
+        'title' => Yii::t('payment', 'Create invoice'), 
         'class' => 'btn btn-primary btn-sm',
         ],
 ]);?>
@@ -39,6 +39,6 @@ if ($model->id){
 <div id="frame">
 <?= Html::button('Распечатать',['class'=>'btn btn-primary','id'=>'invoicePrintBtn','style'=>'display: none;']);?>
 
-<iframe class="invoice" id="invoicePrintFrame" src="<?= $src;?>" name ="invoicePrintFrame" width="100%" height="<?= $model->id?500:0?>"></iframe>
-<?php Modal::end();?>
+<iframe class="invoiceFrame" id="invoicePrintFrame" src="<?= $src;?>" name ="invoicePrintFrame" width="100%" height="<?= $model->id?500:0?>"></iframe>
 </div>
+<?php Modal::end();?>

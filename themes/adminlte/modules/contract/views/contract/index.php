@@ -54,7 +54,7 @@ $this->registerJs($script);
                         ],
                         'maxButtonCount' => 5
                     ],
-//                     'tableOptions' => ['class' => 'table table-stripped'],
+                    'tableOptions' => ['data-balanceloadurl' => yii\helpers\Url::to('/contract/contract/getbalance')],
                     'columns' => [
     //                        'id',
                         [
@@ -82,7 +82,19 @@ $this->registerJs($script);
                             'filter'=>false
                         ],
     //                        ['class' => 'yii\grid\ActionColumn', 'options' => ['class' => 'col-md-1']],
-                        'balance:currency',
+                        [
+                            'attribute'=>'balance',
+//                            'value'=>function($model,$key,$index){
+//                                return Html::tag('span',$mode)
+//                            }'balance',
+                            'value'=>function($model,$key,$index){
+                                return Html::tag('span',Yii::$app->formatter->asInteger($model->balance),['class'=>$model->balance<Yii::$app->settings->get('contract.minBalance')?'label label-danger':'label label-success']);
+                            },
+                                    'format'=>'raw',
+                            'contentOptions'=>function ($model, $key, $index, $column){
+                                return ['id'=>'balance-'.$key];
+                            }
+                        ],
                         [
                             'value' => function($model, $key, $index) {
                                 return Html::a(Html::tag('span', '', ['class' => 'glyphicon glyphicon-usd']), ['/payment/payment/loadpaymentgrid', 'contract_id' => $model->id], ['class' => 'load-payments', 'title' => Yii::t('payment', 'Show Payments'), 'data-id' => $model->id, 'data-pjax' => '#pjax-action-container']);

@@ -74,7 +74,7 @@ class PaymentController extends Controller {
         $paymentDP = new \yii\data\ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => Yii::$app->settings->get('payment.gridSize'),
             ],
             'sort' => [
                 'defaultOrder' => [
@@ -106,13 +106,17 @@ class PaymentController extends Controller {
      * @return mixed
      */
     public function actionCreate() {
-        $model = new Payment;
-
+        $id = Yii::$app->request->get('id', Yii::$app->request->post('id', null));
+        $contract_id = Yii::$app->request->get('contract_id', Yii::$app->request->post('contract_id', null));
+        
+        if ($id && $contract_id)
+            $model = $this->findModel($id,$contract_id);
+        else{
+            $model = new Payment;
+        }
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if (Yii::$app->request->isAjax) {
-                $client_id = (null !== $model->contract) ? $model->contract->client_id : null;
-//                $model->contract->balance = $model->contract->balance+$model->payment_sum;
-//                $model->contract->save();
                 $contract_id = $model->contract_id;
                 $model = new Payment;
                 $model->contract_id = $contract_id;
@@ -120,7 +124,6 @@ class PaymentController extends Controller {
                 \Yii::$app->response->format = 'json';
                 return ['message' => 'success', 'data' => $this->renderAjax('create', [
                         'model' => $model,
-                        'client_id' => $client_id
                 ])];
 //                return $this->renderAjax('create', [
 //                            'model' => $model,
@@ -129,7 +132,8 @@ class PaymentController extends Controller {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
-            $model::populateRecord($model, ['contract_id' => Yii::$app->request->get('contract_id')]);
+            if ($model->isNewRecord)
+                $model::populateRecord($model, ['contract_id' => Yii::$app->request->get('contract_id')]);
             if (Yii::$app->request->isAjax) {
                 return $this->renderAjax('_form', [
                             'model' => $model,
@@ -137,7 +141,6 @@ class PaymentController extends Controller {
             } else {
                 return $this->render('create', [
                             'model' => $model,
-                            'client_id' => (null !== $model->contract) ? $model->contract->client_id : null
                 ]);
             }
         }

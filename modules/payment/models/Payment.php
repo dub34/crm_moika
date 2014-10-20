@@ -56,6 +56,7 @@ class Payment extends \yii\db\ActiveRecord
             'payment_sum' => Yii::t('payment', 'Payment Sum'),
             'created_at' => Yii::t('payment', 'Created At'),
             'updated_at' => Yii::t('payment', 'Updated At'),
+            'status' => Yii::t('payment', 'status'),
         ];
     }
 

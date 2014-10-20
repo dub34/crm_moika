@@ -15,7 +15,7 @@ $script = <<<SKRIPT
         $(document).on('submit','#closeticket-{$model->id} form',function (e) {e.preventDefault();});
     });
     $('#closeticket-{$model->id}').on('hidden.bs.modal', function(data){
-        $('.load-tickets').filter('a[data-id="{$model->contract_id}"]').click();
+        reloadTicketsGrid();
         $(document).off('beforeSubmit','#closeticket-{$model->id} form');
         $(document).off('submit','#closeticket-{$model->id} form');
         $(document).off('change','#closed_at-{$model->id}');

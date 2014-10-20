@@ -4,8 +4,7 @@ $(document).ready(function () {
     if (window.location.hash != "" && $('a[href="' + window.location.hash + '"]').length != 0) {
         $('a[href="' + window.location.hash + '"]').click()
     }
-
-
+    
     $('.load-payments').click(function (e) {
         e.preventDefault();
         var $this = $(this);
@@ -33,7 +32,6 @@ $(document).ready(function () {
             $this.parent().find('iframe')[0].src=$this.attr("action")+'?'+$this.serialize();
         }
     );
-
 });
 // serialize form, render response and close modal
 function submitForm(e) {
@@ -63,23 +61,33 @@ function submitForm(e) {
     return false;
 }
 
+    function reloadPaymentGrid(){
+        var cid = $('#payment-contract_id').val();
+                    $('.load-payments').filter('a[data-id="' + cid + '"]').click();
+                    reloadBalance(cid);
+    }
+    
+    function reloadTicketsGrid(){
+        var cid = $('#ticket-contract_id').val();
+        reloadBalance(cid);
+        $('.load-tickets').filter('a[data-id="' + cid + '"]').click();
+    }
+    function reloadBalance(id)
+    {
+        if (!id) return;
+        else {
+            $('#balance-'+id).load($("#contract_grid table").attr('data-balanceloadurl')+'/'+id);
+        }
+    }
 
 function handlePaymentFormActions() {
     
-    var reloadPaymentGrid=function(){
-        var cid = $('#payment-contract_id').val();
-                    $('.load-payments').filter('a[data-id="' + cid + '"]').click();
-    }
-    
-    var reloadTicketsGrid=function(){
-        var cid = $('#ticket-contract_id').val();
-        $('.load-tickets').filter('a[data-id="' + cid + '"]').click();
-    }
     
     //Handle Payment Create Modal
     $('#paymentMdlOpen').click(function () {
         var cid = $('#payment-contract_id').val();
-        $('#paymentCreateDlg').modal('show').find('.modal-body').load($(this).attr('data-url'), function () {
+        var sel_payment = $('input[name="payments"]:checked').val();
+        $('#paymentCreateDlg').modal('show').find('.modal-body').load($(this).attr('data-url'),{id:sel_payment}, function () {
             var saveHandler=function(){
                  $('#paymentCreateDlg').modal('hide');
                  setTimeout(function () {
@@ -94,12 +102,14 @@ function handlePaymentFormActions() {
             );
         });
         $('#paymentCreateDlg').on('hidden.bs.modal', function () {
-            $('.load-payments').filter('a[data-id="' + cid + '"]').click();
+            reloadPaymentGrid();
+//            $('.load-payments').filter('a[data-id="' + cid + '"]').click();
         })
     });
     //Handle Ticket Create Modal
     $('#ticketMdlOpen').click(function () {
-        $('#ticketCreateDlg').modal('show').find('.modal-body').load($(this).attr('data-url'), function () {
+        
+        $('#ticketCreateDlg').modal('show').find('.modal-body').load($(this).attr('data-url'),function () {
             var saveHandler = function () {
                 $('#ticketCreateDlg').modal('hide');
                 if ($('#ticket-ticket_count').length > 0)

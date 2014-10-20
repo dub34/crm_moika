@@ -42,6 +42,15 @@ class ContractController extends Controller
             'searchModel' => $searchModel,
         ]);
     }
+    
+    public function actionGetbalance($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->balance!==null)
+            return \yii\helpers\Html::tag('span',Yii::$app->formatter->asInteger($model->balance),['class'=>$model->balance<Yii::$app->settings->get('contract.minBalance')?'label label-danger':'label label-success']);
+        else
+            return '';
+    }
 
     /**
      * Displays a single Contract model.

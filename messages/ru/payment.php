@@ -29,5 +29,8 @@ return array(
     'Updated At'=>'Изменено',
     'Invoice Summ'=>"Cумма счета",
     'Create invoice'=>"Создать счет-фактуру",
+    'active'=>'Активный',
+    'status'=>'Статус',
+    'nonactive'=>'Не активный'
     
 );

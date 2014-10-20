@@ -16,6 +16,5 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="payment-create">
     <?= $this->render('_form', [
         'model' => $model,
-        'client_id'=>$client_id
     ]) ?>
 </div>

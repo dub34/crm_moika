@@ -19,7 +19,7 @@ use yii\helpers\Url;
 //    'toggleButton' => ['label' => Html::tag('span', '', ['class' => 'ion ion-clipboard', 'title' => Yii::t('payment', 'Create payment')]), 'class' => 'btn btn-success btn-sm font-white'],
 //]);
 ?>
-<button class="btn btn-success btn-sm" id="paymentMdlOpen" data-url="<?= Url::to(['/payment/payment/create','contract_id'=>$model->contract_id]);?>"><span class="ion ion-clipboard"></span></button>
+<button class="btn btn-success btn-sm" id="paymentMdlOpen" title="<?= Yii::t('payment', 'Create payment');?>" data-url="<?= Url::to(['/payment/payment/create','contract_id'=>$model->contract_id]);?>"><span class="ion ion-clipboard"></span></button>
 
 <!-- Modal -->
 <div class="modal fade" id="paymentCreateDlg" tabindex="-1" role="dialog" aria-labelledby="paymentCreateDlgLabel" aria-hidden="true">

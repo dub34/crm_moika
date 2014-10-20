@@ -441,12 +441,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "b4485c41d6da70abcaffd561651ad057169a01d1"
+                "reference": "489dcb2dccda1266f52133698267eda8576fbf53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/b4485c41d6da70abcaffd561651ad057169a01d1",
-                "reference": "b4485c41d6da70abcaffd561651ad057169a01d1",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/489dcb2dccda1266f52133698267eda8576fbf53",
+                "reference": "489dcb2dccda1266f52133698267eda8576fbf53",
                 "shasum": ""
             },
             "type": "library",
@@ -478,7 +478,7 @@
                 "preview",
                 "upload"
             ],
-            "time": "2014-10-15 18:46:14"
+            "time": "2014-10-20 05:46:04"
         },
         {
             "name": "kartik-v/bootstrap-popover-x",
@@ -1624,12 +1624,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "a2ddfffa4b330e7476d19f350a6bc04ef6f4a6a2"
+                "reference": "85562e423e2d96545a28747a1e068b58437f0779"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/a2ddfffa4b330e7476d19f350a6bc04ef6f4a6a2",
-                "reference": "a2ddfffa4b330e7476d19f350a6bc04ef6f4a6a2",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/85562e423e2d96545a28747a1e068b58437f0779",
+                "reference": "85562e423e2d96545a28747a1e068b58437f0779",
                 "shasum": ""
             },
             "require": {
@@ -1663,7 +1663,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2014-10-17 04:42:26"
+            "time": "2014-10-19 14:42:58"
         },
         {
             "name": "yiisoft/yii2-faker",
@@ -1718,12 +1718,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "e727a0c97d1921315e0a722dca56cb1fecb90c1d"
+                "reference": "031a9c25008f7b1bedac405fd68f24a1eae110bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/e727a0c97d1921315e0a722dca56cb1fecb90c1d",
-                "reference": "e727a0c97d1921315e0a722dca56cb1fecb90c1d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/031a9c25008f7b1bedac405fd68f24a1eae110bb",
+                "reference": "031a9c25008f7b1bedac405fd68f24a1eae110bb",
                 "shasum": ""
             },
             "require": {
@@ -1759,7 +1759,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2014-10-17 00:38:08"
+            "time": "2014-10-19 14:50:46"
         }
     ],
     "aliases": [

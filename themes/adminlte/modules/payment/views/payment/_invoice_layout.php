@@ -13,7 +13,7 @@ use app\modules\office\models\Office;
 //$summ = []; //сумма стоимости всех услуг по всем талонам в акте
 //$summNDS = [];
 //$summBezNDS = [];
-\app\assets\PrintActAsset::register($this);
+//\app\assets\PrintActAsset::register($this);
 $office = new Office;
 $office = $office->defaultOffice;
 ?>

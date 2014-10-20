@@ -5,7 +5,6 @@ use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\modules\contract\models\Contract;
-use yii\widgets\Pjax;
 use kartik\widgets\DatePicker;
 use yii\bootstrap\Alert;
 
@@ -15,9 +14,6 @@ use yii\bootstrap\Alert;
  * @var yii\widgets\ActiveForm $form
  */
 ?>
-
-<?php // Pjax::begin(['id' => 'payment_form_pjax_container', 'enablePushState' => false, 'enableReplaceState' => false, 'timeout' => 5000]); ?>
-
 <div class="payment-form">
 <?php
 if (is_array($messages = Yii::$app->getSession()->getAllFlashes()) && count($messages) > 0) {
@@ -37,15 +33,10 @@ if (is_array($messages = Yii::$app->getSession()->getAllFlashes()) && count($mes
 
     <?php
     $form = ActiveForm::begin([
-                'action' => Url::to('/payment/payment/create'),
+                'action' => Url::to(['/payment/payment/create','id'=>$model->id,'contract_id'=>$model->contract_id]),
                 'options'=>['data-pjax'=>'0'],
                 'enableClientScript'=>true,
                 'id'=>'payment_form',
-        
-//                'enableClientValidation'=>false,
-//                'enableAjaxValidation'=>false,
-//        
-                
     ]);
     ?>
     <?php
@@ -53,11 +44,8 @@ if (is_array($messages = Yii::$app->getSession()->getAllFlashes()) && count($mes
     if (isset($model->contract_id))
         $contract->where(['id' => $model->contract_id]);
     ?>
-
     <?= $form->field($model, 'contract_id', ['inputTemplate' => '<div class="input-group"><span class="input-group-addon"><i class="ion ion-briefcase"></i></span>{input}</div>',])->dropDownList(ArrayHelper::map($contract->all(), 'id', 'number'), ['prompt' => Yii::t('contract', 'Select contract')]); ?>
-
     <?=
-//    $form->field($model,'created_at')->textInput();
     DatePicker::widget([
         'model' => $model,
         'attribute' => 'created_at',
@@ -69,12 +57,9 @@ if (is_array($messages = Yii::$app->getSession()->getAllFlashes()) && count($mes
     ]);
     ?>
     <?= $form->field($model, 'payment_sum')->textInput(['maxlength' => 25]) ?>
-
+    <?= $form->field($model, 'status')->dropDownList(['0'=>Yii::t('payment','nonactive'),'1'=>Yii::t('payment','active')]); ?>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('yii', 'Save'), ['class' => 'btn btn-success','id'=>'submitPaymentForm']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
-
 </div>
-<?php // Pjax::end(); ?>

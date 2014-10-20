@@ -18,9 +18,9 @@ return [
             'class' => 'yii\db\Connection',
             'charset' => 'utf8',
         ],
-        'formatter'=>[
-            'locale'=>'be_BY',
-            'currencyCode'=>''
+        'formatter' => [
+            'locale' => 'be_BY',
+            'currencyCode' => '',
         ],
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
