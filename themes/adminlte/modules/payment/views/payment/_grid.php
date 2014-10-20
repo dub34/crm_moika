@@ -2,13 +2,18 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
-
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
  * @var app\modules\contract\models\PaymentSearch $searchModel
  */
+$js = <<< 'SCRIPT'
+$(function () { 
+    $("[data-toggle='popover']").popover(); 
+});
+SCRIPT;
+// Register tooltip/popover initialization javascript
+$this->registerJs($js);
 ?>
 <?php // Pjax::begin(['id' =>'pjax-action-container']); ?>
 <div id="pjax-action-container">
@@ -19,12 +24,15 @@ use yii\widgets\Pjax;
     'layout' => "<div class=\"box-header\">"
     . '<h3 class="box-title">Платежи по договору '.$model->contract->number.'</h3>'
     . "<div class=\"box-tools\">"
-            . "<p class=\"pull-left\">"
+            . "<div class=\"pull-left\">"
             . $this->render('//modules/payment/views/payment/_modal',['model'=>$model])
             .'&nbsp'
             . $this->renderAjax('//modules/payment/views/payment/_invoice_modal',['model'=>$model])
-            . "</p>"
-    . "{pager}</div></div>"
+            . "</div>"
+    .'<div class="pull-right">'
+    .  Html::tag('button','',['class'=>'glyphicon glyphicon-info-sign text-success','data-toggle'=>'popover','data-content'=>Yii::$app->settings->get('payment.paymentCreateNotice'),'data-placement'=>'bottom'])
+    . '</div>'
+    . "</div></div>{pager}"
     . "<div class=\"box-body no-padding\">{items}</div>",
     'tableOptions' => ['class' => 'table table-striped'],
     'pager' => [
