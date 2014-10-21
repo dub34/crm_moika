@@ -20,14 +20,14 @@ $model->contract_id = $id;
 //    'toggleButton' => ['label' => Html::tag('span', '', ['class' => 'glyphicon glyphicon-list-alt']), 'title' => Yii::t('contract', 'Print act'), 'class' => 'btn btn-primary btn-sm'],
 ]);?>
 
-<?php $form = ActiveForm::begin(['action'=>Url::to('/ticket/ticket/printact'),'id'=>'printActForm','options'=>['class'=>'printActForm','data-pjax'=>0]]); ?>
+<?php $form = ActiveForm::begin(['action'=>Url::to('/ticket/ticket/printact'),'id'=>'printActForm-'.$model->contract_id,'options'=>['class'=>'printActForm','data-pjax'=>0]]); ?>
 
 <?= $form->field($model,'contract_id',['template'=>'{input}'])->hiddenInput();?>
 <?= FieldRange::widget([
     'label' => Yii::t('ticket','Act date range'),
     'form'=>$form,
     'model'=>$model,
-    'id'=>'act-range',
+    'id'=>'act-range-'.$model->contract_id,
     'attribute1' => 'closed_at',
     'attribute2' => 'closed_to_date',
     'useAddons'=>false,

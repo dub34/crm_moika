@@ -13,32 +13,55 @@ if ($model->id){
     $src='';
 
 ?>
-<?php Modal::begin([
-    'id'=>'printInvoice',
-    'header'=>'<h3>'.Yii::t('payment','Create invoice').'</h3>',
-    'size'=>  Modal::SIZE_DEFAULT,
-    'options'=>['data-url'=>Url::to(['/payment/payment/loadpaymentgrid','contract_id'=>$model->contract_id])],
-    'toggleButton'=> ['label' => Html::tag('span', '', ['class' => 'glyphicon glyphicon-tasks']),
-        'title' => Yii::t('payment', 'Create invoice'), 
-        'class' => 'btn btn-primary btn-sm',
-        ],
-]);?>
+<?php 
+//Modal::begin([
+//    'id'=>'printInvoice',
+//    'header'=>'<h3>'.Yii::t('payment','Create invoice').'</h3>',
+//    'size'=>  Modal::SIZE_DEFAULT,
+//    'options'=>['data-url'=>Url::to(['/payment/payment/loadpaymentgrid','contract_id'=>$model->contract_id])],
+//    
+//    'toggleButton'=> ['label' => Html::tag('span', '', ['class' => 'glyphicon glyphicon-tasks']),
+//        'title' => Yii::t('payment', 'Create invoice'), 
+//        'class' => 'btn btn-primary btn-sm',
+//        ],
+//]);
+    ?>
+<button class="btn btn-primary btn-sm" id="invoiceMdlOpen" data-toggle="modal" data-target="#printInvoice" title="<?= Yii::t('payment', 'Create invoice');?>"><span class="glyphicon glyphicon-tasks"></span></button>
 
-<?php $form = ActiveForm::begin(['action'=>Url::to('/payment/payment/printinvoice'),'id'=>'printInvoiceForm','options'=>['class'=>'printInvoiceForm']]); ?>
+<!-- Modal -->
+<div class="modal fade" id="printInvoice" tabindex="-1" role="dialog" aria-labelledby="invoiceCreateDlgLabel" aria-hidden="true" data-url="<?= Url::to(['/payment/payment/loadpaymentgrid','contract_id'=>$model->contract_id])?>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="invoiceCreateDlgLabel"><?= Yii::t('payment', 'Create invoice'); ?></h4>
+      </div>
+      <div class="modal-body">
+                    <?php $form = ActiveForm::begin(['action' => Url::to('/payment/payment/printinvoice'), 'id' => 'printInvoiceForm', 'options' => ['class' => 'printInvoiceForm']]); ?>
 
-<?= $form->field($model,'contract_id',['template'=>'{input}'])->hiddenInput();?>
+          <?= $form->field($model, 'contract_id', ['template' => '{input}'])->hiddenInput(); ?>
 
-<?= $form->field($model,'payment_sum');?>
+          <?= $form->field($model, 'payment_sum'); ?>
 
-<?= Html::submitButton(Yii::t('ticket','Form invoice'),['class'=>'btn btn-success','data-pjax'=>0]); ?>
+          <?= Html::submitButton(Yii::t('ticket', 'Form invoice'), ['class' => 'btn btn-success', 'data-pjax' => 0]); ?>
 
-<?php ActiveForm::end(); ?>
+          <?php ActiveForm::end(); ?>
 
-<br />
+          <br />
 
-<div id="frame">
-<?= Html::button('Распечатать',['class'=>'btn btn-primary','id'=>'invoicePrintBtn','style'=>'display: none;']);?>
+          <div id="frame">
+              <?= Html::button('Распечатать', ['class' => 'btn btn-primary', 'id' => 'invoicePrintBtn', 'style' => 'display: none;']); ?>
 
-<iframe class="invoiceFrame" id="invoicePrintFrame" src="<?= $src;?>" name ="invoicePrintFrame" width="100%" height="<?= $model->id?500:0?>"></iframe>
+              <iframe class="invoiceFrame" id="invoicePrintFrame" src="<?= $src; ?>" name ="invoicePrintFrame" width="100%" height="<?= $model->id ? 500 : 0 ?>"></iframe>
+          </div>
+          
+      </div>
+    </div>
+  </div>
 </div>
-<?php Modal::end();?>
+
+
+
+
+
+<?php // Modal::end();?>

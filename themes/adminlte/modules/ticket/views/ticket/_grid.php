@@ -9,13 +9,20 @@ use yii\grid\GridView;
 //use kartik\grid\GridView;
 use kartik\widgets\DatePicker;
 use yii\helpers\Url;
+
+$js = <<< 'SCRIPT'
+$(function () { 
+    $("[data-toggle='popover']").popover();
+});
+SCRIPT;
+$this->registerJs($js);
 ?>
 <div id="pjax-action-container">
-    <?php 
+    <?php
     //Prepare params for print button. Add to print URL grid-filter params
-       $print_ticket_params =Yii::$app->request->queryParams;
-       $print_ticket_params['print']=true;    
-       array_unshift($print_ticket_params, '/ticket/ticket/printtickets');
+    $print_ticket_params = Yii::$app->request->queryParams;
+    $print_ticket_params['print'] = true;
+    array_unshift($print_ticket_params, '/ticket/ticket/printtickets');
     ?>
     <?=
     '<div  class="box box-primary">' . GridView::widget([
@@ -24,11 +31,11 @@ use yii\helpers\Url;
         'layout' => "<div class=\"box-header\">"
         . '<h3 class="box-title">Талоны по договору № ' . $model->contract->number . '</h3>'
         . "<div class=\"box-tools\">"
-        . "<p class=\"pull-left\">"
+        . "<div class=\"pull-left\">"
         . $this->render('//modules/ticket/views/ticket/_modal', ['model' => $model])
         . '&nbsp;'
-        . Html::tag('span','',['class'=>'btn btn-primary btn-sm ion ion-printer','id'=>'printTickets', 'data-url'=> Url::to($print_ticket_params)])
-        . "</p>"
+        . Html::tag('span', '', ['class' => 'btn btn-primary btn-sm ion ion-printer', 'title'=>Yii::t('ticket','Print Tickets'), 'id' => 'printTickets', 'data-url' => Url::to($print_ticket_params)])
+        . "</div>"
         . "{pager}</div></div>"
         . "<div class=\"box-body no-padding\">{items}</div>",
         'tableOptions' => ['class' => 'table table-stripped'],
@@ -39,11 +46,11 @@ use yii\helpers\Url;
             'maxButtonCount' => 5
         ],
         'tableOptions' => ['class' => 'table table-stripped'],
-        'id'=>'ticket-grid',
+        'id' => 'ticket-grid',
         'columns' => [
 //            ['class' => 'yii\grid\SerialColumn'],
             [
-                'attribute'=>'id',
+                'attribute' => 'id',
                 'options' => ['class' => 'col-md-1']
             ],
 //            'contract_id',
@@ -73,32 +80,27 @@ use yii\helpers\Url;
                     $value = $model->closed_at !== null ? Yii::$app->formatter->asDate($model->closed_at, 'php:d.m.Y') . $value : $value;
                     return $value;
                 },
-                'format' => 'raw',
-                'attribute' => 'closed_at',
-//                'filter' => Html::activeDropDownList($searchModel,'closed_at',['0'=>Yii::t('ticket','not Closed'),'1'=>Yii::t('ticket','Closed')],['prompt'=>'--','class'=>'form-control'])
-                'filter'=>false
-            ],
-            [
-                'value' => function($model) {
-                    return $model->getFormattedServices('withprice');
-                },
-                'header' => Yii::t('ticket', 'Services'),
-                'options' => ['class' => 'col-md-3']
-            ],
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{delete}',
-                'buttons' => [
-                    'delete' => function ($url, $model, $key) {
-                        return Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-trash']), $url,['data-pjax'=>'#pjax-action-container']);
-                    }
-                ]
-            ]
-
-//                        'priznak',
-                // 'pometka',
-//                        ['class' => 'yii\grid\ActionColumn'],
-                ],
-            ]) . '</div>';
-            ?>
+                        'format' => 'raw',
+                        'attribute' => 'closed_at',
+                        'filter' => false
+                    ],
+                    [
+                        'value' => function($model) {
+                            return $model->getFormattedServices('withprice');
+                        },
+                        'header' => Yii::t('ticket', 'Services'),
+                        'options' => ['class' => 'col-md-3']
+                    ],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'template' => '{delete}',
+                        'buttons' => [
+                            'delete' => function ($url, $model, $key) {
+                                return $this->render('_deletePopover', ['url' => $url]);
+                            }
+                                ]
+                            ]
+                        ],
+                    ]) . '</div>';
+                    ?>
 </div>

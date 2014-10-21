@@ -6,6 +6,7 @@ use Yii;
 use app\modules\contract\models\Contract;
 use app\modules\service\models\Service;
 use app\modules\service\models\ActualService;
+use app\components\helpers\Helpers;
 
 /**
  * This is the model class for table "ticket".
@@ -85,13 +86,9 @@ class Ticket extends \yii\db\ActiveRecord
     public function beforeSave($insert) {
         $this->closed_at =  Yii::$app->formatter->asDate($this->closed_at,'php:Y-m-d H:i');
         $this->created_at =  Yii::$app->formatter->asDate($this->created_at,'php:Y-m-d H:i');
-        
-//        $this->rollBackBalance();
-        
         //Delete all services from ticket before save new
         Yii::$app->db->createCommand()->delete('ticket_has_service','ticket_id=:ticket_id',[':ticket_id'=>$this->id])->execute();
         Yii::$app->db->createCommand('CALL updateBalance(:contract_id)',[':contract_id'=>$this->contract_id])->execute();
-        
         return parent::beforeSave($insert);
     }
     
@@ -124,18 +121,18 @@ class Ticket extends \yii\db\ActiveRecord
     public function getSumm()
     {
         $services = \yii\helpers\ArrayHelper::getColumn($this->services, 'price');
-        return is_numeric(array_sum($services))?array_sum($services):null;
+        return is_numeric(array_sum($services))?Helpers::roundUp(array_sum($services)):null;
     }
     
     public function getSummNDS()
     {
-        return ($this->summ!==null && $this->summ!==0) ?($this->summ/100)*$this->services[0]->nds:'';
+        return ($this->summ!==null && $this->summ!==0) ?($this->summ/100)*$this->nds:'';
     }
     
     public function getSummWithoutNDS()
     {
         
-        return $this->summ !==null ? $this->summ-$this->summNDS:'';
+        return $this->summ !==null ? $this->summ-Helpers::roundUp($this->summNDS):'';
     }
     
     public function getNds()
@@ -169,7 +166,7 @@ class Ticket extends \yii\db\ActiveRecord
     {
         $cmd = Yii::$app->db->createCommand("CALL `crm_moika`.`calculateBalanceValue`(:contract_id,:start_date,@balance);", [':contract_id'=>$contract_id, ':start_date'=>Yii::$app->formatter->asDate($start_date,'php:Y-m-d')])->execute();
         $balance =Yii::$app->db->createCommand("select @balance;")->queryScalar(); 
-        return $balance;
+        return Helpers::roundUp($balance);
     }
     
     public static function getPaymentsForAct($start_period,$end_period,$contract_id)

@@ -65,10 +65,10 @@
                     <td style="border-left:1px solid #000;">Всего с НДС, руб.</td>
                 </tr>
                 <tr>
-                    <td><?= $model->summWithoutNDS; ?></td>
+                    <td><?= Yii::$app->formatter->asInteger($model->summWithoutNDS); ?></td>
                     <td style="border-left:1px solid #000;"><?= $model->nds; ?></td>
-                    <td style="border-left:1px solid #000;"><?= $model->summNDS; ?></td>
-                    <td style="border-left:1px solid #000;"><?= $model->summ;?></td>
+                    <td style="border-left:1px solid #000;"><?= Yii::$app->formatter->asInteger($model->summNDS); ?></td>
+                    <td style="border-left:1px solid #000;"><?= Yii::$app->formatter->asInteger($model->summ);?></td>
                 </tr>
             </table>
         </td>
@@ -81,10 +81,10 @@
                     <td style="border-left:1px solid #000;">Всего с НДС, руб.</td>
                 </tr>
                 <tr>
-                    <td><?= $model->summWithoutNDS; ?></td>
+                    <td><?= Yii::$app->formatter->asInteger($model->summWithoutNDS); ?></td>
                     <td style="border-left:1px solid #000;"><?= $model->nds; ?></td>
-                    <td style="border-left:1px solid #000;"><?= $model->summNDS; ?></td>
-                    <td style="border-left:1px solid #000;"><?= $model->summ;?></td>
+                    <td style="border-left:1px solid #000;"><?= Yii::$app->formatter->asInteger($model->summNDS); ?></td>
+                    <td style="border-left:1px solid #000;"><?= Yii::$app->formatter->asInteger($model->summ); ?></td>
                 </tr>
             </table>
         </td>

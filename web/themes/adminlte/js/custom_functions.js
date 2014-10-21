@@ -34,44 +34,38 @@ $(document).ready(function () {
     );
 });
 // serialize form, render response and close modal
-function submitForm(e) {
-    var $this = $(this);
-    $.post($this.attr("action"), $this.serialize())
-        .done(function (result) {
-            if (typeof result == 'object')
+    function submitForm(e) {
+        var $this = $(this);
+        $.post($this.attr("action"), $this.serialize())
+            .done(function (result) {
+                if (typeof result == 'object')
+                {
+                    $this.parent().html(result.data);
+                } else
+                    $this.parent().html(result);
+            }).success(function (data) {
+            setTimeout(function () {
+                $('.alert button[class="close"]').click();
+            }, 3000);
+            if (typeof data == 'object' && data.hasOwnProperty('message') && data.message == "success")
             {
-                $this.parent().html(result.data);
-            } else
-                $this.parent().html(result);
-        }).success(function (data) {
-        setTimeout(function () {
-            $('.alert button[class="close"]').click();
-        }, 3000);
-        if (typeof data == 'object' && data.hasOwnProperty('message') && data.message == "success")
-        {
-            if (typeof e.data === "object" && e.data.hasOwnProperty('successHndl') && $.isFunction(e.data.successHndl))
-            {
-                e.data.successHndl.call();
+                if (typeof e.data === "object" && e.data.hasOwnProperty('successHndl') && $.isFunction(e.data.successHndl))
+                {
+                    e.data.successHndl.call();
+                }
             }
-        }
-    }).fail(function () {
-        console.log("server error");
-        $this.replaceWith('SERVER ERROR').fadeOut()
-    });
-    return false;
-}
+        }).fail(function () {
+            console.log("server error");
+            $this.replaceWith('SERVER ERROR').fadeOut()
+        });
+        return false;
+    }
 
-    function reloadPaymentGrid(){
-        var cid = $('#payment-contract_id').val();
-                    $('.load-payments').filter('a[data-id="' + cid + '"]').click();
-                    reloadBalance(cid);
+    function reloadGrid(selector,id){
+        $(selector).filter('a[data-id="' + id + '"]').click();
+        reloadBalance(id);
     }
-    
-    function reloadTicketsGrid(){
-        var cid = $('#ticket-contract_id').val();
-        reloadBalance(cid);
-        $('.load-tickets').filter('a[data-id="' + cid + '"]').click();
-    }
+
     function reloadBalance(id)
     {
         if (!id) return;
@@ -91,7 +85,7 @@ function handlePaymentFormActions() {
             var saveHandler=function(){
                  $('#paymentCreateDlg').modal('hide');
                  setTimeout(function () {
-                   reloadPaymentGrid();
+                   reloadGrid('.load-payments',cid);
                 }, 2000);
             }
             $('#payment_form').on('beforeSubmit', {successHndl: saveHandler}, submitForm);
@@ -102,13 +96,13 @@ function handlePaymentFormActions() {
             );
         });
         $('#paymentCreateDlg').on('hidden.bs.modal', function () {
-            reloadPaymentGrid();
-//            $('.load-payments').filter('a[data-id="' + cid + '"]').click();
+            reloadGrid('.load-payments',cid);
         })
     });
+    
     //Handle Ticket Create Modal
     $('#ticketMdlOpen').click(function () {
-        
+         var cid = $('#ticket-contract_id').val();
         $('#ticketCreateDlg').modal('show').find('.modal-body').load($(this).attr('data-url'),function () {
             var saveHandler = function () {
                 $('#ticketCreateDlg').modal('hide');
@@ -116,7 +110,7 @@ function handlePaymentFormActions() {
                     window.open($('#ticketPrintCountForm').attr('data-printurl'));
                 //reload ticket grid
                 setTimeout(function () {
-                   reloadTicketsGrid();
+                   reloadGrid('.load-tickets',cid);
                 }, 1000);
             }
             $('#ticketPrintCountForm').on('beforeSubmit', {successHndl: saveHandler}, submitForm);
@@ -127,22 +121,28 @@ function handlePaymentFormActions() {
             );
         });
     });
+    
     $('#printTickets').click(function () {
         var url = $(this).attr('data-url');
         window.open(url);
     });
     
+    //Handle invoice actions
     $('#printInvoiceForm').on('beforeSubmit', function (e) {
             var $this=$(this);
             e.preventDefault();
-            {
-                $('#invoicePrintBtn').show();
-                $this.parent().find('iframe')[0].height=500;
-                $this.parent().find('iframe')[0].src=$this.attr("action")+'?'+$this.serialize();
-            }
+            $('#invoicePrintBtn').show();
+            $this.parent().find('iframe')[0].height=500;
+            $this.parent().find('iframe')[0].src=$this.attr("action")+'?'+$this.serialize();
         });
+    $('#printInvoiceForm').on('submit',
+        function (e) {
+            e.preventDefault();
+        }
+    );
     $('#printInvoice').on('hidden.bs.modal', function () {
-        reloadPaymentGrid();
+        var cid = $('#payment-contract_id').val();
+        reloadGrid('.load-payments',cid);
     })
     $('#printInvoice').on('shown.bs.modal', function (e) {
         if ($('input[name="payments"]:checked').length >0)
@@ -156,12 +156,21 @@ function handlePaymentFormActions() {
                 });
             }
     })
+    
     $('#invoicePrintBtn').click(function(){
         window.frames["invoicePrintFrame"].print();
     })
-    $('#printInvoiceForm').on('submit',
+    
+    
+    //Handle delete button
+    
+    $('.deleteBtn').on('click',
         function (e) {
             e.preventDefault();
+            var data = JSON.parse($(this).parents('tr').attr('data-key'));
+               reloadBalance(data.contract_id);
         }
     );
+    
+    
 }

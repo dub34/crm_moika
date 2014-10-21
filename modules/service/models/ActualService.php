@@ -74,13 +74,13 @@ class ActualService extends \yii\db\ActiveRecord
     
      public function getPriceNDS()
     {
-        return ($this->price!==null && $this->price!==0) ?($this->price/100)*$this->nds:'';
+        return ($this->price!==null && $this->price!==0) ?\app\components\helpers\Helpers::roundUp(($this->price/100)*$this->nds):'';
     }
     
     public function getPriceWithoutNDS()
     {
         $val = $this->price !==null ? $this->price-$this->priceNDS:'';
-        return $val;
+        return \app\components\helpers\Helpers::roundUp($val);
     }
     
     /**

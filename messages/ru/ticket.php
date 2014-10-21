@@ -20,6 +20,7 @@
 return array(
     'Tickets' => 'Талоны',
     'Show Tickets'=>"Показать талоны",
+    'Print Tickets'=>"Печать талонов",
     'Ticket count'=>"Количество талонов",
     'Tickets saved'=>"Талоны сохранены",
     'Act date range'=>"Выберите период формирования акта",

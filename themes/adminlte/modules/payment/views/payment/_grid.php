@@ -9,13 +9,11 @@ use yii\grid\GridView;
  */
 $js = <<< 'SCRIPT'
 $(function () { 
-    $("[data-toggle='popover']").popover(); 
+    $("[data-toggle='popover']").popover();
 });
 SCRIPT;
-// Register tooltip/popover initialization javascript
 $this->registerJs($js);
 ?>
-<?php // Pjax::begin(['id' =>'pjax-action-container']); ?>
 <div id="pjax-action-container">
 <?=
 '<div  class="box box-primary">' . GridView::widget([
@@ -41,18 +39,15 @@ $this->registerJs($js);
         ],
         'maxButtonCount' => 5
     ],
-//            'pager' => [
-//                'options' => [
-//                    'class' => 'pagination pagination-sm pull-right no-margin'
-//                ],
-//                'maxButtonCount' => 5
-//            ],
     'columns' => [
         'id',
-        'payment_sum:integer',
+        [
+            'attribute'=>'payment_sum',
+            'value'=> function($model){ return app\components\helpers\Helpers::roundUp($model->payment_sum); },
+            'format'=>'integer'
+            
+        ],
         'created_at',
-        
-//        'contract_id'
         [
             'value'=>function($model, $key, $index){
                 return Html::tag('span','',['class'=>$model->status == 1?'glyphicon glyphicon-ok text-success':'glyphicon glyphicon-ban-circle text-muted','title'=>$model->status==1?Yii::t('payment','active'):Yii::t('payment','nonactive')]);
@@ -65,8 +60,16 @@ $this->registerJs($js);
             },
             'format'=>'raw'
         ],
+        [
+        'class' => 'yii\grid\ActionColumn',
+        'template' => '{delete}',
+        'buttons' => [
+            'delete' => function ($url, $model, $key) {                
+                return $this->render('_deletePopover',['url'=>$url]);
+            }
+        ]
+]
     ],
 ]) . '</div>';
 ?>
     </div>
-<?php // Pjax::end(); ?>

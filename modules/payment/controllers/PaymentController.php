@@ -10,10 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use alexgx\phpexcel\PhpExcel;
 use app\modules\office\models\Office;
-use yii\helpers\Html;
 use PHPExcel_IOFactory;
 use php_rutils\RUtils;
-
+use app\components\helpers\Helpers;
 /**
  * PaymentController implements the CRUD actions for Payment model.
  */
@@ -21,12 +20,12 @@ class PaymentController extends Controller {
 
     public function behaviors() {
         $behaviors = [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
+//            'verbs' => [
+//                'class' => VerbFilter::className(),
+//                'actions' => [
+//                    'delete' => ['post'],
+//                ],
+//            ],
         ];
 
         return array_merge(parent::behaviors(), $behaviors);
@@ -182,12 +181,12 @@ class PaymentController extends Controller {
                 ->setCellValue('H6', Yii::$app->formatter->asDate(time(), 'php:d.m.Y'))
                 ->setCellValue('B11', $model->contract->client->name)
                 ->setCellValue('C14', Yii::$app->settings->get('nds'))
-                ->setCellValue('C15', $sum_bez_nds)
-                ->setCellValue('E15', RUtils::numeral()->getRubles($sum_bez_nds))
-                ->setCellValue('C16', $nds)
-                ->setCellValue('E16', RUtils::numeral()->getRubles($nds))
-                ->setCellValue('C17', $model->payment_sum)
-                ->setCellValue('E17', RUtils::numeral()->getRubles($model->payment_sum));
+                ->setCellValue('C15', Helpers::roundUp($sum_bez_nds))
+                ->setCellValue('E15', RUtils::numeral()->getRubles(Helpers::roundUp($sum_bez_nds)))
+                ->setCellValue('C16', Helpers::roundUp($nds))
+                ->setCellValue('E16', RUtils::numeral()->getRubles(Helpers::roundUp($nds)))
+                ->setCellValue('C17', Helpers::roundUp($model->payment_sum))
+                ->setCellValue('E17', RUtils::numeral()->getRubles(Helpers::roundUp($model->payment_sum)));
         header('Content-Type: text/html');
         $contentDisposition = 'inline';
         $fileName = 'invoice.xls';
@@ -230,8 +229,16 @@ class PaymentController extends Controller {
      * @return mixed
      */
     public function actionDelete($id, $contract_id) {
-        $this->findModel($id, $contract_id)->delete();
-
+        $model = $this->findModel($id, $contract_id);
+if ($model->delete())
+        {
+            if (!Yii::$app->request->isPjax)
+                return $this->redirect(['index']);
+            else {
+                unset($_GET['id']);
+                return $this->actionLoadpaymentgrid();
+            }
+        }
         return $this->redirect(['index']);
     }
 
