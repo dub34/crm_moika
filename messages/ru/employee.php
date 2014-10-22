@@ -18,4 +18,7 @@
  */
 return array (
   'Employees' => 'Сотрудники',
+  'Login' => 'Логин',
+  'password'=>'Пароль',
+  'Remember Me' => 'Запомнить',
 );

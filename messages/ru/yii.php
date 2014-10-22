@@ -23,6 +23,9 @@ return array (
   'Are you sure you want to delete this item?' => 'Вы уверены, что хотите удалить этот элемент?',
   'Delete' => 'Удалить',
   'Error' => 'Ошибка',
+  'password' => 'Пароль',
+  'username' => 'Логин',
+  
   'File upload failed.' => 'Загрузка файла не удалась.',
   'Home' => 'Главная',
   'Invalid data received for parameter "{param}".' => 'Неправильное значение параметра "{param}".',

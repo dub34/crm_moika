@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $model app\models\LoginForm */
 
-$this->title = 'Login';
+$this->title = Yii::t('employee','Login');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="form-box" id="login-box">
@@ -22,8 +22,8 @@ $this->title = 'Login';
     ]);
     ?>
     <div class="body bg-gray">
-            <?= $form->field($model, 'employeename')->textInput(['placeholder'=> 'username']); ?>
-            <?= $form->field($model, 'password')->passwordInput(['placeholder'=>'password']); ?>
+            <?= $form->field($model, 'employeename')->textInput(['placeholder'=> Yii::t('employee','Login')]); ?>
+            <?= $form->field($model, 'password')->passwordInput(['placeholder'=>Yii::t('employee','password')]); ?>
             <?=
             $form->field($model, 'rememberMe', [
                 'template' => "{input}<div class=\"col-lg-8\">{error}</div>",
@@ -31,7 +31,7 @@ $this->title = 'Login';
             ?>
     </div>
     <div class="footer">                                                               
-<?= Html::submitButton('Login', ['class' => 'btn bg-olive btn-block', 'name' => 'login-button']) ?>
+<?= Html::submitButton(Yii::t('employee','Login'), ['class' => 'btn bg-olive btn-block', 'name' => 'login-button']) ?>
     </div>
 <?php ActiveForm::end(); ?>
 </div>
