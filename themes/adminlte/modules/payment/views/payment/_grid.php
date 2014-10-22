@@ -14,7 +14,7 @@ $(function () {
 SCRIPT;
 $this->registerJs($js);
 ?>
-<div id="pjax-action-container">
+<!--<div id="pjax-action-container">-->
 <?=
 '<div  class="box box-primary">' . GridView::widget([
     'dataProvider' => $paymentDP,
@@ -72,4 +72,4 @@ $this->registerJs($js);
     ],
 ]) . '</div>';
 ?>
-    </div>
+    <!--</div>-->

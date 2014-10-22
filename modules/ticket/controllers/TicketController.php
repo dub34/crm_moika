@@ -45,30 +45,27 @@ class TicketController extends Controller {
             ]);
         }
     }
-    
-    public function actionLoadticketsgrid($id)
-    {
+
+    public function actionLoadticketsgrid($id) {
         $searchModel = new SearchTicket();
-        $dataProvider=$searchModel->search(array_merge(Yii::$app->request->queryParams,['id'=>$id]));
+        $dataProvider = $searchModel->search(array_merge(Yii::$app->request->queryParams, ['id' => $id]));
         $model = new Ticket;
         $model::populateRecord($model, ['contract_id' => $id]);
-            return $this->renderAjax('_grid', [
-                        'searchModel' => $searchModel,
-                        'dataProvider' => $dataProvider,
-                        'model'=>$model
-            ]);
+        return $this->renderAjax('_grid', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'model' => $model
+        ]);
     }
 
-    
-    public function actionPrintact()
-    {
+    public function actionPrintact() {
         $searchModel = new SearchTicket;
-       
+
         $tickets = $searchModel->search(Yii::$app->request->queryParams)->getModels();
-        
-        $payments = Ticket::getPaymentsForAct($searchModel->closed_at,$searchModel->closed_to_date,$searchModel->contract_id);
-        
-        return $this->renderAjax('_act_layout',['tickets'=>  $tickets,'model'=>$searchModel,'payments'=>$payments]);
+
+        $payments = Ticket::getPaymentsForAct($searchModel->closed_at, $searchModel->closed_to_date, $searchModel->contract_id);
+
+        return $this->renderAjax('_act_layout', ['tickets' => $tickets, 'model' => $searchModel, 'payments' => $payments]);
     }
 
     /**
@@ -89,71 +86,65 @@ class TicketController extends Controller {
      * @return mixed
      */
     public function actionCreate() {
-        $model = new Ticket();        
-        $model->contract_id=Yii::$app->request->get('contract_id');
-        $model_params =Yii::$app->request->post('Ticket',null);
+        $model = new Ticket();
+        $model->contract_id = Yii::$app->request->get('contract_id');
+        $model_params = Yii::$app->request->post('Ticket', null);
         $ticket = [
             date('Y-m-d H:i:s'),
             $model_params['contract_id']
         ];
-        if ($model_params!==null && array_key_exists('ticket_count',$model_params))
-        {
+        if ($model_params !== null && array_key_exists('ticket_count', $model_params)) {
             $connection = Yii::$app->db;
             $transaction = $connection->beginTransaction();
             try {
                 $tickets = array_fill(0, $model_params['ticket_count'], $ticket);
-                $connection->createCommand()->batchInsert(Ticket::tableName(), ['created_at','contract_id'], $tickets)->execute();
+                $connection->createCommand()->batchInsert(Ticket::tableName(), ['created_at', 'contract_id'], $tickets)->execute();
                 $transaction->commit();
-                Yii::$app->session->setFlash('ticket_save_success',Yii::t('ticket','Tickets saved'));
-                $model->ticket_count=$model_params['ticket_count'];
+                Yii::$app->session->setFlash('ticket_save_success', Yii::t('ticket', 'Tickets saved'));
+                $model->ticket_count = $model_params['ticket_count'];
                 $model->contract_id = $model_params['contract_id'];
-                
+
                 \Yii::$app->response->format = 'json';
-                return ['message'=>'success','data'=>$this->renderAjax('_count_form', [
+                return ['message' => 'success', 'data' => $this->renderAjax('_count_form', [
                         'model' => $model,
                 ])];
-                
+
 //                $this->redirect('/ticket/ticket/printtickets');
-            }
-            catch (Exception $e)
-            {
+            } catch (Exception $e) {
                 $transaction->rollBack();
-                Yii::$app->session->setFlash('ticket_save_error',$e->message);
+                Yii::$app->session->setFlash('ticket_save_error', $e->message);
             }
-        }else{
+        } else {
             if (Yii::$app->request->isAjax) {
-                    return $this->renderAjax('_count_form', [
-                                'model' => $model,
-                    ]);
-                } else {
-                    return $this->render('create', [
-                                'model' => $model,
-    //                            'client_id' => (null !== $model->contract) ? $model->contract->client_id : null
-                    ]);
-                }
+                return $this->renderAjax('_count_form', [
+                            'model' => $model,
+                ]);
+            } else {
+                return $this->render('create', [
+                            'model' => $model,
+                                //                            'client_id' => (null !== $model->contract) ? $model->contract->client_id : null
+                ]);
             }
         }
-        
-        /**
-         * Show tickets printPage
-         */
-        
-        public function actionPrinttickets()
-        {
-            $limit = Yii::$app->request->get('ticket_count',null);
-            $contract_id = Yii::$app->request->get('contract_id',null);
-            if (null !== $limit && null !==$contract_id)
-            {
-                $model = Ticket::find()->where(['contract_id'=>$contract_id])->orderBy('id DESC')->limit($limit)->all();
-                return $this->renderAjax('_ticketprintlayout',['model'=>$model]);
-            }else {
-               $searchModel = new SearchTicket();
-               $model=$searchModel->search(Yii::$app->request->queryParams)->getModels();
-                return $this->renderAjax('_ticketprintlayout',['model'=>$model]);
-            }
-            
-                throw new NotFoundHttpException('No tickets to print','400');
+    }
+
+    /**
+     * Show tickets printPage
+     */
+    public function actionPrinttickets() {
+        $limit = Yii::$app->request->get('ticket_count', null);
+        $contract_id = Yii::$app->request->get('contract_id', null);
+        if (null !== $limit && null !== $contract_id) {
+            $model = Ticket::find()->where(['contract_id' => $contract_id])->orderBy('id DESC')->limit($limit)->all();
+            return $this->renderAjax('_ticketprintlayout', ['model' => $model]);
+        } else {
+            $searchModel = new SearchTicket();
+            $model = $searchModel->search(Yii::$app->request->queryParams)->getModels();
+            return $this->renderAjax('_ticketprintlayout', ['model' => $model]);
         }
+
+        throw new NotFoundHttpException('No tickets to print', '400');
+    }
 
     /**
      * Updates an existing Ticket model.
@@ -163,30 +154,28 @@ class TicketController extends Controller {
      * @return mixed
      */
     public function actionUpdate($id, $contract_id) {
-        
+
         $model = $this->findModel($id);
-        $model->scenario="update";
+        $model->scenario = "update";
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success',Yii::t('ticket','Ticket saved'));
-            if (Yii::$app->request->isAjax)
-            {
+            Yii::$app->session->setFlash('success', Yii::t('ticket', 'Ticket saved'));
+            if (Yii::$app->request->isAjax) {
                 \Yii::$app->response->format = 'json';
-                return ['message'=>'success','data'=>$this->renderAjax('_close_form', [
+                return ['message' => 'success', 'data' => $this->renderAjax('_close_form', [
                         'model' => $model,
                 ])];
-            }else
+            } else
                 return $this->redirect(['view', 'id' => $model->id, 'contract_id' => $model->contract_id]);
-        } 
+        }
         else {
-            if (Yii::$app->request->isAjax)
-            {
+            if (Yii::$app->request->isAjax) {
                 return $this->renderAjax('_close_form', [
-                        'model' => $model,
+                            'model' => $model,
                 ]);
-            }else
-            return $this->render('update', [
-                        'model' => $model,
-            ]);
+            } else
+                return $this->render('update', [
+                            'model' => $model,
+                ]);
         }
     }
 
@@ -199,14 +188,17 @@ class TicketController extends Controller {
      */
     public function actionDelete($id) {
         $model = $this->findModel($id);
-        if ($model->delete())
-        {
-            if (!Yii::$app->request->isPjax)
+        if ($model->delete()){
+            if (!Yii::$app->request->isAjax)
                 return $this->redirect(['index']);
             else {
-                return $this->actionLoadticketsgrid($model->contract_id);
+                \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return ['message' => 'success'];
             }
+        } else {
+            throw new \yii\web\HttpException('Ошибка при удалении', '500');
         }
+        return $this->redirect(['index']);
     }
 
     /**
