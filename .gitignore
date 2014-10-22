@@ -28,4 +28,4 @@ phpunit.phar
 /phpunit.xml
 /yii
 
-crm_moika_DB_scheme.mwb.bak
+*.bak
