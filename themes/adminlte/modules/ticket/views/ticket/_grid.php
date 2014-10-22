@@ -17,7 +17,7 @@ $(function () {
 SCRIPT;
 $this->registerJs($js);
 ?>
-<div id="pjax-action-container">
+<!--<div id="pjax-action-container" data-id="<?= $model->contract_id; ?>">-->
     <?php
     //Prepare params for print button. Add to print URL grid-filter params
     $print_ticket_params = Yii::$app->request->queryParams;
@@ -103,4 +103,4 @@ $this->registerJs($js);
                         ],
                     ]) . '</div>';
                     ?>
-</div>
+<!--</div>-->

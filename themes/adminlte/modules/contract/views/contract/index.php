@@ -8,8 +8,9 @@ use yii\web\JqueryAsset;
 use yii\helpers\ArrayHelper;
 use app\modules\client\models\Client;
 use app\components\helpers\Helpers;
+
 $script = <<<SKRIPT
-    $('#pjax-action-container').on('pjax:success', function(data){         
+    $('#pjax-action-container').on('pjax:success', function(xhr,data, status,  options){         
          handlePaymentFormActions();
      });
     $('#pjax-action-container').on('pjax:start', function(data){
@@ -36,7 +37,7 @@ $this->registerJs($script);
             <div class="box-header">
                 <h3 class="box-title">Договоры</h3>
                 <div class="box-tools"><p class="pull-left">
-                        <?= Html::a(Html::tag('span', '', ['class' => 'glyphicon glyphicon-briefcase']), ['/contract/contract/create', 'Contract[client_id]' => $searchModel['client_id']], ['class' => 'btn btn-success btn-sm font-white']); ?>
+<?= Html::a(Html::tag('span', '', ['class' => 'glyphicon glyphicon-briefcase']), ['/contract/contract/create', 'Contract[client_id]' => $searchModel['client_id']], ['class' => 'btn btn-success btn-sm font-white']); ?>
                     </p>
                 </div>
             </div>
@@ -47,7 +48,7 @@ $this->registerJs($script);
                     'filterModel' => $searchModel,
                     'summary' => false,
                     'id' => 'contract_grid',
-                    'striped' => true,
+                    'striped' => false,
                     'bordered' => false,
                     'layout' => '<div>{pager}</div>{items}',
                     'pager' => [
@@ -101,35 +102,35 @@ $this->registerJs($script);
                                     'value' => function($model, $key, $index) {
                                         return Html::a(Html::tag('span', '', ['class' => 'glyphicon glyphicon-usd']), ['/payment/payment/loadpaymentgrid', 'contract_id' => $model->id], ['class' => 'load-payments', 'title' => Yii::t('payment', 'Show Payments'), 'data-id' => $model->id, 'data-pjax' => '#pjax-action-container']);
                                     },
+                                    'format' => 'raw'
+                                ],
+                                [
+                                    'value' => function($model, $key, $index) {
+                                        return Html::a(Html::tag('span', '', ['class' => 'glyphicon glyphicon-list']), ['/ticket/ticket/loadticketsgrid', 'id' => $model->id], ['class' => 'load-tickets', 'title' => Yii::t('ticket', 'Show Tickets'), 'data-id' => $model->id, 'data-pjax' => '#pjax-action-container']);
+                                    },
+                                    'format' => 'raw'
+                                ],
+                                [
+                                    'value' => function($model, $key, $index) {
+                                        return Html::a(Html::tag('span', '', ['class' => 'glyphicon glyphicon-list-alt']), '#', ['class' => 'print-act', 'title' => Yii::t('contract', 'Print act'),
+                                                    'data-id' => $model->id, 'data-pjax' => '0', 'data-toggle' => "modal", 'data-target' => "#printAct-" . $key])
+                                                . $this->render('//modules/ticket/views/ticket/_act_modal', ['id' => $key]);
+                                    },
                                             'format' => 'raw'
-                                        ],
-                                        [
-                                            'value' => function($model, $key, $index) {
-                                                return Html::a(Html::tag('span', '', ['class' => 'glyphicon glyphicon-list']), ['/ticket/ticket/loadticketsgrid', 'id' => $model->id], ['class' => 'load-tickets', 'title' => Yii::t('ticket', 'Show Tickets'), 'data-id' => $model->id, 'data-pjax' => '#pjax-action-container']);
-                                            },
-                                                    'format' => 'raw'
-                                                ],
-                                                [
-                                                    'value' => function($model, $key, $index) {
-                                                        return Html::a(Html::tag('span', '', ['class' => 'glyphicon glyphicon-list-alt']), '#', ['class' => 'print-act', 'title' => Yii::t('contract', 'Print act'),
-                                                                    'data-id' => $model->id, 'data-pjax' => '0', 'data-toggle' => "modal", 'data-target' => "#printAct-" . $key])
-                                                                . $this->render('//modules/ticket/views/ticket/_act_modal', ['id' => $key]);
-                                                    },
-                                                            'format' => 'raw'
-                                                        ],
-                                                    ]
-                                                ]);
+                                ],
+                        ]
+                            ]);
                                                 ?>
                                             </div>
                                         </div>
                                     </div>
-    <div class="col-md-6">
-        <?php Pjax::begin(['id' => 'pjax-action-container', /* 'linkSelector' => '#pjax-action-container a', */ 'enablePushState' => false, 'enableReplaceState' => false, 'timeout' => 5000]); ?>
-        <div class="box box-solid">
-            <div class="box-header">
-                <h3 class="box-title"><?= Yii::t('yii', 'Выберите действие'); ?></h3>
-            </div>
-        </div>
-        <?php Pjax::end(); ?>
+                                    <div class="col-md-6">
+                                <?php Pjax::begin(['id' => 'pjax-action-container', 'options'=>['class'=>'pjax-wrapper'], /* 'linkSelector' => '#pjax-action-container a', */ 'enablePushState' => false, 'enableReplaceState' => false, 'timeout' => 5000]); ?>
+                                        <div class="box box-solid">
+                                            <div class="box-header">
+                                                <h3 class="box-title"><?= Yii::t('yii', 'Выберите действие'); ?></h3>
+                                            </div>
+                                        </div>
+                                <?php Pjax::end(); ?>
     </div>
 </div>

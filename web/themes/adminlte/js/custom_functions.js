@@ -12,15 +12,21 @@ $(document).ready(function () {
         var load_url = $this.attr('href');
         var container = $this.attr('data-pjax');
         $('#payment-contract_id').attr('readonly', 'readonly').val(contract_id);
+        $(container).attr('data-grid-selector',$this.attr('class'));
+        
+        $('tr').removeClass('bg-success');
+        $('tr[data-key="'+contract_id+'"]').addClass('bg-success');
         $.pjax.reload({container: container, history: false, replace: false, timeout: 10000, url: load_url});
     });
     $('.load-tickets').click(function (e) {
         e.preventDefault();
         var $this = $(this);
-//        var contract_id = $this.attr('data-id');
+        var contract_id = $this.attr('data-id');
         var load_url = $this.attr('href');
         var container = $this.attr('data-pjax');
-//        $('#payment-contract_id').attr('readonly','readonly').val(contract_id);
+        $(container).attr('data-grid-selector',$this.attr('class'));
+        $('tr').removeClass('bg-success');
+        $('tr[data-key="'+contract_id+'"]').addClass('bg-success');
         $.pjax.reload({container: container, history: false, replace: false, timeout: 10000, url: load_url});
     });
 
@@ -163,14 +169,18 @@ function handlePaymentFormActions() {
     
     
     //Handle delete button
-    
-    $('.deleteBtn').on('click',
+$('.deleteBtn').on('shown.bs.popover', function () {
+    $('.confirm-delete').on('click',
         function (e) {
             e.preventDefault();
             var data = JSON.parse($(this).parents('tr').attr('data-key'));
-               reloadBalance(data.contract_id);
+            var grid_selector = $(this).closest('.pjax-wrapper').attr('data-grid-selector');
+            $.get($(this).attr('href'),{},function(){
+                reloadGrid('.'+grid_selector,data.contract_id);
+            });
         }
     );
+})
     
     
 }

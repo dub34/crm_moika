@@ -232,12 +232,15 @@ class PaymentController extends Controller {
         $model = $this->findModel($id, $contract_id);
 if ($model->delete())
         {
-            if (!Yii::$app->request->isPjax)
+            if (!Yii::$app->request->isAjax)
                 return $this->redirect(['index']);
             else {
-                unset($_GET['id']);
-                return $this->actionLoadpaymentgrid();
+               \Yii::$app->response->format=\yii\web\Response::FORMAT_JSON;
+               return ['message'=>'success'];
             }
+        }else
+        {
+            throw new \yii\web\HttpException('Ошибка при удалении','500');
         }
         return $this->redirect(['index']);
     }
