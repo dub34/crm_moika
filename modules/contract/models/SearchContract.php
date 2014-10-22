@@ -36,7 +36,7 @@ class SearchContract extends Contract
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
                     'pagination' => [
-                'pageSize' => 20,
+                'pageSize' => Yii::$app->settings->get('contract.GridDefaultSize'),
             ],
             'sort'=>[
                 'defaultOrder' => [
