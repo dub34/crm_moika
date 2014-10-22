@@ -13,6 +13,7 @@ use app\modules\office\models\Office;
 use PHPExcel_IOFactory;
 use php_rutils\RUtils;
 use app\components\helpers\Helpers;
+
 /**
  * PaymentController implements the CRUD actions for Payment model.
  */
@@ -107,13 +108,13 @@ class PaymentController extends Controller {
     public function actionCreate() {
         $id = Yii::$app->request->get('id', Yii::$app->request->post('id', null));
         $contract_id = Yii::$app->request->get('contract_id', Yii::$app->request->post('contract_id', null));
-        
+
         if ($id && $contract_id)
-            $model = $this->findModel($id,$contract_id);
-        else{
+            $model = $this->findModel($id, $contract_id);
+        else {
             $model = new Payment;
         }
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if (Yii::$app->request->isAjax) {
                 $contract_id = $model->contract_id;
@@ -230,17 +231,15 @@ class PaymentController extends Controller {
      */
     public function actionDelete($id, $contract_id) {
         $model = $this->findModel($id, $contract_id);
-if ($model->delete())
-        {
+        if ($model->delete()) {
             if (!Yii::$app->request->isAjax)
                 return $this->redirect(['index']);
             else {
-               \Yii::$app->response->format=\yii\web\Response::FORMAT_JSON;
-               return ['message'=>'success'];
+                \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return ['message' => 'success'];
             }
-        }else
-        {
-            throw new \yii\web\HttpException('Ошибка при удалении','500');
+        } else {
+            throw new \yii\web\HttpException('Ошибка при удалении', '500');
         }
         return $this->redirect(['index']);
     }

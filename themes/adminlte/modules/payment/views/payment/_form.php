@@ -59,7 +59,7 @@ if (is_array($messages = Yii::$app->getSession()->getAllFlashes()) && count($mes
     <?= $form->field($model, 'payment_sum')->textInput(['maxlength' => 25]) ?>
     <?= $form->field($model, 'status')->dropDownList(['0'=>Yii::t('payment','nonactive'),'1'=>Yii::t('payment','active')]); ?>
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('yii', 'Save'), ['class' => 'btn btn-success','id'=>'submitPaymentForm']) ?>
+        <?= Html::submitButton(Yii::t('payment', 'Save'), ['class' => 'btn btn-success','id'=>'submitPaymentForm']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

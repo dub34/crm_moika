@@ -35,6 +35,9 @@ class SearchContract extends Contract
 //        $query->joinWith(['client']);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+                    'pagination' => [
+                'pageSize' => 20,
+            ],
             'sort'=>[
                 'defaultOrder' => [
                     'client_id'=>SORT_ASC,
