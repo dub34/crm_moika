@@ -15,7 +15,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
-        "yiisoft/yii2": "2.0.0-rc",
+        "yiisoft/yii2": "2.0.0",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "kartik-v/yii2-widgets": "dev-master",
@@ -24,7 +24,8 @@
         "pheme/yii2-settings": "dev-master",
         "nepstor/yii2-datetime-compare-validator": "*",
         "alexgx/yii2-phpexcel" : "*",
-        "andre_487/php_rutils": "dev-master"
+        "andre_487/php_rutils": "dev-master",
+        "robregonm/yii2-pdf": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

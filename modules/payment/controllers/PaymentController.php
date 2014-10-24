@@ -165,12 +165,13 @@ class PaymentController extends Controller {
     }
 
     private function createExcellReport($model) {
+        if ($model->payment_sum<0)$model->payment_sum=0;
         $excel = new PhpExcel;
         $tmpl = $excel->load('files/invoice_1.xls');
         $office = new Office;
         $office = $office->defaultOffice;
-        $nds = $model->payment_sum * Yii::$app->settings->get('nds') / 100;
-        $sum_bez_nds = $model->payment_sum - $nds;
+        $nds = Helpers::roundUp($model->payment_sum * Yii::$app->settings->get('nds') / 100);
+        $sum_bez_nds = Helpers::roundUp($model->payment_sum - $nds);
         $tmpl->setActiveSheetIndex(0)
                 ->setCellValue('B1', $office->name)
                 ->setCellValue('J2', $model->id)
@@ -182,11 +183,11 @@ class PaymentController extends Controller {
                 ->setCellValue('H6', Yii::$app->formatter->asDate(time(), 'php:d.m.Y'))
                 ->setCellValue('B11', $model->contract->client->name)
                 ->setCellValue('C14', Yii::$app->settings->get('nds'))
-                ->setCellValue('C15', Helpers::roundUp($sum_bez_nds))
-                ->setCellValue('E15', RUtils::numeral()->getRubles(Helpers::roundUp($sum_bez_nds)))
-                ->setCellValue('C16', Helpers::roundUp($nds))
+                ->setCellValue('C15', Yii::$app->formatter->asInteger($sum_bez_nds))
+                ->setCellValue('E15', RUtils::numeral()->getRubles($sum_bez_nds))
+                ->setCellValue('C16', Yii::$app->formatter->asInteger($nds))
                 ->setCellValue('E16', RUtils::numeral()->getRubles(Helpers::roundUp($nds)))
-                ->setCellValue('C17', Helpers::roundUp($model->payment_sum))
+                ->setCellValue('C17', Yii::$app->formatter->asInteger(Helpers::roundUp($model->payment_sum)))
                 ->setCellValue('E17', RUtils::numeral()->getRubles(Helpers::roundUp($model->payment_sum)));
         header('Content-Type: text/html');
         $contentDisposition = 'inline';

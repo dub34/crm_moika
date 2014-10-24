@@ -22,6 +22,57 @@ return [
             'locale' => 'be_BY',
             'currencyCode' => '',
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+//            'useFileTransport' => false,
+//            'transport' => [
+//                'class' => 'Swift_SmtpTransport',
+//                'host' => 'smtp.gmail.com',
+//                'username' => '',
+//                'password' => '',
+//                'port' => '587',
+//                'encryption' => 'tls',
+//          ],
+        ],
+        'response' => [
+            'formatters' => [
+                'pdf' => [
+                    'class' => 'robregonm\pdf\PdfResponseFormatter',
+                    'mode' => '', // Optional
+                    'format' => 'A4', // Optional but recommended. http://mpdf1.com/manual/index.php?tid=184
+                    'defaultFontSize' => 0, // Optional
+                    'defaultFont' => '', // Optional
+                    'marginLeft' => 5, // Optional
+                    'marginRight' => 5, // Optional
+                    'marginTop' => 5, // Optional
+                    'marginBottom' => 5, // Optional
+                    'marginHeader' => 0, // Optional
+                    'marginFooter' => 0, // Optional
+//                    'orientation' => 'Landscape', // optional. This value will be ignored if format is a string value.
+                    'options' => [
+//                    'ignore_invalid_utf8' => true,  
+//                    'allow_charset_conversion' => false,
+                        // mPDF Variables
+                        'fontdata' => [
+                        'dejavusanscondensed' =>
+                            array(
+                                'B' => 'DejaVuSansCondensed-Bold.ttf',
+                                'BI' => 'DejaVuSansCondensed-BoldOblique.ttf',
+                                'I' => 'DejaVuSansCondensed-Oblique.ttf',
+                                'R' => 'DejaVuSansCondensed.ttf',
+                            ),
+                        'dejavuserifcondensed' =>
+                            array(
+                                'B' => 'DejaVuSerifCondensed-Bold.ttf',
+                                'BI' => 'DejaVuSerifCondensed-BoldItali.ttf',
+                                'I' => 'DejaVuSerifCondensed-Italic.ttf',
+                                'R' => 'DejaVuSerifCondensed.ttf',
+                            ),
+                        ]
+                    ]
+                ],
+            ]
+        ],
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
@@ -49,9 +100,7 @@ return [
         'settings' => [
             'class' => 'pheme\settings\components\Settings'
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-        ],
+       
         'cache' => [
             'class' => 'yii\caching\DummyCache',
         ],

@@ -53,9 +53,24 @@ class Ticket extends \yii\db\ActiveRecord
             [['contract_id', 'priznak','ticket_count'], 'integer'],
             [['created_at', 'closed_at', 'to_date','closed_to_date','services_list'], 'safe'],
             [['pometka'], 'string', 'max' => 45],
+            [['email'],'email'],
+            [['email'],'validate_email_checked','on'=>'default'],
             [['closed_at'], \nepstor\validators\DateTimeCompareValidator::className(), 'format' => 'd.m.Y', 'compareAttribute'=>'created_at','operator'=>'>=']
         ];
     }
+    
+    
+    
+    public function validate_email_checked($attribute, $params){
+        
+        if (Yii::$app->request->get('send_email',null) !== null)
+        {
+            if (!$this->email ||  $this->email == '')
+                $this->addError ('email',Yii::t('tickets','Необходимо заполнить поле E-mail'));
+        }
+    }
+    
+    
 
     /**
      * @inheritdoc
@@ -72,6 +87,7 @@ class Ticket extends \yii\db\ActiveRecord
             'ticket_count' => Yii::t('ticket', 'Ticket count'),
             'office_id' => Yii::t('ticket', 'Office'),
             'services_list' => Yii::t('ticket', 'Services List'),
+            'email' => Yii::t('client', 'Email'),
         ];
     }
 
@@ -164,7 +180,7 @@ class Ticket extends \yii\db\ActiveRecord
     
     public static function getStartBalance($contract_id,$start_date)
     {
-        $cmd = Yii::$app->db->createCommand("CALL `crm_moika`.`calculateBalanceValue`(:contract_id,:start_date,@balance);", [':contract_id'=>$contract_id, ':start_date'=>Yii::$app->formatter->asDate($start_date,'php:Y-m-d')])->execute();
+        $cmd = Yii::$app->db->createCommand("CALL `calculateBalanceValue`(:contract_id,:start_date,@balance);", [':contract_id'=>$contract_id, ':start_date'=>Yii::$app->formatter->asDate($start_date,'php:Y-m-d')])->execute();
         $balance =Yii::$app->db->createCommand("select @balance;")->queryScalar(); 
         return Helpers::roundUp($balance);
     }
@@ -182,6 +198,22 @@ class Ticket extends \yii\db\ActiveRecord
     public function getContract()
     {
         return $this->hasOne(Contract::className(), ['id' => 'contract_id']);
+    }
+    
+    
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->contract->client->email;
+    }
+    /**
+     * @return string
+     */
+    public function setEmail($value)
+    {
+        return $this->email=$value;
     }
     
     /**
