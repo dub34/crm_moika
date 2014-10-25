@@ -31,6 +31,6 @@ return array(
     'Create invoice'=>"Создать счет-фактуру",
     'active'=>'Активный',
     'status'=>'Статус',
-    'nonactive'=>'Не активный'
-    
+    'nonactive'=>'Не активный',
+    'Save'=>'Сохранить'
 );

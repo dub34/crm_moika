@@ -10,39 +10,39 @@
 ?>
 <table class="table border">
     <tr>
-        <td>220007 г. Минск, ул. Володько, 9  Тел. 297-38-98</td>
-        <td>220007 г. Минск, ул. Володько, 9  Тел. 297-38-98</td>
+        <td><?= $office->register_address?></td>
+        <td><?= $office->register_address?></td>
     </tr>
     <tr class="center bold">
-        <td>
+        <td class="center bold">
             <p>ТАЛОН (форма Т-1) №<?= $model->id;?></p>
             <p>НА МОЙКУ АВТОМОБИЛЯ</p>
         </td>
-        <td>
+        <td class="center bold">
             <p>КВИТАНЦИЯ К ТАЛОНУ (форма Т-1) №<?= $model->id;?></p>
             <p>НА МОЙКУ АВТОМОБИЛЯ</p>
         </td>
     </tr>
     <tr>
-        <td>ООО "Автопромсервис-Плюс" (УНП 10137376)</td>
-        <td>ООО "Автопромсервис-Плюс" (УНП 10137376)</td>
+        <td><?= $office->name; ?> (УНП <?= $office->unp?>)</td>
+        <td><?= $office->name; ?> (УНП <?= $office->unp?>)</td>
     </tr>
     <tr>
         <td>
             <p>Заказчик <?= $model->contract->client->name;?></p>
             <p>Договор № <?= $model->contract->number?> от <?= $model->contract->created_at; ?></p>
             <p>Автомобиль___________________________________________</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <p class="small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(марка, гос. номер, тип)</small></p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(марка, гос. номер, тип)</p>
         </td>
         <td>
             <p>Заказчик <?= $model->contract->client->name;?></p>
             <p>Договор № <?= $model->contract->number?> от <?= $model->contract->created_at; ?></p>
             <p>Автомобиль___________________________________________</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <p class="small">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(марка, гос. номер, тип)</small></p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(марка, гос. номер, тип)</p>
         </td>
     </tr>
     <tr>
@@ -90,35 +90,45 @@
         </td>
     </tr>
     <tr>
-        <td><p>Дата <?= $model->closed_at;?>&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                Заказчик________________________</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(подпись)</small></p>
-            <p>Исполнитель__________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________________________</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(должность,подпись)</small>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(ФИО)</small></p>
-            
+        <td>
+            <table class="table inside-border">
+                <tr>
+                    <td width="150">Дата <?= $model->closed_at;?></td>
+                    <td>Заказчик_________________________</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td class="small center">(подпись)</td>
+                </tr>
+                <tr>
+                    <td width="150">Исполнитель__________________</td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_______________________________</td>
+                </tr>
+                <tr>
+                    <td class="small right">(должность,подпись)</td>
+                    <td class="small center">(ФИО)</td>
+                </tr>
+            </table>
         </td>
-       <td><p>Дата <?= $model->closed_at;?>&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                Заказчик________________________</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(подпись)</small></p>
-            <p>Исполнитель__________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;________________________</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(должность,подпись)</small>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(ФИО)</small></p>
-            
+        <td>
+            <table class="table inside-border">
+                <tr>
+                    <td width="150">Дата <?= $model->closed_at;?></td>
+                    <td>Заказчик_________________________</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td class="small center">(подпись)</td>
+                </tr>
+                <tr>
+                    <td width="150">Исполнитель__________________</td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_______________________________</td>
+                </tr>
+                <tr>
+                    <td class="small right">(должность,подпись)</td>
+                    <td class="small center">(ФИО)</td>
+                </tr>
+            </table>
         </td>
     </tr>
 </table>

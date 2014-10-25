@@ -7,6 +7,7 @@ use app\modules\ticket\models\Ticket;
 use app\modules\ticket\models\SearchTicket;
 use app\components\controllers\Controller;
 use yii\web\NotFoundHttpException;
+use PhpOffice\PhpWord\PhpWord;
 
 /**
  * TicketController implements the CRUD actions for Ticket model.
@@ -103,7 +104,7 @@ class TicketController extends Controller {
                 Yii::$app->session->setFlash('ticket_save_success', Yii::t('ticket', 'Tickets saved'));
                 $model->ticket_count = $model_params['ticket_count'];
                 $model->contract_id = $model_params['contract_id'];
-
+                array_key_exists('email', $model_params) ? $model->email = $model_params['email'] : '';
                 \Yii::$app->response->format = 'json';
                 return ['message' => 'success', 'data' => $this->renderAjax('_count_form', [
                         'model' => $model,
@@ -132,18 +133,66 @@ class TicketController extends Controller {
      * Show tickets printPage
      */
     public function actionPrinttickets() {
+
         $limit = Yii::$app->request->get('ticket_count', null);
         $contract_id = Yii::$app->request->get('contract_id', null);
+        $office = new \app\modules\office\models\Office();
+        $office = $office->defaultOffice;
+        $tmpl_data = ['office' => $office];
         if (null !== $limit && null !== $contract_id) {
             $model = Ticket::find()->where(['contract_id' => $contract_id])->orderBy('id DESC')->limit($limit)->all();
-            return $this->renderAjax('_ticketprintlayout', ['model' => $model]);
+            $tmpl_data['model'] = $model;
+            $tmpl_data['smodel'] = $model;
+//            return $this->renderAjax('_ticketprintlayout', ['model' => $model,'office' => $office]);
         } else {
             $searchModel = new SearchTicket();
             $model = $searchModel->search(Yii::$app->request->queryParams)->getModels();
-            return $this->renderAjax('_ticketprintlayout', ['model' => $model]);
+            $tmpl_data['model'] = $model;
+            $tmpl_data['smodel'] = $searchModel;
         }
+        $file = $this->savePdf($tmpl_data);
+        if (Yii::$app->request->get('email', null) !== null && Yii::$app->request->get('email', null) !== '') {
+            $to = html_entity_decode(Yii::$app->request->get('email'));
+            $mail = Yii::$app->mailer->compose() // message body becomes a view rendering result here
+                    ->setFrom(Yii::$app->settings->get('main.AdminEmail'))
+                    ->setTo($to)
+                    ->setSubject('Талоны ' . $office->name . ' ' . date('d.m.Y'))
+                    ->attach($file)
+                    ->send();
+        }
+//        $mpdf = new \mPDF();
+//        $mpdf->SetImportUse();
+//        $pagecount = $mpdf->SetSourceFile($file);
+//        for($i=1; $i<=$pagecount;$i++)
+//        {
+//         $tplId= $mpdf->ImportPage($pagecount);
+//           
+//        }
+//        $mpdf->UseTemplate($tplId);
+        header('content-type:application/pdf');
+        header('Content-disposition: inline; filename="' . $file . '"');
+        header('Cache-Control: public, must-revalidate, max-age=0');
+        header('Pragma: public');
+        echo file_get_contents($file);
+        if (file_exists($file))
+            unlink($file);
+//        $mpdf->WriteHTML($tc);
+//        $mpdf->Output('', 'I');
+        Yii::$app->end();
+    }
 
-        throw new NotFoundHttpException('No tickets to print', '400');
+    //Save pdf to file
+    //return save $filename or false on negative saving;
+    public function savePdf($data = []) {
+        $pdf = new \mPDF();
+        ob_start();
+        echo $this->renderAjax('_ticketprintlayout', $data);
+        $html = ob_get_contents();
+        ob_end_clean();
+        $pdf->WriteHTML($html);
+        $filename = 'files/tickets/tickets-dog-' . $data['smodel']->contract->number . '-' . date('d-m-Y-H-i-s') . '.pdf';
+        $pdf->Output($filename, 'F');
+        return file_exists($filename) ? $filename : false;
     }
 
     /**
@@ -188,7 +237,7 @@ class TicketController extends Controller {
      */
     public function actionDelete($id) {
         $model = $this->findModel($id);
-        if ($model->delete()){
+        if ($model->delete()) {
             if (!Yii::$app->request->isAjax)
                 return $this->redirect(['index']);
             else {

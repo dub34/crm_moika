@@ -35,6 +35,9 @@ class SearchContract extends Contract
 //        $query->joinWith(['client']);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+                    'pagination' => [
+                'pageSize' => Yii::$app->settings->get('contract.GridDefaultSize'),
+            ],
             'sort'=>[
                 'defaultOrder' => [
                     'client_id'=>SORT_ASC,

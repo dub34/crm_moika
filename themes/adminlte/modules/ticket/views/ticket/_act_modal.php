@@ -15,7 +15,7 @@ $model->contract_id = $id;
 ?>
 <?php Modal::begin([
     'id'=>'printAct-'.$id,
-    'header'=>'<h3>'.Yii::t('contract','Print act').'</h3s>',
+    'header'=>'<h3>'.Yii::t('contract','Print act').'</h3>',
     'size'=>  Modal::SIZE_LARGE,
 //    'toggleButton' => ['label' => Html::tag('span', '', ['class' => 'glyphicon glyphicon-list-alt']), 'title' => Yii::t('contract', 'Print act'), 'class' => 'btn btn-primary btn-sm'],
 ]);?>

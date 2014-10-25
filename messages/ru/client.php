@@ -25,4 +25,5 @@ return array(
     'Delete client' => 'Удалить клиента',
     'Select client' => 'Выбрать клиента',
     'Details' => 'Сведения',
+    'Email' => 'E-mail',
 );
