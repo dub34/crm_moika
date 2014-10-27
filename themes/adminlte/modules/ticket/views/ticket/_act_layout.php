@@ -1,7 +1,9 @@
 <?php
+
 use yii\helpers\Html;
 use app\modules\office\models\Office;
 use app\components\helpers\Helpers;
+
 /**
  * Print act modal window with form
  * @var $model instance of Contract model class
@@ -14,11 +16,11 @@ $office = new Office;
 $office = $office->defaultOffice;
 ?>
 
-<div id="non-printable"><?= Html::button('Распечатать', ["id" => 'printBtn', 'onclick' => 'window.print()']); ?></div>
+<!--<div id="non-printable"></div>-->
 
 
 
-<div class="row">
+<!--<div class="row">
     <div class="col-xs-6 "><?= Html::img('@web/images/logo.png', ['width' => '250']); ?></div>
     <div class="col-xs-6"> <?= Html::tag('h4', $office->name); ?>
         <p>р/с <?= $office->payment_account; ?> в <?= $office->bank_name; ?></p>
@@ -26,7 +28,19 @@ $office = $office->defaultOffice;
         <p>Адрес <?= $office->register_address; ?> УНП <?= $office->unp; ?> ОКПО <?= $office->okpo; ?></p>
         <p>Факс <?= $office->fax; ?> тел. <?= $office->telephone; ?> e-mail <?= $office->email; ?></p>
     </div>
-</div>
+</div>-->
+
+<table class="table">
+    <tr>
+        <td width="50%"><?= Html::img('@web/images/logo.png', ['width' => '250']); ?></td>
+        <td><?= Html::tag('h4', $office->name); ?>
+            <p>р/с <?= $office->payment_account; ?> в <?= $office->bank_name; ?></p>
+            <p>Код <?= $office->bank_code; ?> УНП <?= $office->unp; ?> ОКПО <?= $office->okpo; ?></p>
+            <p>Адрес <?= $office->register_address; ?></p>
+            <p>Факс <?= $office->fax; ?> тел. <?= $office->telephone; ?> e-mail <?= $office->email; ?></p>
+        </td>
+    </tr>
+</table>
 
 <div class="row center">
     <div class="col-xs-12"><h2>Акт</h2></div>
@@ -34,8 +48,7 @@ $office = $office->defaultOffice;
 <div class="row center">
     <div class="col-xs-12">
         <p> Выполненных работ <?= $office->name; ?> </p>
-
-            <p>по обслуживанию автомобилей согласно договору № <?= $model->contract->number; ?> от <?= $model->contract->created_at; ?></p>
+        <p>по обслуживанию автомобилей согласно договору № <?= $model->contract->number; ?> от <?= $model->contract->created_at; ?></p>
     </div>
 </div>
 <div class="row">
@@ -48,24 +61,30 @@ $office = $office->defaultOffice;
         <p>Расчетный период <strong><?= $model->closed_at; ?> &mdash; <?= $model->closed_to_date; ?></strong></p>
     </div>
 </div>
-<div class="row">
+<!--<div class="row">
     <div class="col-xs-6">
-      <strong> Сальдо расчетов на начало периода:</strong>
+        <strong> Сальдо расчетов на начало периода:</strong>
     </div>
     <div class="col-xs-6 right">
         <strong><?= Yii::$app->formatter->asInteger($startBalance = app\modules\ticket\models\Ticket::getStartBalance($model->contract_id, $model->closed_at)); ?> руб.</strong>
     </div>
-</div>
+</div>-->
+<table class="table">
+    <tr>
+        <td><strong> Сальдо расчетов на начало периода:</strong></td>
+        <td class="right"><strong><?= Yii::$app->formatter->asInteger($startBalance = app\modules\ticket\models\Ticket::getStartBalance($model->contract_id, $model->closed_at)); ?> руб.</strong></td>
+    </tr>
+</table>
 <hr />
 <div class="row">
     <div class="col-xs-12">
         <table class="table table-bordered">
             <tr>
-                <th class="col-md-1">№ талона/<br />ведомости</th>
-                <th class="col-md-1">№ программы</th>
-                <th class="col-md-1">Дата</th>
+                <th class="col-xs-1">№ талона/<br />ведомости</th>
+                <th class="col-xs-1">№ программы</th>
+                <th class="col-xs-2">Дата</th>
                 <th>Сумма без НДС,<br />руб</th>
-                <th>Ставка НДС,<br />%</th>
+                <th class="col-xs-1">Ставка НДС,<br />%</th>
                 <th>Сумма НДС,<br />руб</th>
                 <th>Сумма с НДС,<br />руб</th>
             </tr>
@@ -97,50 +116,106 @@ $office = $office->defaultOffice;
         </table>
     </div>
 </div>
-<div class="row">
+<!--<div class="row">
     <div class="col-xs-6">
         Оплачено за период:
     </div>    
     <div class="col-xs-6">
-        <?php foreach ($payments as $payment): ?>
+<?php // foreach ($payments as $payment): ?>
             <div class="row">
                 <div class="col-xs-6">
-                    <?= $payment->created_at; ?>
+<?= $payment->created_at; ?>
                 </div>
                 <div class="col-xs-6 right">
-                    <?= $payment->payment_sum; ?>   
+<?= $payment->payment_sum; ?>   
                 </div>
             </div>
-        <?php endforeach; ?>
+<?php // endforeach; ?>
     </div>    
-</div>    
+</div>    -->
+<table class="table">
+    <tr>
+        <td>
+            Оплачено за период:
+        </td>    
+        <td class="right">
+            <table class="table">
+            <?php foreach ($payments as $payment): ?>
+                <tr>
+                    <td width="100" class="left">
+                        <?= $payment->created_at; ?>
+                    </td>
+                    <td>
+                        <?= Yii::$app->formatter->asInteger($payment->payment_sum); ?>   
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </table>
+        </td>    
+    </tr>
+</table>
+
 <hr />
-<?php $summPayments = \app\components\helpers\Helpers::roundUp(array_sum(\yii\helpers\ArrayHelper::getColumn($payments, 'payment_sum'))) ?>
-<div class="row">
+<?php
+$summPayments = \app\components\helpers\Helpers::roundUp(array_sum(\yii\helpers\ArrayHelper::getColumn($payments, 'payment_sum')));
+$end_saldo = (int) $startBalance - (int) $summ + (int) $summPayments;
+?>
+<!--<div class="row">
     <div class="col-xs-6"> <strong>Сальдо расчетов на конец периода </strong></div>
-    <div class="col-xs-6 right"><strong><?= Yii::$app->formatter->asInteger((int) $startBalance - (int) $summ + (int) $summPayments); ?> руб.</strong></div>
-</div>
+    <div class="col-xs-6 right"><strong><?= Yii::$app->formatter->asInteger($end_saldo); ?> руб.</strong></div>
+</div>-->
+<table class="table">
+    <tr>
+        <td><strong>Сальдо расчетов на конец периода </strong></td>
+        <td class="right"><strong><?= Yii::$app->formatter->asInteger($end_saldo); ?> руб.</strong></td>
+    </tr>
+</table>
 <hr />
-<div class="row">
+<table class="table">
+    <tr>
+        <td><h5><strong>Итого к оплате за расчетный период:</strong></h5></td>
+        <td class="right"><h5><strong><?= ((int) $end_saldo < 0) ? Yii::$app->formatter->asInteger($summ) : 0; ?> руб.</h5></strong></td>
+    </tr>
+</table>
+<table class="table">
+    <tr>
+        <td class="center"><p>Исполнитель</p></td>
+        <td class="center"><p>Клиент</p></td>
+    </tr>
+    <tr>
+        <td class="center"><p><strong><?= $office->name; ?></strong></p></td>
+        <td class="center"><p><strong><?= $model->contract->client->name; ?></strong></p></td>
+    </tr>
+    <tr>
+        <td class="center">
+            <br/>
+            <br/><p>Директор_____________________/<?= $office->chief->name; ?>/</p></td>
+        <td class="center">
+            <br/>
+            <br/><p>_____________________/<?= $model->contract->client->chief_name; ?>/</p></td>
+    </tr>
+</table>
+<!--<div class="row">
     <div class="col-xs-6"> <h5><strong>Итого к оплате за расчетный период:</strong></h5></div>
-    <div class="col-xs-6 right"><h5><strong><?= $summ < 0?Yii::$app->formatter->asInteger($summ):0; ?> руб.</h5></strong></div>
-</div>
-<div class="row">
+    <div class="col-xs-6 right"><h5><strong><?= ((int) $end_saldo < 0) ? Yii::$app->formatter->asInteger($summ) : 0; ?> руб.</h5></strong></div>
+</div>-->
+<!--<div class="row">
     <div class="col-xs-6 center"><p>Исполнитель</p></div>
     <div class="col-xs-6 center"><p>Клиент</p></div>
 </div>
 <div class="row">
-    <div class="col-xs-6 center"><p><strong><?= $office->name;?></strong></p></div>
-    <div class="col-xs-6 center"><p><strong><?= $model->contract->client->name;?></strong></p></div>
-</div>
+    <div class="col-xs-6 center"><p><strong><?= $office->name; ?></strong></p></div>
+    <div class="col-xs-6 center"><p><strong><?= $model->contract->client->name; ?></strong></p></div>
+</div>-->
+<!--
 <br />
 <div class="row">
-    <div class="col-xs-6"><p>Директор_____________________/<?= $office->chief->name;?>/</p></div>
-    <div class="col-xs-6"><p>_____________________/<?= $model->contract->client->chief_name;?>/</p></div>
-</div>
+    <div class="col-xs-6"><p>Директор_____________________/<?= $office->chief->name; ?>/</p></div>
+    <div class="col-xs-6"><p>_____________________/<?= $model->contract->client->chief_name; ?>/</p></div>
+</div>-->
 <br/>
 <br/>
 <div class="row">
     <div class="col-xs-12"><p>Претензии по настоящему акту просим предъявлять до 18 числа следующего месяца. В противном случае акт будет принят к исполнению.</p>
-    <p>Цены указаны согласно прейскуранта (приказ №____ от ____г. )</p></div>
+        <p>Цены указаны согласно прейскуранта (приказ №____ от ____г. )</p></div>
 </div>

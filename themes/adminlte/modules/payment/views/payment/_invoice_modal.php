@@ -29,7 +29,7 @@ if ($model->id){
 <button class="btn btn-primary btn-sm" id="invoiceMdlOpen" data-toggle="modal" data-target="#printInvoice" title="<?= Yii::t('payment', 'Create invoice');?>"><span class="glyphicon glyphicon-tasks"></span></button>
 
 <!-- Modal -->
-<div class="modal fade" id="printInvoice" tabindex="-1" role="dialog" aria-labelledby="invoiceCreateDlgLabel" aria-hidden="true" data-url="<?= Url::to(['/payment/payment/loadpaymentgrid','contract_id'=>$model->contract_id])?>">
+<div class="modal fade" id="printInvoice" tabindex="-1" role="dialog" aria-labelledby="invoiceCreateDlgLabel" aria-hidden="true" data-url="<?= Url::to(['/payment/payment/printinvoice','contract_id'=>$model->contract_id])?>">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -49,11 +49,11 @@ if ($model->id){
 
           <br />
 
-          <div id="frame">
+          <!--<div id="frame">-->
               <?= Html::button('Распечатать', ['class' => 'btn btn-primary', 'id' => 'invoicePrintBtn', 'style' => 'display: none;']); ?>
 
-              <iframe class="invoiceFrame" id="invoicePrintFrame" src="<?= $src; ?>" name ="invoicePrintFrame" width="100%" height="<?= $model->id ? 500 : 0 ?>"></iframe>
-          </div>
+              <!--<iframe class="invoiceFrame" id="invoicePrintFrame" src="<?= $src; ?>" name ="invoicePrintFrame" width="100%" height="0 ?>"></iframe>-->
+          <!--</div>-->
           
       </div>
     </div>

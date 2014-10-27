@@ -190,11 +190,11 @@ class PaymentController extends Controller {
                 ->setCellValue('C17', Yii::$app->formatter->asInteger(Helpers::roundUp($model->payment_sum)))
                 ->setCellValue('E17', RUtils::numeral()->getRubles(Helpers::roundUp($model->payment_sum)));
         header('Content-Type: text/html');
-        $contentDisposition = 'inline';
+        $contentDisposition = 'attachment';
         $fileName = 'invoice.xls';
         $objWriter = PHPExcel_IOFactory::createWriter($tmpl, 'HTML');
         header("Content-Disposition: {$contentDisposition};filename='" . $fileName . "'");
-        header('Cache-Control: max-age=0');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Cache-Control: max-age=1');
         header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
         header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified

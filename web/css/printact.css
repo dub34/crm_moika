@@ -10,11 +10,21 @@
 .center {
         text-align: center;
     }
+.right{
+    text-align: right;
+}
+.left{
+    text-align: left;
+}
 .bold {
     font-weight: bold;
     font-size: 14px;
 }
 
+.table{
+    vertical-align: top;
+    margin-bottom: 10px;
+}
 .table p {
     
    
@@ -31,16 +41,14 @@ body
     margin: 1px;
         line-height: 1em;
 }
-.right{
-    text-align: right;
-}
 
 hr{
     margin-top: 5px !important;
     margin-bottom: 5px !important;
 }
-.table, .table th, .table tr, .table td{
+.table-bordered, .table-bordered th, .table-bordered tr, .table-bordered td{
     border:1px solid #000 !important;
+    padding: 5px;
 }
 .table 
 {

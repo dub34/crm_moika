@@ -66,7 +66,36 @@ class TicketController extends Controller {
 
         $payments = Ticket::getPaymentsForAct($searchModel->closed_at, $searchModel->closed_to_date, $searchModel->contract_id);
 
-        return $this->renderAjax('_act_layout', ['tickets' => $tickets, 'model' => $searchModel, 'payments' => $payments]);
+        $pdf = new \mPDF('',
+                        'A4',//format
+			'14',//font-s
+			'',//font
+                        10,//m-l
+			10,//m-r
+                        10,//m-t
+                        10,//m-b
+			0,//m-header
+			0);//m-footer
+////        $this->format,
+//			$this->defaultFontSize,
+//			$this->defaultFont,
+//			$this->marginLeft,
+//			$this->marginRight,
+//			$this->marginTop,
+//			$this->marginBottom,
+//			$this->marginHeader,
+//			$this->marginFooter,
+//			$this->orientation
+////        $pdf->
+        ob_start();
+        echo $this->renderAjax('_act_layout', ['tickets' => $tickets, 'model' => $searchModel, 'payments' => $payments]);
+        $html = ob_get_contents();
+        ob_end_clean();
+        $pdf->WriteHTML($html);
+        $filename = 'act-' . $searchModel->closed_at . '-' . $searchModel->closed_to_date . '.pdf';
+        $pdf->Output($filename, 'I');
+        Yii::$app->end();
+//        return $this->renderAjax('_act_layout', ['tickets' => $tickets, 'model' => $searchModel, 'payments' => $payments]);
     }
 
     /**
@@ -160,15 +189,6 @@ class TicketController extends Controller {
                     ->attach($file)
                     ->send();
         }
-//        $mpdf = new \mPDF();
-//        $mpdf->SetImportUse();
-//        $pagecount = $mpdf->SetSourceFile($file);
-//        for($i=1; $i<=$pagecount;$i++)
-//        {
-//         $tplId= $mpdf->ImportPage($pagecount);
-//           
-//        }
-//        $mpdf->UseTemplate($tplId);
         header('content-type:application/pdf');
         header('Content-disposition: inline; filename="' . $file . '"');
         header('Cache-Control: public, must-revalidate, max-age=0');
