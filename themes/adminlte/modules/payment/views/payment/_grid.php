@@ -54,18 +54,21 @@ $this->registerJs($js);
             },
             'format'=>'raw',
         ],
-        [
-            'value'=>function($model, $key, $index){
-                return Html::radio('payments',false,['value'=>$key['id']]);
-            },
-            'format'=>'raw'
-        ],
+//        [
+//            'value'=>function($model, $key, $index){
+//                return Html::radio('payments',false,['value'=>$key['id']]);
+//            },
+//            'format'=>'raw'
+//        ],
         [
         'class' => 'yii\grid\ActionColumn',
-        'template' => '{delete}',
+        'template' => '{show_invoice}&nbsp;&nbsp;{delete}',
         'buttons' => [
             'delete' => function ($url, $model, $key) {                
                 return $this->render('_deletePopover',['url'=>$url]);
+            },
+            'show_invoice'=>function($url,$model,$key){
+                return Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-tasks','title'=>Yii::t('payment','View invoice')]),['/payment/payment/printinvoice','id'=>$model->id],['data-pjax'=>0,'class'=>'viewInvoice']);
             }
         ]
 ]

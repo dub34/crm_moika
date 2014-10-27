@@ -34,9 +34,16 @@ $(document).ready(function () {
             function (e) {
                 var $this = $(this);
                 e.preventDefault();
-                $this.parent().find('iframe')[0].height = 500;
-                $this.parent().find('iframe')[0].src = $this.attr("action") + '?' + $this.serialize();
-            }
+//                $(this).parent().find('#printBtn').show();
+//                $(this).parent().find('#printBtn').click(function(){
+                window.open($this.attr("action") + '?' + $this.serialize(),'_blank');
+//                    location.replace($this.attr("action") + '?' + $this.serialize());
+//                    window.frames["actPrintFrame"].print();
+//                });
+                
+//                $this.parent().find('iframe')[0].height = 500;
+//                $this.parent().find('iframe')[0].src = $this.attr("action") + '?' + $this.serialize();
+        }
     );
 });
 // serialize form, render response and close modal
@@ -143,35 +150,48 @@ function handlePaymentFormActions() {
     $('#printInvoiceForm').on('beforeSubmit', function (e) {
         var $this = $(this);
         e.preventDefault();
-        $('#invoicePrintBtn').show();
-        $this.parent().find('iframe')[0].height = 500;
-        $this.parent().find('iframe')[0].src = $this.attr("action") + '?' + $this.serialize();
+//        $('#invoicePrintBtn').show();
+//        $this.parent().find('iframe')[0].height = 500;
+//        $this.parent().find('iframe')[0].src = $this.attr("action") + '?' + $this.serialize();
+            window.open($this.attr("action") + '?' + $this.serialize(),'_blank');
     });
+    
     $('#printInvoiceForm').on('submit',
-            function (e) {
-                e.preventDefault();
-            }
+        function (e) {
+            e.preventDefault();
+        }
     );
+    
     $('#printInvoice').on('hidden.bs.modal', function () {
         var cid = $('#payment-contract_id').val();
         reloadGrid('.load-payments', cid);
     })
-    $('#printInvoice').on('shown.bs.modal', function (e) {
-        if ($('input[name="payments"]:checked').length > 0)
-        {
-            $(this).find('.modal-body').load($(this).attr('data-url') + ' #frame', {id: $('input[name="payments"]:checked').val()}, function (data) {
-                $(this).find('iframe')[0].src = $(this).find('iframe')[0].src;
-                $('#invoicePrintBtn').show();
-                $('#invoicePrintBtn').click(function () {
-                    window.frames["invoicePrintFrame"].print();
-                })
-            });
-        }
+    
+    $('.viewInvoice').on('click',function(e){
+        e.preventDefault();
+        window.open($(this).attr('href'),'_blank');
     })
+    
+//    $('#printInvoice').on('shown.bs.modal', function (e) {
+//        if ($('input[name="payments"]:checked').length > 0)
+//        {
+//            var id= $('input[name="payments"]:checked').val();
+//            window.open($(this).attr('data-url') + '&id=' + id,'_blank');
+////            return false;
+////            $(this).modal('close');
+////            $(this).find('.modal-body').load($(this).attr('data-url') + ' #frame', {id: $('input[name="payments"]:checked').val()}, function (data) {
+////                $(this).find('iframe')[0].src = $(this).find('iframe')[0].src;
+////                $('#invoicePrintBtn').show();
+////                $('#invoicePrintBtn').click(function () {
+////                    window.frames["invoicePrintFrame"].print();
+////                })
+////            });
+//        }
+//    })
 
-    $('#invoicePrintBtn').click(function () {
-        window.frames["invoicePrintFrame"].print();
-    })
+//    $('#invoicePrintBtn').click(function () {
+//        window.frames["invoicePrintFrame"].print();
+//    })
 
 
     //Handle delete button

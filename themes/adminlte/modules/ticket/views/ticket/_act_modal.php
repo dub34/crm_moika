@@ -12,6 +12,8 @@ use yii\widgets\ActiveForm;
 
 $model = new app\modules\ticket\models\SearchTicket();
 $model->contract_id = $id;
+$model->closed_at = date("d.m.Y",strtotime("first day of last month"));
+$model->closed_to_date = date("d.m.Y",strtotime("last day of last month"));
 ?>
 <?php Modal::begin([
     'id'=>'printAct-'.$id,
@@ -45,7 +47,7 @@ $model->contract_id = $id;
 <?= Html::submitButton(Yii::t('ticket','Form act'),['class'=>'btn btn-success']); ?>
 
 <?php ActiveForm::end(); ?>
-
+<?= Html::button('Распечатать', ["id" => 'printBtn', 'class'=>'btn btn-primary', 'style' => 'display: none;']); ?>
 <br />
-<iframe class="act" width="100%" height="0"></iframe>
+<iframe class="act" name="actPrintFrame" width="100%" height="0"></iframe>
 <?php Modal::end();?>
