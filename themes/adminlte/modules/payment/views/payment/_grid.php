@@ -62,7 +62,7 @@ $this->registerJs($js);
 //        ],
         [
         'class' => 'yii\grid\ActionColumn',
-        'template' => '{show_invoice}{delete}',
+        'template' => '{show_invoice}&nbsp;&nbsp;{delete}',
         'buttons' => [
             'delete' => function ($url, $model, $key) {                
                 return $this->render('_deletePopover',['url'=>$url]);

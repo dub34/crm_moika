@@ -204,7 +204,16 @@ class TicketController extends Controller {
     //Save pdf to file
     //return save $filename or false on negative saving;
     public function savePdf($data = []) {
-        $pdf = new \mPDF();
+        $pdf = new \mPDF('',
+                        'A4',//format
+			'12',//font-s
+			'',//font
+                        5,//m-l
+			5,//m-r
+                        5,//m-t
+                        5,//m-b
+			0,//m-header
+			0);//m-footer);
         ob_start();
         echo $this->renderAjax('_ticketprintlayout', $data);
         $html = ob_get_contents();

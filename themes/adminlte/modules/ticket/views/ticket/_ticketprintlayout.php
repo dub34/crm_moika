@@ -24,10 +24,13 @@ use yii\helpers\Html;
     }
     .table{
         border-collapse: collapse;
+        font-size: 11px;
+        margin: 0;
+        padding: 0;
     }
     .bold {
         font-weight: bold;
-        font-size: 14px;
+        font-size: 12px;
         font-family: inherit
     }
     .border,.border tr, .border td{
@@ -44,7 +47,7 @@ use yii\helpers\Html;
 <?php
 for ($i=0; $i<count($model);$i++)
 {
-    if ($i!==0 && ($i % 3) == 0)
+    if ($i!==0 && ($i % 4) == 0)
     {
         echo '<pagebreak>';
     }
