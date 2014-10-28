@@ -71,7 +71,7 @@ $this->registerJs($js);
                 return Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-tasks','title'=>Yii::t('payment','View invoice')]),['/payment/payment/printinvoice','id'=>$model->id],['data-pjax'=>0,'class'=>'viewInvoice']);
             },
             'edit_invoice'=>function($url,$model,$key){
-                return Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-pencil','title'=>Yii::t('payment','View invoice')]),'',['data-pjax'=>0,'data-id'=>$model->id,'class'=>'viewPayment']);
+                return Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-pencil','title'=>Yii::t('payment','Edit payment')]),'',['data-pjax'=>0,'data-id'=>$model->id,'class'=>'viewPayment']);
             },
         ]
 ]
