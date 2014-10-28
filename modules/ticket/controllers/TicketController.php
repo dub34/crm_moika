@@ -234,18 +234,24 @@ class TicketController extends Controller {
     public function actionUpdate($id, $contract_id) {
 
         $model = $this->findModel($id);
-        $model->scenario = "update";
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', Yii::t('ticket', 'Ticket saved'));
-            if (Yii::$app->request->isAjax) {
-                \Yii::$app->response->format = 'json';
-                return ['message' => 'success', 'data' => $this->renderAjax('_close_form', [
-                        'model' => $model,
-                ])];
-            } else
-                return $this->redirect(['view', 'id' => $model->id, 'contract_id' => $model->contract_id]);
+        $model->scenario = "close_ticket";
+        if ($model->load(Yii::$app->request->post())){
+            if (strtotime($model->created_at)  !== strtotime(Yii::$app->formatter->asDate($model->oldAttributes['created_at'],'php:d.m.Y')))
+            {
+                $model->scenario = "update";
+            }
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', Yii::t('ticket', 'Ticket saved'));
+                if (Yii::$app->request->isAjax) {
+                    \Yii::$app->response->format = 'json';
+                    return ['message' => 'success', 'data' => $this->renderAjax('_close_form', [
+                            'model' => $model,
+                    ])];
+                } else
+                    return $this->redirect(['view', 'id' => $model->id, 'contract_id' => $model->contract_id]);
+            }
         }
-        else {
+//        else {
             if (Yii::$app->request->isAjax) {
                 return $this->renderAjax('_close_form', [
                             'model' => $model,
@@ -254,7 +260,7 @@ class TicketController extends Controller {
                 return $this->render('update', [
                             'model' => $model,
                 ]);
-        }
+//        }
     }
 
     /**

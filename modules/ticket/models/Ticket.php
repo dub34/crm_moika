@@ -48,10 +48,11 @@ class Ticket extends \yii\db\ActiveRecord
         return [
             [['contract_id'], 'required'],
             [['ticket_count'], 'required','on'=>'default'],
-            [['closed_at','services_list'],'required','on'=>'update'],
-            [['services_list','office_id'], 'safe','on'=>'update'],
+            [['closed_at','services_list'],'required','on'=>'close_ticket'],
+            [['services_list','office_id'], 'safe','on'=>'close_ticket'],
             [['contract_id', 'priznak','ticket_count'], 'integer'],
             [['created_at', 'closed_at', 'to_date','closed_to_date','services_list'], 'safe'],
+            [['created_at'], 'required','on'=>'update'],
             [['pometka'], 'string', 'max' => 45],
             [['email'],'email'],
             [['email'],'validate_email_checked','on'=>'default'],
@@ -60,7 +61,7 @@ class Ticket extends \yii\db\ActiveRecord
     }
     
     
-    
+    //Not working, because not usin validation on create tickets. TODO: Add model validation before saving batch tickets.
     public function validate_email_checked($attribute, $params){
         
         if (Yii::$app->request->get('send_email',null) !== null)
@@ -100,11 +101,13 @@ class Ticket extends \yii\db\ActiveRecord
     }
 
     public function beforeSave($insert) {
-        $this->closed_at =  Yii::$app->formatter->asDate($this->closed_at,'php:Y-m-d H:i');
+        $this->closed_at = $this->closed_at!==''?Yii::$app->formatter->asDate($this->closed_at,'php:Y-m-d H:i'):null;
         $this->created_at =  Yii::$app->formatter->asDate($this->created_at,'php:Y-m-d H:i');
-        //Delete all services from ticket before save new
-        Yii::$app->db->createCommand()->delete('ticket_has_service','ticket_id=:ticket_id',[':ticket_id'=>$this->id])->execute();
-        Yii::$app->db->createCommand('CALL updateBalance(:contract_id)',[':contract_id'=>$this->contract_id])->execute();
+//        if ($this->scenario == 'close_ticket'){
+            //Delete all services from ticket before save new
+            Yii::$app->db->createCommand()->delete('ticket_has_service','ticket_id=:ticket_id',[':ticket_id'=>$this->id])->execute();
+            Yii::$app->db->createCommand('CALL updateBalance(:contract_id)',[':contract_id'=>$this->contract_id])->execute();
+//        }
         return parent::beforeSave($insert);
     }
     
@@ -119,18 +122,20 @@ class Ticket extends \yii\db\ActiveRecord
     }
     
     public function afterSave($insert, $changedAttributes) {
-        //Create array for batchInsert services
-        $tickets = [];
-        $services = [];
-        array_walk($this->services_list, function($el)use (&$tickets,&$services){
-            $services[] = $service = Service::findOne($el)->getVersionByCreateDate($this->closed_at);
-            $tickets[] = [$this->id,$el,$service['version']];
-        });
-        //Save services to tickets
-        if (count($tickets)>0){
-            Yii::$app->db->createCommand()->batchInsert('ticket_has_service', ['ticket_id','service_id','version_id'], $tickets)->execute();
+        if (is_array($this->services_list) && count($this->services_list)>0){
+            //Create array for batchInsert services
+            $tickets = [];
+            $services = [];
+            array_walk($this->services_list, function($el)use (&$tickets,&$services){
+                $services[] = $service = Service::findOne($el)->getVersionByCreateDate($this->closed_at);
+                $tickets[] = [$this->id,$el,$service['version']];
+            });
+            //Save services to tickets
+            if (count($tickets)>0){
+                Yii::$app->db->createCommand()->batchInsert('ticket_has_service', ['ticket_id','service_id','version_id'], $tickets)->execute();
+            }
+            Yii::$app->db->createCommand('CALL updateBalance(:contract_id)',[':contract_id'=>$this->contract_id])->execute();
         }
-        Yii::$app->db->createCommand('CALL updateBalance(:contract_id)',[':contract_id'=>$this->contract_id])->execute();
         parent::afterSave($insert, $changedAttributes);
     }
 

@@ -87,15 +87,22 @@ function reloadBalance(id)
         $('#balance-' + id).load($("#contract_grid table").attr('data-balanceloadurl') + '/' + id);
     }
 }
+    $(document).on('click','.viewPayment',function(e){
+        e.preventDefault();
+        var id=$(this).attr('data-id');
+        $('#paymentMdlOpen').trigger('click',[id]);
+    });
 
 function handlePaymentFormActions() {
 
 
     //Handle Payment Create Modal
-    $('#paymentMdlOpen').click(function () {
+    $('#paymentMdlOpen').click(function (e,id) 
+    {
         var cid = $('#payment-contract_id').val();
-        var sel_payment = $('input[name="payments"]:checked').val();
-        $('#paymentCreateDlg').modal('show').find('.modal-body').load($(this).attr('data-url'), {id: sel_payment}, function () {
+//        var sel_payment = $('input[name="payments"]:checked').val();
+//        var sel_payment = id;
+        $('#paymentCreateDlg').modal('show').find('.modal-body').load($(this).attr('data-url'), {id: id}, function () {
             var saveHandler = function () {
                 $('#paymentCreateDlg').modal('hide');
                 setTimeout(function () {
@@ -113,7 +120,7 @@ function handlePaymentFormActions() {
             reloadGrid('.load-payments', cid);
         })
     });
-
+    
     //Handle Ticket Create Modal
     $('#ticketMdlOpen').click(function () {
         var cid = $('#ticket-contract_id').val();
