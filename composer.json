@@ -24,8 +24,8 @@
         "pheme/yii2-settings": "dev-master",
         "nepstor/yii2-datetime-compare-validator": "*",
         "alexgx/yii2-phpexcel" : "*",
-        "andre_487/php_rutils": "dev-master",
-        "robregonm/yii2-pdf": "dev-master"
+        "andre_487/php_rutils": "1.1.1",
+        "mpdf/mpdf": "5.7.3"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
