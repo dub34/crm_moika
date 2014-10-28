@@ -19,11 +19,11 @@
  */
 return array(
     'Clients' => 'Клиенты',
-    'Create payment' => 'Создать платеж',
+    'Create payment' => 'Создать/Редактировать платеж',
+    'Edit payment'=>'Редактировать платеж',
     'Contract ID' => 'Номер договора',
     'Details' => 'Сведения',
     'Show Payments'=>'Платежи',
-    'Edit payment'=>'Редактировать платеж',
     'Select contract to show payments'=>'Выберите договор, чтобы показать платежи',
     'Payment Sum'=>'Сумма платежа',
     'Created At'=>'Добавлено',
