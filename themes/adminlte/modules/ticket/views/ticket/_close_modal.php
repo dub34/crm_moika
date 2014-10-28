@@ -28,8 +28,8 @@ $this->registerJs($script);
 
 Modal::begin([
     'id' => 'closeticket-' . $model->id,
-    'header' => '<h2>' . Yii::t('ticket', 'Close ticket') . '</h2>',
-    'toggleButton' => ['label' => Html::tag('span', '', ['class' => 'ion ion-compose']), 'title' => Yii::t('ticket', 'Close ticket'), 'class' => 'btn btn-primary btn-xs'],
+    'header' => '<h4>' . Yii::t('ticket', 'Edit ticket') . '</h4>',
+    'toggleButton' => ['label' => Html::tag('span', '', ['class' => 'ion ion-compose']), 'title' => Yii::t('ticket', 'Edit ticket'), 'class' => 'btn btn-primary btn-xs'],
 ]);
 ?>
 

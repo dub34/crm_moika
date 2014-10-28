@@ -47,6 +47,7 @@ DatePicker::widget([
     'pluginOptions' => [
         'format' => 'dd.mm.yyyy',
         'autoclose' => true,
+        'todayHighlight' => true
     ]
 ]);
 ?>
@@ -61,9 +62,11 @@ DatePicker::widget([
     'pluginOptions' => [
         'format' => 'dd.mm.yyyy',
         'autoclose' => true,
+        'todayHighlight' => true
     ]
 ]);
 ?>
+<p class="help-block"><?= Yii::t('ticket','Leave this field empty and ticket will not be closed'); ?></p>
 <?= $form->field($model, 'office_id')->dropDownList(ArrayHelper::map(Office::find()->all(), 'id', 'name'), ['prompt' => Yii::t('ticket', 'Select office')]); ?>
 
 <?php // $form->field($model, 'services_list')->dropDownList(ArrayHelper::map(ServiceHistory::getActualVersionsByDate($model->closed_at) , 'id', 'name'), ['multiple'=>true,'id'=>'services_list-'.$model->id]);  ?>

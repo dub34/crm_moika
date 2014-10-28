@@ -33,6 +33,7 @@ return array(
     'Closed'=>"Закрытые",
     'not Closed'=>"Не закрытые",
     'Close ticket'=>"Закрыть талон",
+    'Edit ticket'=>"Редактировать талон",
     'Save and print'=>'Сохранить и распечатать',
     'Ticket saved'=>'Талон Сохранен',
     'Select office'=>'Выберите филиал',
@@ -40,4 +41,5 @@ return array(
     'Services'=>'Услуги',
     'Select service'=>'Выберите услугу',
     'Services List'=>'Услуги',
+    'Leave this field empty and ticket will not be closed'=>'Оставьте это поле пустым, и талон не будет закрыт'
 );
