@@ -22,7 +22,7 @@ $model->closed_to_date = date("d.m.Y",strtotime("last day of last month"));
 //    'toggleButton' => ['label' => Html::tag('span', '', ['class' => 'glyphicon glyphicon-list-alt']), 'title' => Yii::t('contract', 'Print act'), 'class' => 'btn btn-primary btn-sm'],
 ]);?>
 
-<?php $form = ActiveForm::begin(['action'=>Url::to('/ticket/ticket/printact'),'id'=>'printActForm-'.$model->contract_id,'options'=>['class'=>'printActForm','data-pjax'=>0]]); ?>
+<?php $form = ActiveForm::begin(['action'=>Url::to('/ticket/ticket/printact'),'method'=>'GET','id'=>'printActForm-'.$model->contract_id,'options'=>['target'=>'_blank','class'=>'printActForm','data-pjax'=>0]]); ?>
 
 <?= $form->field($model,'contract_id',['template'=>'{input}'])->hiddenInput();?>
 <?= FieldRange::widget([

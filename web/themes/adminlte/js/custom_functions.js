@@ -32,11 +32,11 @@ $(document).ready(function () {
 
     $('.printActForm').on('submit',
             function (e) {
-                var $this = $(this);
-                e.preventDefault();
+//                var $this = $(this);
+//                e.preventDefault();
 //                $(this).parent().find('#printBtn').show();
 //                $(this).parent().find('#printBtn').click(function(){
-                window.open($this.attr("action") + '?' + $this.serialize(),'_blank');
+//                window.open($this.attr("action") + '?' + $this.serialize(),'_blank');
 //                    location.replace($this.attr("action") + '?' + $this.serialize());
 //                    window.frames["actPrintFrame"].print();
 //                });
