@@ -42,6 +42,19 @@ $serviceloadurl=Url::to('/service/service/getactualversionsbydate');
 DatePicker::widget([
     'form' => $form,
     'model' => $model,
+    'attribute' => 'created_at',
+    'options' => ['id' => 'created_at-' . $model->id],
+    'pluginOptions' => [
+        'format' => 'dd.mm.yyyy',
+        'autoclose' => true,
+    ]
+]);
+?>
+<?=
+
+DatePicker::widget([
+    'form' => $form,
+    'model' => $model,
     'attribute' => 'closed_at',
     'options' => ['id' => 'closed_at-' . $model->id],
     'pluginEvents'=>['changeDate'=>"function(e){var selected = $('#ticket-services_list-{$model->id}').select2('val'); $('#ticket-services_list-{$model->id}').load('{$serviceloadurl}',{date:e.format(),ticket_id:{$model->id} },function(data){ $('#ticket-services_list-{$model->id}').html(data); $('#ticket-services_list-{$model->id}').val(selected).trigger('change');}); }"],

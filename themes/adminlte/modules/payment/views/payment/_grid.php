@@ -62,14 +62,17 @@ $this->registerJs($js);
 //        ],
         [
         'class' => 'yii\grid\ActionColumn',
-        'template' => '{show_invoice}&nbsp;&nbsp;{delete}',
+        'template' => '{edit_invoice}&nbsp;&nbsp;{show_invoice}&nbsp;&nbsp;{delete}',
         'buttons' => [
             'delete' => function ($url, $model, $key) {                
                 return $this->render('_deletePopover',['url'=>$url]);
             },
             'show_invoice'=>function($url,$model,$key){
                 return Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-tasks','title'=>Yii::t('payment','View invoice')]),['/payment/payment/printinvoice','id'=>$model->id],['data-pjax'=>0,'class'=>'viewInvoice']);
-            }
+            },
+            'edit_invoice'=>function($url,$model,$key){
+                return Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-pencil','title'=>Yii::t('payment','View invoice')]),'',['data-pjax'=>0,'data-id'=>$model->id,'class'=>'viewPayment']);
+            },
         ]
 ]
     ],
