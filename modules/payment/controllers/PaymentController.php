@@ -191,8 +191,8 @@ class PaymentController extends Controller {
                 ->setCellValue('E17', RUtils::numeral()->getRubles(Helpers::roundUp($model->payment_sum)));
         header('Content-Type: text/html');
         $contentDisposition = 'attachment';
-        $fileName = 'invoice.xls';
-        $objWriter = PHPExcel_IOFactory::createWriter($tmpl, 'HTML');
+        $fileName = 'invoice_'.$model->id.'.xls';
+        $objWriter = PHPExcel_IOFactory::createWriter($tmpl, 'Excel2007');
         header("Content-Disposition: {$contentDisposition};filename='" . $fileName . "'");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Cache-Control: max-age=1');
