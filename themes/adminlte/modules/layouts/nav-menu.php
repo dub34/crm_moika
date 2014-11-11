@@ -18,8 +18,8 @@ use yii\helpers\Html;
             <li><?= Html::a('<i class="ion ion-calendar"></i>'.'Услуги', '/service/service'); ?></li>
         </ul>
     </li>
-    
     <li><?= Html::a('<i class="glyphicon glyphicon-briefcase"></i><span>Договоры</span>', '/contract/contract'); ?></li>
+    <li><?= Html::a('<i class="glyphicon glyphicon-signal"></i><span>Отчеты</span>', '/contract/reports'); ?></li>
 </ul>
 
                                 

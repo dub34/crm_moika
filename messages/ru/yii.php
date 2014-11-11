@@ -25,7 +25,6 @@ return array (
   'Error' => 'Ошибка',
   'password' => 'Пароль',
   'username' => 'Логин',
-  
   'File upload failed.' => 'Загрузка файла не удалась.',
   'Home' => 'Главная',
   'Invalid data received for parameter "{param}".' => 'Неправильное значение параметра "{param}".',

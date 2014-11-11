@@ -33,5 +33,11 @@ return array (
   'Select client'=>'-Выберите клиента-',
   'Select contract' => 'Выберите договор',
   'Balance' => 'Баланс',
+  'Date start'=>'Дата начала',
+  'Date stop'=>'Дата окончания',
+  'All clients payments'=>'Обороты клиентов за период',
+  'Select date range' => 'Выберите период',
+  'Get' => 'Выбрать',
+  'Summ' => 'Сумма',
   '{attribute} should contain {length, number} {length, plural, one{character} other{characters}}.' => 'Значение «{attribute}» должно содержать {length, number} {length, plural, one{символ} few{символа} many{символов} other{символа}}.',
 );
