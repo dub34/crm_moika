@@ -14,7 +14,7 @@ class EmployeeIdentity extends \yii\base\Object implements \yii\web\IdentityInte
         '100' => [
             'id' => '100',
             'employeename' => 'admin',
-            'password' => 'admin',
+            'password' => 'dg9_+395',
             'authKey' => 'test100key',
             'accessToken' => '100-token',
         ],
