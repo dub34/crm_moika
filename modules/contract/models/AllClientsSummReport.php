@@ -58,7 +58,7 @@ class AllClientsSummReport extends \yii\db\ActiveRecord
     
     public function getData()
     {
-        return Yii::$app->db->createCommand('CALL `crm_moika`.`allClientsTicketClose`(:start_date,:stop_date)',[':start_date'=>Yii::$app->formatter->asDate($this->date_start,'php:Y-m-d'),':stop_date'=>Yii::$app->formatter->asDate($this->date_stop,'php:Y-m-d')])->queryAll();
+        return Yii::$app->db->createCommand('CALL `allClientsTicketClose`(:start_date,:stop_date)',[':start_date'=>Yii::$app->formatter->asDate($this->date_start,'php:Y-m-d'),':stop_date'=>Yii::$app->formatter->asDate($this->date_stop,'php:Y-m-d')])->queryAll();
     }
     
 }
