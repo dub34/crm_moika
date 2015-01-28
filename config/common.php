@@ -17,6 +17,9 @@ return [
         'db' => [
             'class' => 'yii\db\Connection',
             'charset' => 'utf8',
+			'dsn' => 'mysql:host=localhost;dbname=avtosm_crm',
+            'username' => 'avtosm_crm',
+            'password' => 'ps7MeSU1',
         ],
         'formatter' => [
             'locale' => 'be_BY',
