@@ -50,7 +50,7 @@ class Service extends \yii\db\ActiveRecord
             [['name'], 'required'],
 //            [['service_history_id'], 'integer'],
             [['name','price'], 'string'],
-            [['version','description'],'safe']
+            [['version','description','nds'],'safe']
         ];
     }
 
