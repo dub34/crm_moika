@@ -40,10 +40,10 @@ $(document).ready(function () {
 //                    location.replace($this.attr("action") + '?' + $this.serialize());
 //                    window.frames["actPrintFrame"].print();
 //                });
-                
+
 //                $this.parent().find('iframe')[0].height = 500;
 //                $this.parent().find('iframe')[0].src = $this.attr("action") + '?' + $this.serialize();
-        }
+            }
     );
 });
 // serialize form, render response and close modal
@@ -75,8 +75,11 @@ function submitForm(e) {
 }
 
 function reloadGrid(selector, id) {
-    $(selector).filter('a[data-id="' + id + '"]').click();
+    $('#payments-grid').parents('.box').prepend('<div class="overlay"></div><div class="loading-img"></div>');
     reloadBalance(id);
+    setTimeout(function () {
+        $(selector).filter('a[data-id="' + id + '"]').click();
+    }, 2000);
 }
 
 function reloadBalance(id)
@@ -87,27 +90,30 @@ function reloadBalance(id)
         $('#balance-' + id).load($("#contract_grid table").attr('data-balanceloadurl') + '/' + id);
     }
 }
-    $(document).on('click','.viewPayment',function(e){
-        e.preventDefault();
-        var id=$(this).attr('data-id');
-        $('#paymentMdlOpen').trigger('click',[id]);
-    });
+$(document).on('click', '.viewPayment', function (e) {
+    e.preventDefault();
+    var id = $(this).attr('data-id');
+    $('#paymentMdlOpen').trigger('click', [id]);
+});
 
 function handlePaymentFormActions() {
 
 
     //Handle Payment Create Modal
-    $('#paymentMdlOpen').click(function (e,id) 
+    $('#paymentMdlOpen').click(function (e, id)
     {
         var cid = $('#payment-contract_id').val();
 //        var sel_payment = $('input[name="payments"]:checked').val();
 //        var sel_payment = id;
         $('#paymentCreateDlg').modal('show').find('.modal-body').load($(this).attr('data-url'), {id: id}, function () {
             var saveHandler = function () {
+//                $('#paymentCreateDlg').off('hidden.bs.modal'); 
+//                    console.log('disable reload after save');
                 $('#paymentCreateDlg').modal('hide');
-                setTimeout(function () {
-                    reloadGrid('.load-payments', cid);
-                }, 2000);
+//                setTimeout(function () {
+//                    console.log('reload-grid-on-after-save');
+                reloadGrid('.load-payments', cid);
+//                }, 2000);
             }
             $('#payment_form').on('beforeSubmit', {successHndl: saveHandler}, submitForm);
             $('#payment_form').on('submit',
@@ -116,11 +122,12 @@ function handlePaymentFormActions() {
                     }
             );
         });
-        $('#paymentCreateDlg').on('hidden.bs.modal', function () {
-            reloadGrid('.load-payments', cid);
-        })
+//        $('#paymentCreateDlg').on('hidden.bs.modal', function () {
+////            console.log('reload-grid-on-close-modal');
+//            reloadGrid('.load-payments', cid);
+//        })
     });
-    
+
     //Handle Ticket Create Modal
     $('#ticketMdlOpen').click(function () {
         var cid = $('#ticket-contract_id').val();
@@ -160,25 +167,25 @@ function handlePaymentFormActions() {
 //        $('#invoicePrintBtn').show();
 //        $this.parent().find('iframe')[0].height = 500;
 //        $this.parent().find('iframe')[0].src = $this.attr("action") + '?' + $this.serialize();
-            window.open($this.attr("action") + '?' + $this.serialize(),'_blank');
+        window.open($this.attr("action") + '?' + $this.serialize(), '_blank');
     });
-    
+
     $('#printInvoiceForm').on('submit',
-        function (e) {
-            e.preventDefault();
-        }
+            function (e) {
+                e.preventDefault();
+            }
     );
-    
+
     $('#printInvoice').on('hidden.bs.modal', function () {
         var cid = $('#payment-contract_id').val();
         reloadGrid('.load-payments', cid);
     })
-    
-    $('.viewInvoice').on('click',function(e){
+
+    $('.viewInvoice').on('click', function (e) {
         e.preventDefault();
-        window.open($(this).attr('href'),'_blank');
+        window.open($(this).attr('href'), '_blank');
     })
-    
+
 //    $('#printInvoice').on('shown.bs.modal', function (e) {
 //        if ($('input[name="payments"]:checked').length > 0)
 //        {
