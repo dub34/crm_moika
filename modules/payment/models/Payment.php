@@ -1,6 +1,7 @@
 <?php
 
 namespace app\modules\payment\models;
+
 use app\modules\contract\models\Contract;
 use Yii;
 
@@ -13,16 +14,17 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  *
-    * @property Contract $contract
+ * @property Contract $contract
  */
 class Payment extends \yii\db\ActiveRecord
 {
-    const PAYMENT_ACTIVE=1;
-    const PAYMENT_NONACTIVE=0;
+    const PAYMENT_ACTIVE = 1;
+    const PAYMENT_NONACTIVE = 0;
 
     public $tstCreatedAt;
     public $visibleDateFormat = 'php:d.m.Y';
     public $storeDateFormat = 'php:Y-m-d H:i:s';
+
     /**
      * @inheritdoc
      */
@@ -31,16 +33,25 @@ class Payment extends \yii\db\ActiveRecord
         return 'payment';
     }
 
+    public function scenarios()
+    {
+        return [
+            'create' => ['contract_id', 'created_at', 'payment_sum','nds','update_at','status'],
+            'default'=>['contract_id', 'created_at', 'payment_sum','nds','update_at','status']
+        ];
+    }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['contract_id','created_at','payment_sum'], 'required'],
-            [['contract_id','status'], 'integer'],
-            [['created_at', 'updated_at','status'], 'safe'],
-            [['created_at'], 'date','format'=> 'php:d.m.Y'],
+            [['contract_id', 'created_at', 'payment_sum'], 'required'],
+            [['contract_id', 'status', 'nds'], 'integer'],
+            [['nds'], 'default', 'value' => Yii::$app->settings->get('nds'), 'on' => 'create'],
+            [['created_at', 'updated_at', 'status'], 'safe'],
+            [['created_at'], 'date', 'format' => 'php:d.m.Y'],
             [['payment_sum'], 'string', 'max' => 25],
         ];
     }
@@ -60,18 +71,23 @@ class Payment extends \yii\db\ActiveRecord
         ];
     }
 
-    public function beforeSave($insert) {
-        
-        $this->created_at = Yii::$app->formatter->asDate($this->created_at,$this->storeDateFormat);
+    public function beforeSave($insert)
+    {
+
+        $this->created_at = Yii::$app->formatter->asDate($this->created_at,
+            $this->storeDateFormat);
+        $this->payment_sum = \app\components\helpers\Helpers::roundUp($this->payment_sum);
         return parent::beforeSave($insert);
     }
-    
-    public function afterFind() {
-        if (null!==$this->created_at)
-            $this->created_at = Yii::$app->formatter->asDate($this->created_at,$this->visibleDateFormat);
+
+    public function afterFind()
+    {
+        if (null !== $this->created_at)
+                $this->created_at = Yii::$app->formatter->asDate($this->created_at,
+                $this->visibleDateFormat);
         return parent::afterFind();
     }
-    
+
     /**
      * @return \yii\db\ActiveQuery
      */

@@ -17,9 +17,11 @@ use app\components\helpers\Helpers;
 /**
  * PaymentController implements the CRUD actions for Payment model.
  */
-class PaymentController extends Controller {
+class PaymentController extends Controller
+{
 
-    public function behaviors() {
+    public function behaviors()
+    {
         $behaviors = [
 //            'verbs' => [
 //                'class' => VerbFilter::className(),
@@ -36,12 +38,13 @@ class PaymentController extends Controller {
      * Lists all Payment models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $searchModel = new PaymentSearch;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
         $query = Payment::find();
         if (null !== ($ci = Yii::$app->request->get('contract_id')))
-            $query->where = ["contract_id" => $ci];
+                $query->where = ["contract_id" => $ci];
         $paymentDP = new \yii\data\ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -50,20 +53,24 @@ class PaymentController extends Controller {
         ]);
         $model = new Payment;
         if (Yii::$app->request->get('_pjax') == '#contract_payments_pjax_container') {
-            return $this->render('_grid', ['paymentDP' => $paymentDP, 'model' => $model]);
+            return $this->render('_grid',
+                    ['paymentDP' => $paymentDP, 'model' => $model]);
         } else {
-            return $this->render('index', [
-                        'dataProvider' => $dataProvider,
-                        'searchModel' => $searchModel,
-                        'paymentDP' => $paymentDP,
-                        'model' => $model
+            return $this->render('index',
+                    [
+                    'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'paymentDP' => $paymentDP,
+                    'model' => $model
             ]);
         }
     }
 
-    public function actionLoadpaymentgrid() {
+    public function actionLoadpaymentgrid()
+    {
         $id = Yii::$app->request->get('id', Yii::$app->request->post('id', null));
-        $contract_id = Yii::$app->request->get('contract_id', Yii::$app->request->post('contract_id', null));
+        $contract_id = Yii::$app->request->get('contract_id',
+            Yii::$app->request->post('contract_id', null));
 
         if (!$id && !$contract_id) {
             throw NotFoundHttpException;
@@ -83,9 +90,11 @@ class PaymentController extends Controller {
             ],
         ]);
         $model = new Payment;
-        $model::populateRecord($model, ['contract_id' => $contract_id, 'id' => $id]);
+        $model::populateRecord($model,
+            ['contract_id' => $contract_id, 'id' => $id]);
 //        $model->load(Yii::$app->request->queryParams);
-        return $this->renderAjax('_grid', ['paymentDP' => $paymentDP, 'model' => $model]);
+        return $this->renderAjax('_grid',
+                ['paymentDP' => $paymentDP, 'model' => $model]);
     }
 
     /**
@@ -94,9 +103,11 @@ class PaymentController extends Controller {
      * @param integer $contract_id
      * @return mixed
      */
-    public function actionView($id, $contract_id) {
-        return $this->render('view', [
-                    'model' => $this->findModel($id, $contract_id),
+    public function actionView($id, $contract_id)
+    {
+        return $this->render('view',
+                [
+                'model' => $this->findModel($id, $contract_id),
         ]);
     }
 
@@ -105,14 +116,15 @@ class PaymentController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $id = Yii::$app->request->get('id', Yii::$app->request->post('id', null));
-        $contract_id = Yii::$app->request->get('contract_id', Yii::$app->request->post('contract_id', null));
+        $contract_id = Yii::$app->request->get('contract_id',
+            Yii::$app->request->post('contract_id', null));
 
-        if ($id && $contract_id)
-            $model = $this->findModel($id, $contract_id);
+        if ($id && $contract_id) $model = $this->findModel($id, $contract_id);
         else {
-            $model = new Payment;
+            $model = new Payment(['scenario' => 'create']);
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -120,11 +132,14 @@ class PaymentController extends Controller {
                 $contract_id = $model->contract_id;
                 $model = new Payment;
                 $model->contract_id = $contract_id;
-                Yii::$app->getSession()->setFlash('payment_save_success', 'Оплата сохранена');
+                Yii::$app->getSession()->setFlash('payment_save_success',
+                    'Оплата сохранена');
                 \Yii::$app->response->format = 'json';
-                return ['message' => 'success', 'data' => $this->renderAjax('create', [
+                return ['message' => 'success', 'data' => $this->renderAjax('create',
+                        [
                         'model' => $model,
-                ])];
+                        ]
+                )];
 //                return $this->renderAjax('create', [
 //                            'model' => $model,
 //                ]);
@@ -133,25 +148,30 @@ class PaymentController extends Controller {
             }
         } else {
             if ($model->isNewRecord)
-                $model::populateRecord($model, ['contract_id' => Yii::$app->request->get('contract_id')]);
+                    $model::populateRecord($model,
+                    ['contract_id' => Yii::$app->request->get('contract_id')]);
             if (Yii::$app->request->isAjax) {
-                return $this->renderAjax('_form', [
-                            'model' => $model,
+                return $this->renderAjax('_form',
+                        [
+                        'model' => $model,
                 ]);
             } else {
-                return $this->render('create', [
-                            'model' => $model,
+                return $this->render('create',
+                        [
+                        'model' => $model,
                 ]);
             }
         }
     }
 
-    public function actionPrintinvoice() {
+    public function actionPrintinvoice()
+    {
         if (!($id = Yii::$app->request->get('id', null))) {
-            $model = new Payment();
+            $model = new Payment(['scenario' => 'create']);
             $model->load(Yii::$app->request->queryParams);
             $model->status = Payment::PAYMENT_NONACTIVE;
-            $model->created_at = Yii::$app->formatter->asDate(time(), $model->visibleDateFormat);
+            $model->created_at = Yii::$app->formatter->asDate(time(),
+                $model->visibleDateFormat);
         } else {
             $model = Payment::findOne([$id]);
         }
@@ -164,40 +184,49 @@ class PaymentController extends Controller {
         }
     }
 
-    private function createExcellReport($model) {
-        if ($model->payment_sum<0)$model->payment_sum=0;
+    private function createExcellReport($model)
+    {
+        if ($model->payment_sum < 0) $model->payment_sum = 0;
         $excel = new PhpExcel;
         $tmpl = $excel->load('files/invoice_1.xls');
         $office = new Office;
         $office = $office->defaultOffice;
-        $nds = Helpers::roundUp($model->payment_sum * Yii::$app->settings->get('nds') / 100);
+        $nds_value = $model->nds ? $model->nds : Yii::$app->settings->get('nds');
+        $nds = Helpers::roundUp($model->payment_sum * $nds_value / 100);
         $sum_bez_nds = Helpers::roundUp($model->payment_sum - $nds);
         $tmpl->setActiveSheetIndex(0)
-                ->setCellValue('B1', $office->name)
-                ->setCellValue('J2', $model->id)
-                ->setCellValue('B5', $office->register_address)
-                ->setCellValue('B6', 'Тел. ' . $office->telephone . ' факс. ' . $office->fax)
-                ->setCellValue('B7', 'р/с.' . $office->payment_account . ' в ' . $office->bank_name)
-                ->setCellValue('B8', 'код ' . $office->bank_code)
-                ->setCellValue('B9', 'УНП ' . $office->unp . ' ОКПО ' . $office->okpo)
-                ->setCellValue('H6', Yii::$app->formatter->asDate(time(), 'php:d.m.Y'))
-                ->setCellValue('B11', $model->contract->client->name)
-                ->setCellValue('C14', Yii::$app->settings->get('nds'))
-                ->setCellValue('C15', Yii::$app->formatter->asInteger($sum_bez_nds))
-                ->setCellValue('E15', RUtils::numeral()->getRubles($sum_bez_nds))
-                ->setCellValue('C16', Yii::$app->formatter->asInteger($nds))
-                ->setCellValue('E16', RUtils::numeral()->getRubles(Helpers::roundUp($nds)))
-                ->setCellValue('C17', Yii::$app->formatter->asInteger(Helpers::roundUp($model->payment_sum)))
-                ->setCellValue('E17', RUtils::numeral()->getRubles(Helpers::roundUp($model->payment_sum)));
+            ->setCellValue('B1', $office->name)
+            ->setCellValue('J2', $model->id)
+            ->setCellValue('B5', $office->register_address)
+            ->setCellValue('B6',
+                'Тел. '.$office->telephone.' факс. '.$office->fax)
+            ->setCellValue('B7',
+                'р/с.'.$office->payment_account.' в '.$office->bank_name)
+            ->setCellValue('B8', 'код '.$office->bank_code)
+            ->setCellValue('B9', 'УНП '.$office->unp.' ОКПО '.$office->okpo)
+//            ->setCellValue('H6',Yii::$app->formatter->asDate(time(), 'php:d.m.Y'))
+            ->setCellValue('H6',
+                Yii::$app->formatter->asDate($model->created_at, 'php:d.m.Y'))
+            ->setCellValue('B11', $model->contract->client->name)
+            ->setCellValue('C14', $nds_value)
+            ->setCellValue('C15', Yii::$app->formatter->asInteger($sum_bez_nds))
+            ->setCellValue('E15', RUtils::numeral()->getRubles($sum_bez_nds))
+            ->setCellValue('C16', Yii::$app->formatter->asInteger($nds))
+            ->setCellValue('E16',
+                RUtils::numeral()->getRubles(Helpers::roundUp($nds)))
+            ->setCellValue('C17',
+                Yii::$app->formatter->asInteger(Helpers::roundUp($model->payment_sum)))
+            ->setCellValue('E17',
+                RUtils::numeral()->getRubles(Helpers::roundUp($model->payment_sum)));
         header('Content-Type: text/html');
         $contentDisposition = 'attachment';
         $fileName = 'invoice_'.$model->id.'.xlsx';
         $objWriter = PHPExcel_IOFactory::createWriter($tmpl, 'Excel2007');
-        header("Content-Disposition: {$contentDisposition};filename='" . $fileName . "'");
+        header("Content-Disposition: {$contentDisposition};filename='".$fileName."'");
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Cache-Control: max-age=1');
         header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+        header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
         header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
         header('Pragma: public'); // HTTP/1.0
         $objWriter->save('php://output');
@@ -211,14 +240,16 @@ class PaymentController extends Controller {
      * @param integer $contract_id
      * @return mixed
      */
-    public function actionUpdate($id, $contract_id) {
+    public function actionUpdate($id, $contract_id)
+    {
         $model = $this->findModel($id, $contract_id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id, 'contract_id' => $model->contract_id]);
         } else {
-            return $this->render('update', [
-                        'model' => $model,
+            return $this->render('update',
+                    [
+                    'model' => $model,
             ]);
         }
     }
@@ -230,11 +261,11 @@ class PaymentController extends Controller {
      * @param integer $contract_id
      * @return mixed
      */
-    public function actionDelete($id, $contract_id) {
+    public function actionDelete($id, $contract_id)
+    {
         $model = $this->findModel($id, $contract_id);
         if ($model->delete()) {
-            if (!Yii::$app->request->isAjax)
-                return $this->redirect(['index']);
+            if (!Yii::$app->request->isAjax) return $this->redirect(['index']);
             else {
                 \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 return ['message' => 'success'];
@@ -253,12 +284,13 @@ class PaymentController extends Controller {
      * @return Payment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id, $contract_id) {
-        if (($model = Payment::findOne(['id' => $id, 'contract_id' => $contract_id])) !== null) {
+    protected function findModel($id, $contract_id)
+    {
+        if (($model = Payment::findOne(['id' => $id, 'contract_id' => $contract_id]))
+            !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
 }
