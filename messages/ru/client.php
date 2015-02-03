@@ -26,4 +26,5 @@ return array(
     'Select client' => 'Выбрать клиента',
     'Details' => 'Сведения',
     'Email' => 'E-mail',
+    'Show deleted' => 'Показывать удаленные'
 );

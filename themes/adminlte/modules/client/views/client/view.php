@@ -130,19 +130,20 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>-->
 <?= $details;?>
     </div>
-<!--    <div class="col-md-6">
-        <div class="box box-solid">
-            <div class="box-header">
-                <h3 class="box-title"><?= Yii::t('payment', 'Show Payments'); ?></h3>
-                <div class="box-tools pull-right"><?= $this->render('//modules/payment/views/payment/_modal',['client_id'=>$model->id,'model'=>new Payment]);?></div>
-            </div>
-            <div class="box-body">
-                <?php // Pjax::begin(['id' => 'contract_payments_pjax_container', 'formSelector'=>'form[data-pjax!="#payment_form_pjax_container"]', 'enablePushState'=>false,'enableReplaceState'=>false,'timeout'=>5000]); ?>
-                <p><?= Yii::t('payment', 'Select contract to show payments'); ?></p>
-                <?php // Pjax::end(); ?>
-            </div>
-        </div>
-    </div>-->
-
+    <!--<!--    <div class="col-md-6">-->
+    <!--        <div class="box box-solid">-->
+    <!--            <div class="box-header">-->
+    <!--                <h3 class="box-title">--><? //= Yii::t('payment', 'Show Payments'); ?><!--</h3>-->
+    <!--                <div class="box-tools pull-right">-->
+    <? //= $this->render('//modules/payment/views/payment/_modal',['client_id'=>$model->id,'model'=>new Payment]);?><!--</div>-->
+    <!--            </div>-->
+    <!--            <div class="box-body">-->
+    <!--                --><?php //// Pjax::begin(['id' => 'contract_payments_pjax_container', 'formSelector'=>'form[data-pjax!="#payment_form_pjax_container"]', 'enablePushState'=>false,'enableReplaceState'=>false,'timeout'=>5000]); ?>
+    <!--                <p>--><? //= Yii::t('payment', 'Select contract to show payments'); ?><!--</p>-->
+    <!--                --><?php //// Pjax::end(); ?>
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!-- -->
 
 </div>

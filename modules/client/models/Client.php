@@ -23,6 +23,7 @@ use app\modules\contract\models\Contract;
  * @property string $telephone
  * @property string $email
  * @property string $responsible_person
+ * @property boolean $is_active
  *
  * @property Contract[] $contracts
  */
@@ -43,7 +44,7 @@ class Client extends \yii\db\ActiveRecord {
             [['name', 'register_address', 'post_address', 'chief_name', 'bank_name', 'bank_code', 'payment_account', 'unp', 'okpo'], 'required'],
             [['register_address', 'post_address', 'chief_name', 'chief_post', 'bank_name', 'responsible_person'], 'string'],
             [['bank_code', 'payment_account', 'unp', 'okpo'], 'integer'],
-            [['telephone','fax'],'safe'],
+            [['telephone', 'fax', 'is_deleted'], 'safe'],
             ['email', 'email'],
             [['name'], 'string', 'max' => 45]
         ];
@@ -85,11 +86,9 @@ class Client extends \yii\db\ActiveRecord {
         return $this->hasMany(Contract::className(), ['client_id' => 'id'])->count();
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-//    public function getClientForm() {
-//        return $this->hasOne(ClientForm::className(), ['id' => 'client_form_id']);
-//    }
+    public static function find()
+    {
+        return new ClientQuery(get_called_class());
+    }
 
 }

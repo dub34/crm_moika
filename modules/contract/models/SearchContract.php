@@ -32,7 +32,11 @@ class SearchContract extends Contract
     public function search($params)
     {
         $query = Contract::find();
-//        $query->joinWith(['client']);
+        $query->joinWith([
+            'client' => function ($q) {
+                $q->isDeleted();
+            }
+        ]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
                     'pagination' => [

@@ -85,7 +85,7 @@ class Contract extends \yii\db\ActiveRecord
      */
     public function getClient()
     {
-        return $this->hasOne(Client::className(), ['id' => 'client_id']);
+        return $this->hasOne(Client::className(), ['id' => 'client_id'])->isDeleted();
     }
 
     /**
