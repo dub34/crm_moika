@@ -96,3 +96,7 @@ a.desc:after {
 iframe{
     border: none;
 }
+
+.deleted {
+    background: #ff7400;
+}

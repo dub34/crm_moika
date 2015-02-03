@@ -21,7 +21,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'summary' => false,
                 'layout' => "<div class=\"box-header\">"
-                . "<div class=\"box-tools\"><p class=\"pull-left\">".Html::a(Html::tag('span','',['class'=>'ion ion-person-add']),['create'], ['class' => 'btn btn-success font-white','title'=>Yii::t('client','Create client')])."</p>{pager}</div></div>"
+                    . "<div class=\"box-tools\"><p class=\"pull-left\">" . Html::a(Html::tag('span', '',
+                        ['class' => 'ion ion-person-add']), ['create'],
+                        ['class' => 'btn btn-success font-white', 'title' => Yii::t('client', 'Create client')])
+                    . '&nbsp;' . Html::a(Html::tag('span', '', ['class' => 'ion ion-trash-a']),
+                        ['', 'showDeleted' => $showDeleted ? 'off' : 'on'], [
+                            'class' => $showDeleted ? 'btn btn-default active' : 'btn btn-default',
+                            'title' => Yii::t('client', 'Show deleted')
+                        ])
+                    . "</p>{pager}</div></div>"
                 . "<div class=\"box-body no-padding\">{items}</div>",
                 'tableOptions' => ['class' => 'table table-stripped'],
                 'pager'=>[
@@ -30,20 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                    'maxButtonCount'=>5
                 ],
+                'rowOptions' => function ($model, $key, $index, $grid) {
+                    return ['class' => ($model->is_deleted) ? 'bg-danger' : null];
+                },
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-//            'id',
                     'name',
-//            'register_address:ntext',
-//            'post_address:ntext',
-//            'chief_name:ntext',
-                    // 'chief_post:ntext',
-                    // 'bank_name:ntext',
-                    // 'bank_code',
-                    // 'payment_account',
-                    // 'unp',
-                    // 'okpo',
-                    // 'fax',
                     [
                         'value'=>function($model){
                             return Html::a(Html::tag('span',$model->contractsCount,['class'=>'badge bg-light-blue']),['/contract/contract','SearchContract[client_id]'=>$model->id]);
@@ -61,12 +61,31 @@ $this->params['breadcrumbs'][] = $this->title;
                         'options' => ['class' => 'col-md-1'],
                         'format'=>'email'
                     ],
-                    // 'responsible_person:ntext',
-                    ['class' => 'yii\grid\ActionColumn'],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'buttons' => [
+                            'restore' => function ($url, $model, $key) {
+                                return $model->is_deleted ? Html::a('', $url, [
+                                    'class' => 'glyphicon glyphicon-repeat',
+                                    'data-confirm' => 'Вы уверены, что хотите восстановить этот элемент?',
+                                    'data-method' => 'post',
+                                    'data-pjax' => 0,
+                                    'title' => 'Восстановить'
+                                ]) : '';
+                            },
+                            'delete' => function ($url, $model, $key) {
+                                return (!$model->is_deleted) ? Html::a('', $url, [
+                                    'class' => 'glyphicon glyphicon-trash',
+                                    'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?',
+                                    'data-method' => 'post',
+                                    'data-pjax' => 0
+                                ]) : '';
+                            }
+                        ],
+                        'template' => '{view}{update}{delete}{restore}'
+                    ],
                 ],
             ]);
             ?>
-
-        <!--</div>-->
     </div>
 </div>

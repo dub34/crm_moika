@@ -31,52 +31,18 @@ class ClientController extends Controller {
      * @return mixed
      */
     public function actionIndex() {
+        if (\Yii::$app->request->get('showDeleted', false) == 'off') {
+            \Yii::$app->session->remove('showDeleted');
+        } elseif (\Yii::$app->request->get('showDeleted', false) == 'on') {
+            \Yii::$app->session->set('showDeleted', true);
+        }
+
         $searchModel = new ClientSearch;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-
-//        $clients = Client::find()->all();
-//        foreach ($clients as $client)
-//        {
-//            $client->name=  trim($client->name,"'");
-//            $client->post_address =  trim($client->post_address,"'");
-//            $client->register_address =  trim($client->register_address,"'");
-//            $client->chief_name =  trim($client->chief_name,"'");
-//            $client->chief_post =  trim($client->chief_post,"'");
-//            $client->responsible_person =  trim($client->responsible_person,"'");
-//            $client->bank_name =  trim($client->bank_name,"'");
-//            $client->email =  trim($client->email,"'");
-//            $client->save(false);                       
-//        }
-//        
-//        
-//        
-//      $row = 1;
-//if (($handle = fopen("/home/vkriuchkov/work/table_payment.csv", "r")) !== FALSE) {
-//    while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
-//        $client = new \app\modules\payment\models\Payment;
-//        $client->id=$data[0];
-//        $client->contract_id=$data[1];
-//        $client->payment_sum=$data[2];
-//        $client->created_at=$data[3];
-//        $client->updated_at=$data[4];
-//        try {
-//            $client->save(false);
-//        } catch (Exception $ex) {
-//            echo $client->id.'<br>';
-//            continue;
-//        }
-//        
-//       $row++;
-//    }
-//    fclose($handle);
-//}
-//        
-//       
-//        
-//        
         return $this->render('index', [
                     'dataProvider' => $dataProvider,
                     'searchModel' => $searchModel,
+            'showDeleted' => \Yii::$app->session->get('showDeleted', false)
         ]);
     }
 
@@ -98,6 +64,7 @@ class ClientController extends Controller {
      */
     public function actionCreate() {
         $model = new Client;
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -133,9 +100,25 @@ class ClientController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
-        $this->findModel($id)->delete();
-
+        $this->deleteRestore($id, true);
         return $this->redirect(['index']);
+    }
+
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     */
+    public function actionRestore($id)
+    {
+        $this->deleteRestore($id, false);
+        return $this->redirect(['index']);
+    }
+
+    private function deleteRestore($id, $action)
+    {
+        $model = $this->findModel($id);
+        $model->is_deleted = $action;
+        $model->save();
     }
 
     /**

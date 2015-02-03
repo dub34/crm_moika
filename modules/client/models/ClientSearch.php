@@ -28,8 +28,9 @@ class ClientSearch extends Client
 
     public function search($params)
     {
-        $query = Client::find();
+        $showDeleted = \Yii::$app->session->get('showDeleted', false);
 
+        $query = Client::find()->isDeleted($showDeleted);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

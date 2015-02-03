@@ -66,7 +66,8 @@ $this->registerJs($script);
                             'vAlign' => 'middle',
                             'value' => 'client.name',
                             'filterType' => GridView::FILTER_SELECT2,
-                            'filter' => ArrayHelper::map(Client::find()->orderBy('name')->asArray()->all(), 'id', 'name'),
+                            'filter' => ArrayHelper::map(Client::find()->isDeleted(false)->orderBy('name')->asArray()->all(),
+                                'id', 'name'),
                             'filterWidgetOptions' => [
                                 'pluginOptions' => ['allowClear' => true],
                             ],
