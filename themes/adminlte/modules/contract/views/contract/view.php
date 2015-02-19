@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'client_id',
                 'value'=>$model->client->name
             ],
-            'employee_id',
+            'employee.name',
             'number',
             'created_at',
         ],
