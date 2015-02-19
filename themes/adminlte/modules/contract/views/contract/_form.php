@@ -22,7 +22,9 @@ use kartik\widgets\DatePicker;
             <?= $form->field($model, 'number',
                 ['inputTemplate' => '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>{input}</div>',]); ?>
 
-            <?= $form->field($model, 'client_id', ['inputTemplate' => '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>{input}</div>',])->dropDownList(ArrayHelper::map(Client::find()->all(), 'id', 'name'), ['prompt' => Yii::t('contract', 'Select client')]); ?>
+            <?= $form->field($model, 'client_id',
+                ['inputTemplate' => '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>{input}</div>',])->dropDownList(ArrayHelper::map(Client::find()->isDeleted(false)->all(),
+                'id', 'name'), ['prompt' => Yii::t('contract', 'Select client')]); ?>
             <?php //  $form->field($model, 'employee_id')->textInput() ?>
             <?=
             DatePicker::widget([

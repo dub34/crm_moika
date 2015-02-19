@@ -128,6 +128,7 @@ class ContractController extends Controller
     protected function findModel($id)
     {
         if (($model = Contract::findOne($id)) !== null) {
+            $model->scenario = 'update';
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
