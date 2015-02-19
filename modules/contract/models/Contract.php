@@ -22,8 +22,8 @@ use app\modules\ticket\models\Ticket;
 class Contract extends \yii\db\ActiveRecord
 {
     public $tstCreatedAt;
-    
-    public $visibleDateFormat = 'd.m.Y';
+
+    public $visibleDateFormat = 'dd.MM.Y';
     public $storeDateFormat = 'Y-m-d H:i:s';
     /**
      * @inheritdoc
@@ -77,13 +77,19 @@ class Contract extends \yii\db\ActiveRecord
     }
 
     public function beforeSave($insert) {
-        $this->created_at = date($this->storeDateFormat,$this->tstCreatedAt);
+
+        $this->created_at = \Yii::$app->formatter->asDatetime($this->tstCreatedAt, $this->storeDateFormat);
+
+//            date($this->storeDateFormat,);
+//        $this->created_at = date($this->storeDateFormat,$this->tstCreatedAt);
         ($this->number == null)?$this->getContractNumber():null;
         return parent::beforeSave($insert);
     }
     
     public function afterFind() {
-        $this->created_at = date_format(date_create_from_format($this->storeDateFormat, $this->created_at), $this->visibleDateFormat);
+//        $this->created_at = date_format(date_create_from_format($this->storeDateFormat, $this->created_at), $this->visibleDateFormat);
+
+        $this->created_at = \Yii::$app->formatter->asDate($this->created_at, $this->visibleDateFormat);
         return parent::afterFind();
     }
 
