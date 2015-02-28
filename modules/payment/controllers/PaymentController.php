@@ -204,25 +204,24 @@ class PaymentController extends Controller
             ->setCellValue('A4', 'его адрес Почт. адрес ' . $office->register_address)
             ->setCellValue('A5',
                 'Тел.факс ' . $office->telephone . ', ' . $office->fax)
-            ->setCellValue('A7', 'расч.счет ' . $office->payment_account . ' в ' . $office->bank_name)
-            ->setCellValue('A8', 'Код ' . $office->bank_code . ' ' . Yii::$app->settings->get('office.bank_address'))
+            ->setCellValue('A6', 'расч.счет ' . $office->payment_account . ' в ' . $office->bank_name)
+            ->setCellValue('A7', 'Код ' . $office->bank_code . ' ' . Yii::$app->settings->get('office.bank_address'))
 //            ->setCellValue('B8', 'код '.$office->bank_code)
-            ->setCellValue('A9', 'УНП ' . $office->unp . ' ОКПО ' . $office->okpo)
-            ->setCellValue('A10', 'Грузоотправитель ' . $office->name)
-            ->setCellValue('A11', 'Ст. отправления г.Минск')
+            ->setCellValue('A8', 'УНП ' . $office->unp . ' ОКПО ' . $office->okpo)
+            ->setCellValue('A9', 'Грузоотправитель ' . $office->name)
+            ->setCellValue('A10', 'Ст. отправления г.Минск')
             ->setCellValue('E3', 'СЧЕТ-ФАКТУРА №' . $model->id)
             ->setCellValue('E5', 'от ' . Yii::$app->formatter->asDate($model->created_at, 'php:d.m.Y'))
 //            ->setCellValue('H6',Yii::$app->formatter->asDate($model->created_at, 'php:d.m.Y'))
-            ->setCellValue('B14', $model->contract->client->name)
-            ->setCellValue('E19', Yii::$app->formatter->asInteger($summ->nds_value))
-            ->setCellValue('D19', Yii::$app->formatter->asInteger($summ->sum))
-//            ->setCellValue('E15', RUtils::numeral()->getRubles($summ->sum))
-            ->setCellValue('B24', RUtils::numeral()->getRubles($summ->nds_sum))
-            ->setCellValue('B26', RUtils::numeral()->getRubles(Helpers::roundUp($model->payment_sum)))
+            ->setCellValue('B13', $model->contract->client->name)
+            ->setCellValue('E18', Yii::$app->formatter->asInteger($summ->nds_value))
+            ->setCellValue('D18', Yii::$app->formatter->asInteger($summ->sum))
+            ->setCellValue('F18', Yii::$app->formatter->asInteger($summ->nds_sum))
+            ->setCellValue('G18', Yii::$app->formatter->asInteger($total_summ))
             ->setCellValue('F19', Yii::$app->formatter->asInteger($summ->nds_sum))
-            ->setCellValue('F20', Yii::$app->formatter->asInteger($summ->nds_sum))
             ->setCellValue('G19', Yii::$app->formatter->asInteger($total_summ))
-            ->setCellValue('G20', Yii::$app->formatter->asInteger($total_summ));
+            ->setCellValue('B23', RUtils::numeral()->getRubles($summ->nds_sum))
+            ->setCellValue('B25', RUtils::numeral()->getRubles(Helpers::roundUp($model->payment_sum)));
         header('Content-Type: text/html');
         $contentDisposition = 'attachment';
         $fileName = 'invoice_'.$model->id.'.xlsx';
