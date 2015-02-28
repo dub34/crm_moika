@@ -70,11 +70,16 @@ class ActualService extends \yii\db\ActiveRecord
             'nds' => Yii::t('service','Nds'),
         ];
     }
-    
-    
-     public function getPriceNDS()
+
+
+    public function getPriceNDS()
     {
-        return ($this->price!==null && $this->price!==0) ?\app\components\helpers\Helpers::roundUp(($this->price/100)*$this->nds):'';
+        if ($this->price !== null && $this->price !== 0) {
+            $percent = 100 + $this->nds;
+            $summ = ($this->nds / $percent) * $this->price;
+            return \app\components\helpers\Helpers::roundUp($summ);
+        }
+        return '';
     }
     
     public function getPriceWithoutNDS()
