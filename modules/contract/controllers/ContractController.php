@@ -76,7 +76,6 @@ class ContractController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-//                $model->created_at = date($model->visibleDateFormat);
                 $model->load(Yii::$app->request->get());
             return $this->render('create', [
                 'model' => $model,

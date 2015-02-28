@@ -2,6 +2,7 @@
 
 namespace app\modules\payment\models;
 
+use app\components\helpers\Helpers;
 use app\modules\contract\models\Contract;
 use Yii;
 
@@ -95,4 +96,22 @@ class Payment extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Contract::className(), ['id' => 'contract_id']);
     }
+
+    /**
+     * @return \stdClass
+     * sum - сумма без НДС
+     * nds_sum - сумма НДС
+     * nds_value - значение процента НДС
+     */
+    public function calcNds()
+    {
+        $result = new \stdClass();
+        $result->nds_value = $this->nds ? $this->nds : Yii::$app->settings->get('nds');
+        $percent = 100 + $result->nds_value;
+        $result->nds_sum = Helpers::roundUp(($result->nds_value / $percent) * $this->payment_sum);
+        $result->sum = Helpers::roundUp($this->payment_sum - $result->nds_sum);
+
+        return $result;
+    }
+
 }
