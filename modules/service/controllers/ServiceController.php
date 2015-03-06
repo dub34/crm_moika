@@ -2,11 +2,16 @@
 
 namespace app\modules\service\controllers;
 
+use app\modules\service\models\ActualService;
+use app\modules\ticket\models\Ticket;
+use JsonSchema\Constraints\Format;
 use Yii;
 use app\modules\service\models\Service;
 use app\modules\service\models\ServiceSearch;
 use app\modules\service\models\ServiceHistory;
 use app\components\controllers\Controller;
+use yii\console\Response;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
@@ -121,18 +126,24 @@ class ServiceController extends Controller
         $out = [];
         if (Yii::$app->request->post('date') && Yii::$app->request->post('ticket_id'))
         {
+            $ticket = Ticket::findOne(Yii::$app->request->post('ticket_id'));
+
+
+//            $relatedServicesArray = ArrayHelper::toArray($relatedServices,[
+//                ActualService::className()=>['count','price','name','id']
+//            ]);
+//            $relatedServicesArray = ArrayHelper::index($relatedServicesArray,'id');
+            $relatedServices = $ticket->getServicesAsArray();
             $services = ServiceHistory::getActualVersionsByDate(Yii::$app->request->post('date'));
-            if (count($services)>0)
-            {
-                foreach ($services as $service)
-                {
-                    $out[]=Html::tag('option',$service->name,['value'=>$service->id]);
-                }
-            }
-//            \Yii::$app->response->format = 'json';
-            return implode('',$out);
-            
+//            foreach ($services as $service)
+//            {
+//                $out[] = Html::tag('div',Html::label($service->name).Html::textInput('services_list['.$service->id.']',$relatedServicesArray[$service->id]['count'],['class'=>'form-control','type'=>'number']),['class'=>'col-xs-2']);
+//            }
+            $out = $this->renderPartial('@app/themes/adminlte/modules/ticket/views/ticket/_services',
+                ['relatedServices' => $relatedServices, 'services' => $services]);
         }
+        \Yii::$app->response->format = 'html';
+        return $out;
     }
 
 

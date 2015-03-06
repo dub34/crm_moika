@@ -3,6 +3,8 @@
 namespace app\modules\ticket\controllers;
 
 use app\components\controllers\Controller;
+use app\modules\service\models\Service;
+use app\modules\service\models\ServiceHistory;
 use app\modules\ticket\models\SearchTicket;
 use app\modules\ticket\models\Ticket;
 use Yii;
@@ -260,7 +262,6 @@ class TicketController extends Controller
                 }
             }
         }
-//        else {
         if (Yii::$app->request->isAjax) {
             return $this->renderAjax('_close_form', [
                 'model' => $model,
@@ -270,7 +271,6 @@ class TicketController extends Controller
                 'model' => $model,
             ]);
         }
-//        }
     }
 
     /**

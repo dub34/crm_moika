@@ -4,7 +4,7 @@ return [
         'db' => [
             'dsn' => 'mysql:host=localhost;dbname=crm_moika',
             'username' => 'root',
-            'password' => 'toor',
+            'password' => 'root',
         ],
         'mailer' => [
             'useFileTransport' => true,
