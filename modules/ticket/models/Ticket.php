@@ -110,6 +110,11 @@ class Ticket extends \yii\db\ActiveRecord
         parent::afterFind();
     }
 
+    /**
+     * @param bool $insert
+     * @return bool
+     * @throws \yii\db\Exception
+     */
     public function beforeSave($insert)
     {
         $this->closed_at = $this->closed_at !== '' ? Yii::$app->formatter->asDate($this->closed_at,
@@ -125,6 +130,10 @@ class Ticket extends \yii\db\ActiveRecord
         return parent::beforeSave($insert);
     }
 
+    /**
+     * @return bool
+     * @throws \yii\db\Exception
+     */
     public function beforeDelete()
     {
         Yii::$app->db->createCommand()->delete('ticket_has_service', 'ticket_id=:ticket_id',
@@ -132,6 +141,9 @@ class Ticket extends \yii\db\ActiveRecord
         return parent::beforeDelete();
     }
 
+    /**
+     * @throws \yii\db\Exception
+     */
     public function afterDelete()
     {
         Yii::$app->db->createCommand('CALL updateBalance(:contract_id)',
@@ -139,6 +151,11 @@ class Ticket extends \yii\db\ActiveRecord
         return parent::afterDelete();
     }
 
+    /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     * @throws \yii\db\Exception
+     */
     public function afterSave($insert, $changedAttributes)
     {
         if (is_array($this->services_list) && count($this->services_list) > 0) {
@@ -162,34 +179,63 @@ class Ticket extends \yii\db\ActiveRecord
         parent::afterSave($insert, $changedAttributes);
     }
 
+    /**
+     * @return float|null
+     */
+
     public function getSumm()
     {
-        $services = \yii\helpers\ArrayHelper::getColumn($this->services, 'price');
+        $services = \yii\helpers\ArrayHelper::getColumn($this->services, 'sum_price');
         return is_numeric(array_sum($services)) ? Helpers::roundUp(array_sum($services)) : null;
     }
 
+    /**
+     * @return float|string
+     */
     public function getSummNDS()
     {
         return ($this->summ !== null && $this->summ !== 0) ? ($this->summ / 100) * $this->nds : '';
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getSummWithoutNDS()
     {
 
         return $this->summ !== null ? $this->summ - Helpers::roundUp($this->summNDS) : '';
     }
 
+    /**
+     * @return mixed|string
+     */
     public function getNds()
     {
         return (is_array($this->services) && count($this->services) > 0) ? $this->services[0]->nds : '';
     }
 
+    /**
+     * @return string
+     */
     public function getProgramms()
     {
-        return $services = implode(',', \yii\helpers\ArrayHelper::getColumn($this->services, 'name'));
+        $name = \yii\helpers\ArrayHelper::getColumn($this->services, 'name');
+        $count = \yii\helpers\ArrayHelper::getColumn($this->services, 'count');
+
+        $name = array_map(function ($a, $b) {
+            if ($b > 1) {
+                return $a . '(x' . $b . ')';
+            }
+            return $a;
+        }, $name, $count);
+
+        return $services = implode(',', $name);
     }
 
-
+    /**
+     * @param string $formatType
+     * @return string
+     */
     public function getFormattedServices($formatType = 'short')
     {
         switch ($formatType) {
@@ -200,7 +246,7 @@ class Ticket extends \yii\db\ActiveRecord
                 $f = [];
                 foreach ($this->services as $service) {
                     $s = $service->name . '(';
-                    $s .= ($service->count > 1) ? $service->count . 'x' . $service->price : $service->price;
+                    $s .= ($service->count > 1) ? $service->price . 'x' . $service->count : $service->price;
                     $s .= ')';
 
                     $f[] = $s;
@@ -208,8 +254,15 @@ class Ticket extends \yii\db\ActiveRecord
                 return implode(', ', $f);
                 break;
         }
+        return '';
     }
 
+    /**
+     * @param $contract_id
+     * @param $start_date
+     * @return float
+     * @throws \yii\db\Exception
+     */
     public static function getStartBalance($contract_id, $start_date)
     {
         $cmd = Yii::$app->db->createCommand("CALL `calculateBalanceValue`(:contract_id,:start_date,@balance);", [
@@ -220,6 +273,12 @@ class Ticket extends \yii\db\ActiveRecord
         return Helpers::roundUp($balance);
     }
 
+    /**
+     * @param $start_period
+     * @param $end_period
+     * @param $contract_id
+     * @return array|\yii\db\ActiveRecord[]
+     */
     public static function getPaymentsForAct($start_period, $end_period, $contract_id)
     {
         return \app\modules\payment\models\Payment::find()->where([
@@ -281,6 +340,9 @@ class Ticket extends \yii\db\ActiveRecord
         return $this->hasMany(ActualService::className(), ['ticket_id' => 'id']);
     }
 
+    /**
+     * @return array
+     */
     public function getServicesAsArray()
     {
         $relatedServices = $this->services;

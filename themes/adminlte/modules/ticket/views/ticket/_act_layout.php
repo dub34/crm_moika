@@ -61,14 +61,6 @@ $office = $office->defaultOffice;
         <p>Расчетный период <strong><?= $model->closed_at; ?> &mdash; <?= $model->closed_to_date; ?></strong></p>
     </div>
 </div>
-<!--<div class="row">
-    <div class="col-xs-6">
-        <strong> Сальдо расчетов на начало периода:</strong>
-    </div>
-    <div class="col-xs-6 right">
-        <strong><?= Yii::$app->formatter->asInteger($startBalance = app\modules\ticket\models\Ticket::getStartBalance($model->contract_id, $model->closed_at)); ?> руб.</strong>
-    </div>
-</div>-->
 <table class="table">
     <tr>
         <td><strong> Сальдо расчетов на начало периода:</strong></td>
@@ -91,18 +83,18 @@ $office = $office->defaultOffice;
             <?php foreach ($tickets as $ticket): ?>
                 <?php foreach ($ticket->services as $service): ?>
                     <?php
-                    $summ[] = Helpers::roundUp($service->price);
+                    $summ[] = Helpers::roundUp($service->sum_price);
                     $summNDS[] = $service->priceNDS;
                     $summBezNDS[] = $service->priceWithoutNDS;
                     ?>
                     <tr>
                         <td><?= $service->ticket_id; ?></td>
-                        <td><?= $service->name; ?></td>
+                        <td><?= $service->name . '(x' . $service->count . ')'; ?></td>
                         <td><?= $ticket->closed_at; ?></td>
                         <td><?= Yii::$app->formatter->asInteger($service->priceWithoutNDS); ?></td>
                         <td><?= $service->nds; ?></td>
                         <td><?= Yii::$app->formatter->asInteger($service->priceNDS); ?></td>
-                        <td><?= Yii::$app->formatter->asInteger($service->price); ?></td>
+                        <td><?= Yii::$app->formatter->asInteger($service->sum_price); ?></td>
                     </tr>    
                 <?php endforeach; ?>
             <?php endforeach; ?>
@@ -116,23 +108,6 @@ $office = $office->defaultOffice;
         </table>
     </div>
 </div>
-<!--<div class="row">
-    <div class="col-xs-6">
-        Оплачено за период:
-    </div>    
-    <div class="col-xs-6">
-<?php // foreach ($payments as $payment): ?>
-            <div class="row">
-                <div class="col-xs-6">
-<?= $payment->created_at; ?>
-                </div>
-                <div class="col-xs-6 right">
-<?= $payment->payment_sum; ?>   
-                </div>
-            </div>
-<?php // endforeach; ?>
-    </div>    
-</div>    -->
 <table class="table">
     <tr>
         <td>
@@ -160,10 +135,7 @@ $office = $office->defaultOffice;
 $summPayments = \app\components\helpers\Helpers::roundUp(array_sum(\yii\helpers\ArrayHelper::getColumn($payments, 'payment_sum')));
 $end_saldo = (int) $startBalance - (int) $summ + (int) $summPayments;
 ?>
-<!--<div class="row">
-    <div class="col-xs-6"> <strong>Сальдо расчетов на конец периода </strong></div>
-    <div class="col-xs-6 right"><strong><?= Yii::$app->formatter->asInteger($end_saldo); ?> руб.</strong></div>
-</div>-->
+
 <table class="table">
     <tr>
         <td><strong>Сальдо расчетов на конец периода </strong></td>
@@ -195,24 +167,6 @@ $end_saldo = (int) $startBalance - (int) $summ + (int) $summPayments;
             <br/><p>_____________________/<?= $model->contract->client->chief_name; ?>/</p></td>
     </tr>
 </table>
-<!--<div class="row">
-    <div class="col-xs-6"> <h5><strong>Итого к оплате за расчетный период:</strong></h5></div>
-    <div class="col-xs-6 right"><h5><strong><?= ((int) $end_saldo < 0) ? Yii::$app->formatter->asInteger($summ) : 0; ?> руб.</h5></strong></div>
-</div>-->
-<!--<div class="row">
-    <div class="col-xs-6 center"><p>Исполнитель</p></div>
-    <div class="col-xs-6 center"><p>Клиент</p></div>
-</div>
-<div class="row">
-    <div class="col-xs-6 center"><p><strong><?= $office->name; ?></strong></p></div>
-    <div class="col-xs-6 center"><p><strong><?= $model->contract->client->name; ?></strong></p></div>
-</div>-->
-<!--
-<br />
-<div class="row">
-    <div class="col-xs-6"><p>Директор_____________________/<?= $office->chief->name; ?>/</p></div>
-    <div class="col-xs-6"><p>_____________________/<?= $model->contract->client->chief_name; ?>/</p></div>
-</div>-->
 <br/>
 <br/>
 <div class="row">

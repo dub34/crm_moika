@@ -1,8 +1,8 @@
 <?php
 /**
  * Ticket view
- * 
- * @var $model instance of Ticket model
+ *
+ * @var \app\modules\ticket\models\Ticket $model
  * 
  * 
  *  */
