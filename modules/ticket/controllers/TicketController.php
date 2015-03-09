@@ -3,9 +3,12 @@
 namespace app\modules\ticket\controllers;
 
 use app\components\controllers\Controller;
+use app\modules\service\models\Service;
+use app\modules\service\models\ServiceHistory;
 use app\modules\ticket\models\SearchTicket;
 use app\modules\ticket\models\Ticket;
 use Yii;
+use yii\base\Exception;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -142,7 +145,7 @@ class TicketController extends Controller
 //                $this->redirect('/ticket/ticket/printtickets');
             } catch (Exception $e) {
                 $transaction->rollBack();
-                Yii::$app->session->setFlash('ticket_save_error', $e->message);
+                Yii::$app->session->setFlash('ticket_save_error', $e->getMessage());
             }
         } else {
             if (Yii::$app->request->isAjax) {
@@ -152,7 +155,6 @@ class TicketController extends Controller
             } else {
                 return $this->render('create', [
                     'model' => $model,
-                    //                            'client_id' => (null !== $model->contract) ? $model->contract->client_id : null
                 ]);
             }
         }
@@ -163,7 +165,6 @@ class TicketController extends Controller
      */
     public function actionPrinttickets()
     {
-
         $limit = Yii::$app->request->get('ticket_count', null);
         $contract_id = Yii::$app->request->get('contract_id', null);
         $office = new \app\modules\office\models\Office();
@@ -173,7 +174,6 @@ class TicketController extends Controller
             $model = Ticket::find()->where(['contract_id' => $contract_id])->orderBy('id DESC')->limit($limit)->all();
             $tmpl_data['model'] = $model;
             $tmpl_data['smodel'] = $model;
-//            return $this->renderAjax('_ticketprintlayout', ['model' => $model,'office' => $office]);
         } else {
             $searchModel = new SearchTicket();
             $model = $searchModel->search(Yii::$app->request->queryParams)->getModels();
@@ -198,8 +198,6 @@ class TicketController extends Controller
         if (file_exists($file)) {
             unlink($file);
         }
-//        $mpdf->WriteHTML($tc);
-//        $mpdf->Output('', 'I');
         Yii::$app->end();
     }
 
@@ -260,7 +258,6 @@ class TicketController extends Controller
                 }
             }
         }
-//        else {
         if (Yii::$app->request->isAjax) {
             return $this->renderAjax('_close_form', [
                 'model' => $model,
@@ -270,16 +267,16 @@ class TicketController extends Controller
                 'model' => $model,
             ]);
         }
-//        }
     }
 
     /**
-     * Deletes an existing Ticket model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @param integer $contract_id
-     * @return mixed
+     * @param $id
+     * @return array|\yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \yii\web\HttpException
      */
+
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
@@ -297,13 +294,11 @@ class TicketController extends Controller
     }
 
     /**
-     * Finds the Ticket model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @param integer $contract_id
-     * @return Ticket the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @param $id
+     * @return static
+     * @throws NotFoundHttpException
      */
+
     protected function findModel($id)
     {
         if (($model = Ticket::findOne(['id' => $id])) !== null) {
