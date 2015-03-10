@@ -1,8 +1,8 @@
 <?php
 
-use yii\helpers\Html;
-use app\modules\office\models\Office;
 use app\components\helpers\Helpers;
+use app\modules\office\models\Office;
+use yii\helpers\Html;
 
 /**
  * Print act modal window with form
@@ -17,7 +17,6 @@ $office = $office->defaultOffice;
 ?>
 
 <!--<div id="non-printable"></div>-->
-
 
 
 <!--<div class="row">
@@ -35,8 +34,11 @@ $office = $office->defaultOffice;
         <td width="50%"><?= Html::img('@web/images/logo.png', ['width' => '250']); ?></td>
         <td><?= Html::tag('h4', $office->name); ?>
             <p>р/с <?= $office->payment_account; ?> в <?= $office->bank_name; ?></p>
+
             <p>Код <?= $office->bank_code; ?> УНП <?= $office->unp; ?> ОКПО <?= $office->okpo; ?></p>
+
             <p>Адрес <?= $office->register_address; ?></p>
+
             <p>Факс <?= $office->fax; ?> тел. <?= $office->telephone; ?> e-mail <?= $office->email; ?></p>
         </td>
     </tr>
@@ -48,7 +50,9 @@ $office = $office->defaultOffice;
 <div class="row center">
     <div class="col-xs-12">
         <p> Выполненных работ <?= $office->name; ?> </p>
-        <p>по обслуживанию автомобилей согласно договору № <?= $model->contract->number; ?> от <?= $model->contract->created_at; ?></p>
+
+        <p>по обслуживанию автомобилей согласно договору № <?= $model->contract->number; ?>
+            от <?= $model->contract->created_at; ?></p>
     </div>
 </div>
 <div class="row">
@@ -64,21 +68,24 @@ $office = $office->defaultOffice;
 <table class="table">
     <tr>
         <td><strong> Сальдо расчетов на начало периода:</strong></td>
-        <td class="right"><strong><?= Yii::$app->formatter->asInteger($startBalance = app\modules\ticket\models\Ticket::getStartBalance($model->contract_id, $model->closed_at)); ?> руб.</strong></td>
+        <td class="right">
+            <strong><?= Yii::$app->formatter->asInteger($startBalance = app\modules\ticket\models\Ticket::getStartBalance($model->contract_id,
+                    $model->closed_at)); ?> руб.</strong></td>
     </tr>
 </table>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-xs-12">
         <table class="table table-bordered">
             <tr>
-                <th class="col-xs-1">№ талона/<br />ведомости</th>
+                <th class="col-xs-1">№ талона/<br/>ведомости</th>
                 <th class="col-xs-1">№ программы</th>
+                <th>Кол-во</th>
                 <th class="col-xs-2">Дата</th>
-                <th>Сумма без НДС,<br />руб</th>
-                <th class="col-xs-1">Ставка НДС,<br />%</th>
-                <th>Сумма НДС,<br />руб</th>
-                <th>Сумма с НДС,<br />руб</th>
+                <th>Сумма без НДС,<br/>руб</th>
+                <th class="col-xs-1">Ставка НДС,<br/>%</th>
+                <th>Сумма НДС,<br/>руб</th>
+                <th>Сумма с НДС,<br/>руб</th>
             </tr>
             <?php foreach ($tickets as $ticket): ?>
                 <?php foreach ($ticket->services as $service): ?>
@@ -89,17 +96,18 @@ $office = $office->defaultOffice;
                     ?>
                     <tr>
                         <td><?= $service->ticket_id; ?></td>
-                        <td><?= $service->name . '(x' . $service->count . ')'; ?></td>
+                        <td><?= $service->name; ?></td>
+                        <td><?= $service->count; ?></td>
                         <td><?= $ticket->closed_at; ?></td>
                         <td><?= Yii::$app->formatter->asInteger($service->priceWithoutNDS); ?></td>
                         <td><?= $service->nds; ?></td>
                         <td><?= Yii::$app->formatter->asInteger($service->priceNDS); ?></td>
                         <td><?= Yii::$app->formatter->asInteger($service->sum_price); ?></td>
-                    </tr>    
+                    </tr>
                 <?php endforeach; ?>
             <?php endforeach; ?>
             <tr>
-                <td colspan="3">Итого оказано услуг: </td>
+                <td colspan="4">Итого оказано услуг:</td>
                 <td><strong><?= Yii::$app->formatter->asInteger(array_sum($summBezNDS)) ?></strong></td>
                 <td>&nbsp;</td>
                 <td><strong><?= Yii::$app->formatter->asInteger(array_sum($summNDS)); ?></strong></td>
@@ -112,28 +120,29 @@ $office = $office->defaultOffice;
     <tr>
         <td>
             Оплачено за период:
-        </td>    
+        </td>
         <td class="right">
             <table class="table">
-            <?php foreach ($payments as $payment): ?>
-                <tr>
-                    <td width="100" class="left">
-                        <?= $payment->created_at; ?>
-                    </td>
-                    <td>
-                        <?= Yii::$app->formatter->asInteger($payment->payment_sum); ?>   
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+                <?php foreach ($payments as $payment): ?>
+                    <tr>
+                        <td width="100" class="left">
+                            <?= $payment->created_at; ?>
+                        </td>
+                        <td>
+                            <?= Yii::$app->formatter->asInteger($payment->payment_sum); ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </table>
-        </td>    
+        </td>
     </tr>
 </table>
 
-<hr />
+<hr/>
 <?php
-$summPayments = \app\components\helpers\Helpers::roundUp(array_sum(\yii\helpers\ArrayHelper::getColumn($payments, 'payment_sum')));
-$end_saldo = (int) $startBalance - (int) $summ + (int) $summPayments;
+$summPayments = \app\components\helpers\Helpers::roundUp(array_sum(\yii\helpers\ArrayHelper::getColumn($payments,
+    'payment_sum')));
+$end_saldo = (int)$startBalance - (int)$summ + (int)$summPayments;
 ?>
 
 <table class="table">
@@ -142,11 +151,12 @@ $end_saldo = (int) $startBalance - (int) $summ + (int) $summPayments;
         <td class="right"><strong><?= Yii::$app->formatter->asInteger($end_saldo); ?> руб.</strong></td>
     </tr>
 </table>
-<hr />
+<hr/>
 <table class="table">
     <tr>
         <td><h5><strong>Итого к оплате за расчетный период:</strong></h5></td>
-        <td class="right"><h5><strong><?= ((int) $end_saldo < 0) ? Yii::$app->formatter->asInteger($summ) : 0; ?> руб.</h5></strong></td>
+        <td class="right"><h5><strong><?= ((int)$end_saldo < 0) ? Yii::$app->formatter->asInteger($summ) : 0; ?> руб.
+            </h5></strong></td>
     </tr>
 </table>
 <table class="table">
@@ -161,15 +171,21 @@ $end_saldo = (int) $startBalance - (int) $summ + (int) $summPayments;
     <tr>
         <td class="center">
             <br/>
-            <br/><p>Директор_____________________/<?= $office->chief->name; ?>/</p></td>
+            <br/>
+
+            <p>Директор_____________________/<?= $office->chief->name; ?>/</p></td>
         <td class="center">
             <br/>
-            <br/><p>_____________________/<?= $model->contract->client->chief_name; ?>/</p></td>
+            <br/>
+
+            <p>_____________________/<?= $model->contract->client->chief_name; ?>/</p></td>
     </tr>
 </table>
 <br/>
 <br/>
 <div class="row">
-    <div class="col-xs-12"><p>Претензии по настоящему акту просим предъявлять до 18 числа следующего месяца. В противном случае акт будет принят к исполнению.</p>
+    <div class="col-xs-12"><p>Претензии по настоящему акту просим предъявлять до 18 числа следующего месяца. В противном
+            случае акт будет принят к исполнению.</p>
+
         <p>Цены указаны согласно прейскуранта (приказ №____ от ____г. )</p></div>
 </div>
