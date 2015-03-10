@@ -3,6 +3,7 @@
 namespace app\modules\service\models;
 
 use Yii;
+
 /**
  * This is the model class for view "actualServiceVersions".
  *
@@ -17,9 +18,7 @@ use Yii;
  */
 class ActualService extends \yii\db\ActiveRecord
 {
-    public $summBezNDS=[];
-
-
+    public $summBezNDS = [];
 
 
     /**
@@ -29,9 +28,10 @@ class ActualService extends \yii\db\ActiveRecord
     {
         return 'actualServiceVersions';
     }
-    
-    public function behaviors() {
-        $behaviors=[
+
+    public function behaviors()
+    {
+        $behaviors = [
 //            'ModelVersioning'=>[
 //                'class'=>  ModelVersioning::className(),
 //                'versionTable'=>'service_history',
@@ -40,7 +40,7 @@ class ActualService extends \yii\db\ActiveRecord
 //                'versionCommentField'=>'version_comment'
 //            ]
         ];
-       return array_merge(parent::behaviors(),$behaviors);
+        return array_merge(parent::behaviors(), $behaviors);
     }
 
     /**
@@ -51,8 +51,8 @@ class ActualService extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
 //            [['service_history_id'], 'integer'],
-            [['name','price'], 'string'],
-            [['version','description'],'safe']
+            [['name', 'price'], 'string'],
+            [['version', 'description'], 'safe']
         ];
     }
 
@@ -64,30 +64,30 @@ class ActualService extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
 //            'service_history_id' => 'Ревизия',
-            'name' => Yii::t('service','Name'),
-            'price' => Yii::t('service','Price'),
-            'description' => Yii::t('service','Description'),
-            'nds' => Yii::t('service','Nds'),
+            'name' => Yii::t('service', 'Name'),
+            'price' => Yii::t('service', 'Price'),
+            'description' => Yii::t('service', 'Description'),
+            'nds' => Yii::t('service', 'Nds'),
         ];
     }
 
 
     public function getPriceNDS()
     {
-        if ($this->price !== null && $this->price !== 0) {
+        if ($this->sum_price !== null && $this->sum_price !== 0) {
             $percent = 100 + $this->nds;
-            $summ = ($this->nds / $percent) * $this->price;
+            $summ = ($this->nds / $percent) * $this->sum_price;
             return \app\components\helpers\Helpers::roundUp($summ);
         }
         return '';
     }
-    
+
     public function getPriceWithoutNDS()
     {
-        $val = $this->price !==null ? $this->price-$this->priceNDS:'';
+        $val = $this->sum_price !== null ? $this->sum_price - $this->priceNDS : '';
         return \app\components\helpers\Helpers::roundUp($val);
     }
-    
+
     /**
      * @return \yii\db\ActiveQuery
      */
