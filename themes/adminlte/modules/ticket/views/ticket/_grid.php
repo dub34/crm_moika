@@ -37,7 +37,6 @@ array_unshift($print_ticket_params, '/ticket/ticket/printtickets');
     . "</div>"
     . "{pager}</div></div>"
     . "<div class=\"box-body no-padding\">{items}</div>",
-    'tableOptions' => ['class' => 'table table-stripped'],
     'pager' => [
         'options' => [
             'class' => 'pagination pagination-sm pull-right no-margin'

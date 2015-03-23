@@ -259,11 +259,12 @@ class PaymentController extends Controller
     }
 
     /**
-     * Deletes an existing Payment model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @param integer $contract_id
-     * @return mixed
+     * @param $id
+     * @param $contract_id
+     * @return array|\yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \yii\web\HttpException
      */
     public function actionDelete($id, $contract_id)
     {

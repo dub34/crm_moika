@@ -60,6 +60,10 @@ $this->registerJs($script);
                         [
                             'attribute' => 'number',
                             'options' => ['class' => 'col-md-1'],
+                            'value' => function ($model) {
+                                return Html::a($model->number, ['/contract/contract/update', 'id' => $model->id]);
+                            },
+                            'format' => 'raw'
                         ],
                         [
                             'attribute' => 'client_id',
@@ -115,7 +119,14 @@ $this->registerJs($script);
         </div>
     </div>
     <div class="col-md-6">
-        <?php Pjax::begin(['id' => 'pjax-action-container', 'options' => ['class' => 'pjax-wrapper'], /* 'linkSelector' => '#pjax-action-container a', */ 'enablePushState' => false, 'enableReplaceState' => false, 'timeout' => 5000]); ?>
+        <?php Pjax::begin([
+            'id' => 'pjax-action-container',
+            'options' => ['class' => 'pjax-wrapper'],
+            /* 'linkSelector' => '#pjax-action-container a', */
+            'enablePushState' => false,
+            'enableReplaceState' => false,
+            'timeout' => 90000
+        ]); ?>
         <div class="box box-solid">
             <div class="box-header">
                 <h3 class="box-title"><?= Yii::t('yii', 'Выберите действие'); ?></h3>
