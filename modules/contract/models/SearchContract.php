@@ -32,6 +32,7 @@ class SearchContract extends Contract
     public function search($params)
     {
         $query = Contract::find();
+		$query->where(['is_active'=>true]);
         $query->joinWith([
             'client' => function ($q) {
                 $q->isDeleted();

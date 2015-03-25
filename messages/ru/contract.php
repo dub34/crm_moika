@@ -26,7 +26,7 @@ return array (
   'Client'=>'Клиент',
   'Print act'=>'Печать акта',
   'Employee ID'=>'Сотрудник',
-  'Number'=>'Номер договора',
+  'Number'=>'№ дог.',
   'Created At'=>'Создан',
   'Update'=>'Редактировать',
   'Create'=>'Создать',
