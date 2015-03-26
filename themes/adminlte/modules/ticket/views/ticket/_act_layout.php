@@ -19,30 +19,23 @@ $office = $office->defaultOffice;
 <!--<div id="non-printable"></div>-->
 
 
-<!--<div class="row">
-    <div class="col-xs-6 "><?= Html::img('@web/images/logo.png', ['width' => '250']); ?></div>
-    <div class="col-xs-6"> <?= Html::tag('h4', $office->name); ?>
-        <p>р/с <?= $office->payment_account; ?> в <?= $office->bank_name; ?></p>
-        <p>Код <?= $office->bank_code; ?> УНП <?= $office->unp; ?> ОКПО <?= $office->okpo; ?></p>
-        <p>Адрес <?= $office->register_address; ?> УНП <?= $office->unp; ?> ОКПО <?= $office->okpo; ?></p>
-        <p>Факс <?= $office->fax; ?> тел. <?= $office->telephone; ?> e-mail <?= $office->email; ?></p>
-    </div>
-</div>-->
+
 
 <table class="table">
     <tr>
-        <td width="50%"><?= Html::img('@web/images/logo.png', ['width' => '250']); ?></td>
-        <td><?= Html::tag('h4', $office->name); ?>
-            <p>р/с <?= $office->payment_account; ?> в <?= $office->bank_name; ?></p>
+        <td width="50%" style="text-align: center"><?= Html::img('@web/images/avtomoika_logo.jpg', ['width' => '200']); ?></td>
+        <td style="text-align: center">
+			<?= Html::tag('h4', $office->name); ?>
 
-            <p>Код <?= $office->bank_code; ?> УНП <?= $office->unp; ?> ОКПО <?= $office->okpo; ?></p>
+			<p>Юридический адрес: <?= $office->register_address; ?></p>
+			<p>УНП <?= $office->unp; ?> ОКПО <?= $office->okpo; ?></p>
+			<p>р/с <?= $office->payment_account; ?> в <?= $office->bank_name; ?>, код <?= $office->bank_code; ?></p>
 
-            <p>Адрес <?= $office->register_address; ?></p>
-
-            <p>Факс <?= $office->fax; ?> тел. <?= $office->telephone; ?> e-mail <?= $office->email; ?></p>
+            <p>тел. <?= $office->telephone; ?>, <?= $office->fax; ?></p>
         </td>
     </tr>
 </table>
+<hr style="background: blue;">
 
 <div class="row center">
     <div class="col-xs-12"><h2>Акт</h2></div>

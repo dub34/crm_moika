@@ -116,7 +116,7 @@ class ContractController extends Controller
 	{
 		$model = $this->findModel($id);
 	  if ($model != null) {
-		  $model->is_active = false;
+		  $model->is_active = 0;
 		  $model->save(false);
 	  }
 		return $this->redirect(['index']);

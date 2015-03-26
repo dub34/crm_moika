@@ -100,3 +100,10 @@ iframe{
 .deleted {
     background: #ff7400;
 }
+
+    #contract_grid-container table td,#contract_grid-container table th, #payments-grid table td, #payments-grid table th, #ticket-grid table td, #ticket-grid table th, .select2-results .select2-result-label{
+    font-size:12px;
+}
+#s2id_searchcontract-client_id .select2-choice{
+    width: 150px;
+}

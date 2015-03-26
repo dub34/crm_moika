@@ -14,15 +14,15 @@ class Controller extends \yii\web\Controller
     public function behaviors()
     {
         $behaviors=[
-//            'access' => [
-//                'class' => AccessControl::className(),
-//                'rules' => [
-//                    [
-//                        'allow' => true,
-//                        'roles' => ['@'],
-//                    ],
-//                ],
-//            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'LiveLayoutBehavior'=>array('class'=>  LiveLayoutBehavior::className()),
         ];
         return array_merge(parent::behaviors(), $behaviors);

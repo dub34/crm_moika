@@ -31,7 +31,7 @@ $this->registerJs($script);
  */
 ?>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-7 col-lg-6">
 		<div class="box box-primary">
 			<div class="box-header">
 				<h3 class="box-title">Договоры</h3>
@@ -53,6 +53,7 @@ $this->registerJs($script);
 					'id' => 'contract_grid',
 					'striped' => false,
 					'bordered' => false,
+					'resizableColumns'=>false,
 	//					'panel'=>[
 	//						'headingTemplate' => '
 	//    <div class="pull-right">
@@ -73,14 +74,12 @@ $this->registerJs($script);
 					'columns' => [
 						[
 							'attribute' => 'number',
-//                            'options' => ['class' => 'col-md-1'],
+                            'options' => ['class' => 'col-md-1'],
 							'value' => function ($model) {
 								return Html::a($model->number, ['/contract/contract/update', 'id' => $model->id]);
 							},
 							'format' => 'raw',
-							'options' => [
-								'width' => 100
-							]
+							'filterInputOptions' => ['class'=>'form-control input-sm'],
 						],
 						[
 							'attribute' => 'client_id',
@@ -90,10 +89,12 @@ $this->registerJs($script);
 							'filter' => ArrayHelper::map(Client::find()->isDeleted(false)->orderBy('name')->asArray()->all(),
 								'id', 'name'),
 							'filterWidgetOptions' => [
+								'size'=>'sm',
 								'pluginOptions' => ['allowClear' => true],
 							],
 							'filterInputOptions' => ['placeholder' => Yii::t('client', 'Select client')],
-							'format' => 'raw'
+							'format' => 'raw',
+							'options' => ['class' => 'col-md-2'],
 						],
 						[
 							'attribute' => 'created_at',
@@ -156,7 +157,7 @@ $this->registerJs($script);
 			</div>
 		</div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-5 col-lg-6">
 		<?php Pjax::begin([
 			'id' => 'pjax-action-container',
 			'options' => ['class' => 'pjax-wrapper'],
