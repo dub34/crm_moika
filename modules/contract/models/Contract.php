@@ -23,8 +23,8 @@ class Contract extends \yii\db\ActiveRecord
 {
     public $tstCreatedAt;
 
-    public $visibleDateFormat = 'dd.MM.Y';
-    public $storeDateFormat = 'Y-m-d H:i:s';
+    public $visibleDateFormat = 'dd.MM.yyyy';
+    public $storeDateFormat = 'yyyy-MM-dd';
     /**
      * @inheritdoc
      */
@@ -54,7 +54,7 @@ class Contract extends \yii\db\ActiveRecord
             [['client_id'], 'required'],
             [['client_id', 'employee_id'], 'integer'],
             [['created_at'], 'required'],
-            [['created_at'], 'date','format'=> 'd.m.yyyy','timestampAttribute'=>'tstCreatedAt'],
+//            [['created_at'], 'date','format'=> 'd.m.yyyy','timestampAttribute'=>'tstCreatedAt'],
             [['number', 'employee_id'], 'safe'],
             [
                 ['number'],
@@ -88,7 +88,7 @@ class Contract extends \yii\db\ActiveRecord
 
     public function beforeSave($insert) {
 
-        $this->created_at = \Yii::$app->formatter->asDatetime($this->tstCreatedAt, $this->storeDateFormat);
+        $this->created_at = \Yii::$app->formatter->asDatetime($this->created_at, $this->storeDateFormat);
         ($this->number == null)?$this->getContractNumber():null;
         return parent::beforeSave($insert);
     }
