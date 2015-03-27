@@ -7,8 +7,10 @@ use app\modules\office\models\Office;
 use app\modules\office\models\OfficeSearch;
 use app\modules\employee\models\EmployeeSearch;
 use app\components\controllers\Controller;
+use yii\base\Exception;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * OfficeController implements the CRUD actions for Office model.
@@ -65,10 +67,14 @@ class OfficeController extends Controller
     public function actionCreate()
     {
         $model = new Office;
+		$loaded = $model->load(Yii::$app->request->post());
+		if ($loaded && $model->validate()) {
+			if ($model->save()) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+				return $this->redirect(['view', 'id' => $model->id]);
+			}
+		}
+		else {
             return $this->render('create', [
                 'model' => $model,
             ]);
