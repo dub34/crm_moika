@@ -151,7 +151,8 @@ $end_saldo = (int)$startBalance - (int)$summ + (int)$summPayments;
 <table class="table">
 	<tr>
 		<td><h5><strong>Итого к оплате за расчетный период:</strong></h5></td>
-		<td class="right"><h5><strong><?= ((int)$end_saldo < 0) ? Yii::$app->formatter->asInteger($summ) : 0; ?> руб.
+		<td class="right"><h5>
+				<strong><?= ((int)$end_saldo < 0) ? Yii::$app->formatter->asInteger($end_saldo * -1) : 0; ?> руб.
 			</h5></strong></td>
 	</tr>
 </table>
