@@ -78,6 +78,8 @@ class Office extends \yii\db\ActiveRecord
 			'telephone' => Yii::t('office', 'Telephone'),
 			'fax' => Yii::t('office', 'Fax'),
 			'email' => Yii::t('office', 'Email'),
+			'logo' => Yii::t('office', 'Логотип'),
+			'uploadedFile' => Yii::t('office', 'Выберите логотип'),
 		];
 
 	}
@@ -88,7 +90,7 @@ class Office extends \yii\db\ActiveRecord
 			$this->uploadedFile = UploadedFile::getInstance($this, 'uploadedFile');
 			if ($this->uploadedFile != null) {
 
-				$filePath = 'images/' . $this->uploadedFile->baseName . '.' . $this->uploadedFile->extension;
+				$filePath = 'images/' . $this->uploadedFile->baseName . '_' . $this->id . '.' . $this->uploadedFile->extension;
 				if (file_exists($filePath)) {
 					unlink($filePath);
 				}

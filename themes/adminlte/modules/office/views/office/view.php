@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
 			[
 				'attribute'=>'logo',
-				'value'=> Html::img('/'.$model->logo,['width'=>100]),
+                'value' => $model->logo ? Html::img('/' . $model->logo, ['width' => 100]) : '',
 				'format'=>'raw'
 			]
         ],
