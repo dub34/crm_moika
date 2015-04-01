@@ -34,7 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 //            'sign_img:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+				'class' => 'yii\grid\ActionColumn',
+			],
         ],
     ]); ?>
 

@@ -49,7 +49,8 @@ array_unshift($print_ticket_params, '/ticket/ticket/printtickets');
 //            ['class' => 'yii\grid\SerialColumn'],
         [
             'attribute' => 'id',
-            'options' => ['class' => 'col-md-1']
+            'options' => ['class' => 'col-md-1'],
+			'filterInputOptions' => ['class'=>'form-control input-sm'],
         ],
 //            'contract_id',
         [
@@ -57,6 +58,7 @@ array_unshift($print_ticket_params, '/ticket/ticket/printtickets');
             'format' => ['date', 'php:d.m.Y'],
             'filter' => DatePicker::widget(
                     [
+						'size'=>'sm',
                         'model' => $searchModel,
                         'attribute' => 'created_at',
                         'attribute2' => 'to_date',

@@ -13,7 +13,11 @@ use app\modules\employee\models\Employee;
 
 <div class="office-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+		'options'=>[
+			'enctype'=>'multipart/form-data'
+		]
+	]); ?>
     <?= $form->field($model, 'name')->textInput(['maxlength' => 200]) ?>
 
     <?= $form->field($model, 'register_address')->textarea(['rows' => 2]) ?>
@@ -39,6 +43,7 @@ use app\modules\employee\models\Employee;
     <?= $form->field($model, 'fax')->textInput() ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => 45]) ?>
+    <?= $form->field($model, 'uploadedFile')->fileInput() ?>
     <div class="form-group">
         <?= Html::submitButton(/*$model->isNewRecord ? 'Создать' :*/ 'Сохранить', ['class' => 'btn btn-success']) ?>
     </div>

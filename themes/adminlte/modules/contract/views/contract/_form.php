@@ -39,11 +39,19 @@ use kartik\widgets\DatePicker;
             ]);
             ?>
         </div><!-- /.box-body -->
-        <div class="box-footer">
+        <div class="box-footer clearfix">
 
-            <div class="form-group">
-                <?= Html::submitButton($model->isNewRecord ? Yii::t('contract', 'Create') : Yii::t('contract', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-            </div>
+
+                <?= Html::submitButton($model->isNewRecord ? Yii::t('contract', 'Create') : Yii::t('contract', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary' .' pull-left']) ?>
+
+				<?php if(!$model->isNewRecord) : ?>
+				<?= Html::a(Yii::t('contract', 'Delete'), ['/contract/contract/delete', 'id'=>$model->id], [
+						'data'=>[
+							'method'=>"post",
+							'confirm'=>"Вы уверены, что хотите удалить этот элемент?"
+						],
+						'class' => 'text-red btn-link pull-right']) ?>
+<?php endif; ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>

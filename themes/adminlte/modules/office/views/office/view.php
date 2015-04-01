@@ -53,12 +53,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'telephone:ntext',
             'fax:ntext',
             'email:email',
+			[
+				'attribute'=>'logo',
+				'value'=> Html::img('/'.$model->logo,['width'=>100]),
+				'format'=>'raw'
+			]
         ],
     ])
     ?>
 
 </div>
-
 <h3>Сотрудники филиала</h3>
 <div class="office-employees">
     <?=
@@ -72,13 +76,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'buttons'=>[
                     'view' => function ($url,$model) {
-                        return  Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-eye-open']), 'employee/employee/view/'.$model->id);
+                        return  Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-eye-open']), '/employee/employee/view/'.$model->id);
                     },
                     'update' => function ($url,$model) {
-                        return  Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-pencil']), 'employee/employee/update/'.$model->id);
+                        return  Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-pencil']), '/employee/employee/update/'.$model->id);
                     },
                     'delete' => function ($url,$model) {
-                        return Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-trash']), 'employee/employee/delete/'.$model->id);
+                        return Html::a(Html::tag('span','',['class'=>'glyphicon glyphicon-trash']), '/employee/employee/delete/'.$model->id);
                     },
                 ]
             ]

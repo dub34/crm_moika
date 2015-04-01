@@ -108,7 +108,6 @@ class EmployeeController extends Controller
     public function actionDelete($id, $office_id)
     {
         $this->findModel($id, $office_id)->delete();
-
         return $this->redirect(['index']);
     }
 
