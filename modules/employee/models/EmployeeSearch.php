@@ -34,7 +34,7 @@ class EmployeeSearch extends Employee
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
+        if (!($this->load($params) && $this->validate()) && !$this->office_id) {
             return $dataProvider;
         }
 

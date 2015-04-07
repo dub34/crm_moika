@@ -19,7 +19,9 @@ use app\modules\office\models\Office;
  */
 class Employee extends \yii\db\ActiveRecord
 {
-    /**
+    public $position_id;
+
+	/**
      * @inheritdoc
      */
     public static function tableName()

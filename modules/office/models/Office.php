@@ -139,4 +139,9 @@ class Office extends \yii\db\ActiveRecord
 		return $this->hasMany(Ticket::className(), ['office_id' => 'id']);
 	}
 
+	public function getEmployees(){
+
+		return $this->hasMany(Employee::className(),['office_id'=>'id'])->viaTable('office_has_employee',['employee_id'=>'id']);
+	}
+
 }

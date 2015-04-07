@@ -103,17 +103,10 @@ function handlePaymentFormActions() {
     $('#paymentMdlOpen').click(function (e, id)
     {
         var cid = $('#payment-contract_id').val();
-//        var sel_payment = $('input[name="payments"]:checked').val();
-//        var sel_payment = id;
         $('#paymentCreateDlg').modal('show').find('.modal-body').load($(this).attr('data-url'), {id: id}, function () {
             var saveHandler = function () {
-//                $('#paymentCreateDlg').off('hidden.bs.modal'); 
-//                    console.log('disable reload after save');
                 $('#paymentCreateDlg').modal('hide');
-//                setTimeout(function () {
-//                    console.log('reload-grid-on-after-save');
                 reloadGrid('.load-payments', cid);
-//                }, 2000);
             }
             $('#payment_form').on('beforeSubmit', {successHndl: saveHandler}, submitForm);
             $('#payment_form').on('submit',
@@ -122,10 +115,6 @@ function handlePaymentFormActions() {
                     }
             );
         });
-//        $('#paymentCreateDlg').on('hidden.bs.modal', function () {
-////            console.log('reload-grid-on-close-modal');
-//            reloadGrid('.load-payments', cid);
-//        })
     });
 
     //Handle Ticket Create Modal

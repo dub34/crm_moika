@@ -51,10 +51,14 @@ class OfficeController extends Controller
      */
     public function actionView($id)
     {
+		$office =$this->findModel($id);
         $EmployeesearchModel = new EmployeeSearch;
+		$EmployeesearchModel->office_id = $id;
+		$employees = $office->getEmployees();
+		var_dump($employees);
         $employeesDataProvider = $EmployeesearchModel->search([]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $office,
             'employeesDataProvider'=>$employeesDataProvider
         ]);
     }
