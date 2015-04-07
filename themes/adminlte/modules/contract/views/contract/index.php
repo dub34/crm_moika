@@ -53,7 +53,7 @@ $this->registerJs($script);
 					'id' => 'contract_grid',
 					'striped' => false,
 					'bordered' => false,
-					'resizableColumns'=>false,
+//					'resizableColumns'=>false,
 	//					'panel'=>[
 	//						'headingTemplate' => '
 	//    <div class="pull-right">

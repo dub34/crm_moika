@@ -35,6 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
 			'name',
 			'register_address:ntext',
 			[
+				'attribute'=>'logo',
+                'value' => $model->logo ? Html::img('/' . $model->logo, ['width' => 100]) : '',
+				'format'=>'raw'
 				'attribute' => 'chief.name',
 				'label' => $model->getAttributeLabel('chief_name')
 			],
