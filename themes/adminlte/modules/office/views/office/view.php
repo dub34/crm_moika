@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			<div class="row">
 
 				<div class="col-md-1">
-					<?= Html::checkbox("Employee[$employee->id]", array_key_exists($employee->id,$employees)); ?>
+					<?= Html::checkbox("Employee[$employee->id]", array_key_exists($employee->id,$employees),['class'=>'employee-set']); ?>
 				</div>
 				<div class="col-md-3">
 					<?= $employee->name; ?>
@@ -92,11 +92,12 @@ $this->params['breadcrumbs'][] = $this->title;
 					<?= Html::dropDownList("Employee[$employee->id][position]", $employee->position->position->id,
 						\yii\helpers\ArrayHelper::map(Position::find()->all(), 'id', 'name'),[
 							'class'=>'form-control input-sm',
-							'prompt'=>'Выберите должность',
+//							'prompt'=>'Выберите должность',
+							'disabled'=>!array_key_exists($employee->id,$employees)
 						]); ?>
 				</div>
 				<div class="col-md-1">
-					<?= Html::radio("Employee['signdoc']",'',['value'=>$employee->id]); ?>
+					<?= Html::radio("signdoc",$employee->id==$signDoc,['value'=>$employee->id, 'disabled'=>!array_key_exists($employee->id,$employees)]); ?>
 				</div>
 			</div>
 		<?php endforeach; ?>

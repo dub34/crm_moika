@@ -169,7 +169,7 @@ $end_saldo = (int)$startBalance - (int)$summ + (int)$summPayments;
 			<br/>
 			<br/>
 
-			<p>Директор_____________________/<?= $office->chief->name; ?>/</p></td>
+			<p>Директор_____________________/<?= $office->signPerson; ?>/</p></td>
 		<td class="center">
 			<br/>
 			<br/>

@@ -213,3 +213,16 @@ function handlePaymentFormActions() {
 
 
 }
+
+ $(function(){
+
+     $(document).on('ifChecked','.employee-set',function(){
+         $(this).parents('.row').first().find('input[type="radio"]').iCheck('enable');
+         $(this).parents('.row').first().find('select').attr('disabled',false);
+     });
+     $(document).on('ifUnchecked','.employee-set',function(){
+         $(this).parents('.row').first().find('input:gt(0)').iCheck('disable');
+         $(this).parents('.row').first().find('select').attr('disabled',true);
+     });
+
+ });

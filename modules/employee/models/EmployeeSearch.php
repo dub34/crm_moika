@@ -29,7 +29,7 @@ class EmployeeSearch extends Employee
 
     public function search($params)
     {
-        $query = Employee::find()->joinWith(['	'])
+        $query = Employee::find()->leftJoin('office_has_employee oe','employee.id=oe.employee_id');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -41,7 +41,7 @@ class EmployeeSearch extends Employee
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'office_id' => $this->office_id,
+            'oe.office_id' => $this->office_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
