@@ -34,21 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
 			'id',
 			'name',
 			'register_address:ntext',
-			[
-				'attribute'=>'logo',
-                'value' => $model->logo ? Html::img('/' . $model->logo, ['width' => 100]) : '',
-				'format'=>'raw'
-				'attribute' => 'chief.name',
-				'label' => $model->getAttributeLabel('chief_name')
-			],
-			[
-				'attribute' => 'glbuh.name',
-				'label' => $model->getAttributeLabel('glbuh_name')
-			],
-			[
-				'attribute' => 'checkbuh.name',
-				'label' => $model->getAttributeLabel('check_buh_name')
-			],
 			'bank_name:ntext',
 			'bank_code',
 			'payment_account',
@@ -58,10 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
 			'fax:ntext',
 			'email:email',
 			[
-				'attribute' => 'logo',
-				'value' => Html::img('/' . $model->logo, ['width' => 100]),
-				'format' => 'raw'
-			]
+				'attribute'=>'logo',
+				'value' => $model->logo ? Html::img('/' . $model->logo, ['width' => 100]) : '',
+				'format'=>'raw'
+			],
 		],
 	])
 	?>
@@ -78,21 +63,40 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
 	<div class="col-md-12">
 		<?= Html::beginForm(['/office/office/add-employees','id'=>$model->id]); ?>
+		<div class="row">
+
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-3">
+				ФИО
+			</div>
+			<div class="col-md-4">
+				Должность
+			</div>
+
+			<div class="col-md-1">
+				Подписывает док-ты
+			</div>
+		</div>
 		<?php foreach (\app\modules\employee\models\Employee::find()->all() as $employee) : ?>
+
 			<div class="row">
+
 				<div class="col-md-1">
-					<?= Html::checkbox("Employee[$employee->id]", ''); ?>
+					<?= Html::checkbox("Employee[$employee->id]", array_key_exists($employee->id,$employees)); ?>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<?= $employee->name; ?>
 				</div>
 				<div class="col-md-4">
-					<?= Html::dropDownList("Employee[$employee->id][position]", '',
+					<?= Html::dropDownList("Employee[$employee->id][position]", $employee->position->position->id,
 						\yii\helpers\ArrayHelper::map(Position::find()->all(), 'id', 'name'),[
 							'class'=>'form-control input-sm',
 							'prompt'=>'Выберите должность',
-
 						]); ?>
+				</div>
+				<div class="col-md-1">
+					<?= Html::radio("Employee['signdoc']",'',['value'=>$employee->id]); ?>
 				</div>
 			</div>
 		<?php endforeach; ?>

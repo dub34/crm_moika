@@ -2,6 +2,7 @@
 
 namespace app\modules\employee\models;
 
+use app\modules\office\models\OfficeHasEmployee;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -28,7 +29,7 @@ class EmployeeSearch extends Employee
 
     public function search($params)
     {
-        $query = Employee::find();
+        $query = Employee::find()->joinWith(['	'])
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

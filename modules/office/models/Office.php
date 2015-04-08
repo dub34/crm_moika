@@ -143,7 +143,9 @@ class Office extends \yii\db\ActiveRecord
 
 	public function getEmployees(){
 
-		return $this->hasMany(Employee::className(),['office_id'=>'id'])->viaTable('office_has_employee',['employee_id'=>'id']);
+		return $this->hasMany(OfficeHasEmployee::className(),['office_id'=>'id'])->indexBy('employee_id')->all();
 	}
+
+
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\office\models;
+namespace app\modules\employee\models;
 
 use Yii;
 use app\modules\employee\models\Employee;
@@ -14,8 +14,10 @@ use yii\web\UploadedFile;
  * @property integer $id
  * @property integer $office_id
  * @property integer $employee_id
+ * @property integer $position_id
  */
-class OfficeHasEmployee extends \yii\db\ActiveRecord
+
+class EmployeeHasPosition extends \yii\db\ActiveRecord
 {
 
 	/**
@@ -23,7 +25,7 @@ class OfficeHasEmployee extends \yii\db\ActiveRecord
 	 */
 	public static function tableName()
 	{
-		return 'office_has_employee';
+		return 'employee_has_position';
 	}
 
 	/**
@@ -32,7 +34,7 @@ class OfficeHasEmployee extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['office_id','employee_id'], 'integer'],
+			[['office_id','employee_id','position_id'], 'integer'],
 		];
 	}
 
@@ -40,9 +42,9 @@ class OfficeHasEmployee extends \yii\db\ActiveRecord
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
-	public function getEmployee()
+	public function getPosition()
 	{
-		return $this->hasOne(Employee::className(), ['employee_id' => 'id']);
+		return $this->hasOne(Position::className(), ['id'=>'position_id']);
 	}
 
 }

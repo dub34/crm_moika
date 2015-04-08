@@ -70,4 +70,8 @@ class Employee extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Office::className(), ['id' => 'office_id']);
     }
+
+	public function getPosition(){
+		return $this->hasOne(EmployeeHasPosition::className(),['employee_id'=>'id'])->where(['office_id'=>$this->office_id]);
+	}
 }

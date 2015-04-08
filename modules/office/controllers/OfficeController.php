@@ -55,11 +55,12 @@ class OfficeController extends Controller
         $EmployeesearchModel = new EmployeeSearch;
 		$EmployeesearchModel->office_id = $id;
 		$employees = $office->getEmployees();
-		var_dump($employees);
+//		var_dump($employees);
         $employeesDataProvider = $EmployeesearchModel->search([]);
         return $this->render('view', [
             'model' => $office,
-            'employeesDataProvider'=>$employeesDataProvider
+            'employeesDataProvider'=>$employeesDataProvider,
+			'employees'=>$employees
         ]);
     }
 
