@@ -71,6 +71,11 @@ class Employee extends \yii\db\ActiveRecord
 		return $this->hasOne(Office::className(), ['id' => 'office_id']);
 	}
 
+	public function getOffices()
+	{
+		return $this->hasMany(Office::className(), ['id' => 'office_id'])->viaTable('office_has_employee',['employee_id'=>'id']);
+	}
+
 
 	public function getPosition()
 	{

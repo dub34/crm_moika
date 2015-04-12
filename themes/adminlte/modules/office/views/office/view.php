@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php \yii\bootstrap\Modal::begin([
 	'header' => '<h4>Добавить сотрудника</h4>',
-	'toggleButton' => ['label' => 'click me', 'class' => 'btn btn-sm btn-success'],
+	'toggleButton' => ['label' => 'Редактировать сотрудников', 'class' => 'btn btn-sm btn-success'],
 ]);
 ?>
 
@@ -109,6 +109,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 \yii\bootstrap\Modal::end();
 ?>
+<br />
+<br />
 <div class="office-employees">
 	<?=
 	GridView::widget([
@@ -116,7 +118,15 @@ $this->params['breadcrumbs'][] = $this->title;
 		'summary' => false,
 		'columns' => [
 			['class' => 'yii\grid\SerialColumn'],
-			'name:ntext',
+			[
+				'attribute'=>'name',
+				'value'=>function($model)use($signDoc){
+					$val = $model->name;
+					$val .= $model->id== $signDoc ? '&nbsp;'.Html::tag('span','Подписывает документы',['class'=>'label label-warning']) : '';
+					return $val;
+				},
+				'format'=>'raw'
+			],
 			[
 				'class' => 'yii\grid\ActionColumn',
 				'buttons' => [

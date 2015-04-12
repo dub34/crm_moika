@@ -153,6 +153,9 @@ class OfficeController extends Controller
 
 		if (($signDocId = \Yii::$app->request->post('signdoc'))) {
 			\Yii::$app->settings->set('signdoc' . $id, $signDocId, 'employee', 'integer');
+		}else
+		{
+			\Yii::$app->settings->delete('signdoc' . $id, 'employee');
 		}
 		$this->redirect(['/office/office/view', 'id' => $id]);
 

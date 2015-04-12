@@ -28,9 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            [                    // the owner name of the model
-                'attribute'=>'office_id',
-                'value' => $model->office->name,
+            [
+				'attribute'=>'office_id',
+                'value' =>$offices
             ],
             'name:ntext',
 //            'sign_img:ntext',
