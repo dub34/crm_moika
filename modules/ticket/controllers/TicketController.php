@@ -220,7 +220,8 @@ class TicketController extends Controller
         $html = ob_get_contents();
         ob_end_clean();
         $pdf->WriteHTML($html);
-        $filename = 'files/tickets/tickets-dog-' . $data['smodel']->contract->number . '-' . date('d-m-Y-H-i-s') . '.pdf';
+        $filename = 'files/tickets/tickets-dog-' . str_replace('/', '_',
+                $data['smodel']->contract->number) . '-' . date('d-m-Y-H-i-s') . '.pdf';
         $pdf->Output($filename, 'F');
         return file_exists($filename) ? $filename : false;
     }
