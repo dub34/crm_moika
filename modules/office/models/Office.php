@@ -84,7 +84,10 @@ class Office extends \yii\db\ActiveRecord
 
 	}
 
-	public function  afterSave()
+	/**
+	 *
+	 */
+	public function  afterSave($insert, $changedAttributes)
 	{
 		try {
 			$this->uploadedFile = UploadedFile::getInstance($this, 'uploadedFile');
