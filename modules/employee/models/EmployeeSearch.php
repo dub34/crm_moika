@@ -2,6 +2,7 @@
 
 namespace app\modules\employee\models;
 
+use app\modules\office\models\OfficeHasEmployee;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -28,19 +29,19 @@ class EmployeeSearch extends Employee
 
     public function search($params)
     {
-        $query = Employee::find();
+        $query = Employee::find()->leftJoin('office_has_employee oe','employee.id=oe.employee_id');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
+        if (!($this->load($params) && $this->validate()) && !$this->office_id) {
             return $dataProvider;
         }
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'office_id' => $this->office_id,
+            'oe.office_id' => $this->office_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

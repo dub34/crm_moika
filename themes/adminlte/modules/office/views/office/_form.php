@@ -23,12 +23,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'register_address')->textarea(['rows' => 2]) ?>
 
-    <?= $form->field($model, 'chief_name')->dropDownList(ArrayHelper::map(Employee::find()->all(), 'id', 'name')); ?>
+<!--    --><?//= $form->field($model, 'chief_name')->dropDownList(ArrayHelper::map(Employee::find()->all(), 'id', 'name')); ?>
 
-    <?= $form->field($model, 'glbuh_name')->dropDownList(ArrayHelper::map(Employee::find()->all(), 'id', 'name')); ?>
+<!--    --><?//= $form->field($model, 'glbuh_name')->dropDownList(ArrayHelper::map(Employee::find()->all(), 'id', 'name')); ?>
 
-    <?= $form->field($model, 'check_buh_name')->dropDownList(ArrayHelper::map(Employee::find()->all(), 'id',
-        'name')); ?>
+<!--    --><?//= $form->field($model, 'check_buh_name')->dropDownList(ArrayHelper::map(Employee::find()->all(), 'id',
+//        'name')); ?>
 
     <?= $form->field($model, 'bank_name')->textInput() ?>
 

@@ -16,9 +16,7 @@ use yii\helpers\ArrayHelper;
         <div class="box-body">
             <?php $form = ActiveForm::begin(); ?>
 
-            <?= $form->field($model, 'login')->textInput(); ?>
             <?= $form->field($model, 'name')->textInput(); ?>
-<!--            --><?//= $form->field($model, 'office_id')->dropDownList(ArrayHelper::map($offices, 'id', 'name'), ['prompt' => 'Выберите филиал']); ?>
         </div>
 
         <div class="box-footer">

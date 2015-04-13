@@ -141,4 +141,22 @@ class Office extends \yii\db\ActiveRecord
 		return $this->hasMany(Ticket::className(), ['office_id' => 'id']);
 	}
 
+	public function getEmployees(){
+
+		return $this->hasMany(OfficeHasEmployee::className(),['office_id'=>'id'])->indexBy('employee_id')->all();
+	}
+
+	/**
+	 * @return bool|mixed
+	 */
+	public function getSignPerson()
+	{
+		$signDoc = \Yii::$app->settings->get('signdoc' . $this->id, 'employee');
+		if ($signDoc) {
+			return Employee::find()->where(['id' => $signDoc])->one();
+		} else {
+			return false;
+		}
+
+	}
 }
