@@ -40,7 +40,7 @@ class Position extends ActiveRecord{
 	{
 		return [
 			'id' => 'ID',
-			'name' => 'Наименование',
+			'name' => 'Должность',
 		];
 	}
 

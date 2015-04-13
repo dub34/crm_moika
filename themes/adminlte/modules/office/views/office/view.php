@@ -127,6 +127,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				},
 				'format'=>'raw'
 			],
+			'position.position.name',
 			[
 				'class' => 'yii\grid\ActionColumn',
 				'buttons' => [
