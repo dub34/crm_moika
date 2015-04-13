@@ -6,6 +6,7 @@ use Yii;
 use app\modules\employee\models\Employee;
 use app\modules\employee\models\EmployeeSearch;
 use app\components\controllers\Controller;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -51,9 +52,11 @@ class EmployeeController extends Controller
      */
     public function actionView($id)
     {
+		$model = $this->findModel($id);
+		$offices = ArrayHelper::map($model->offices,'id','name');
         return $this->render('view', [
-            'model' => $this->findModel($id),
-            
+            'model' => $model,
+            'offices'=>implode(', ',$offices)
         ]);
     }
 

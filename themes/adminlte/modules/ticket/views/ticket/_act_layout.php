@@ -169,8 +169,11 @@ $end_saldo = (int)$startBalance - (int)$summ + (int)$summPayments;
 		<td class="center">
 			<br/>
 			<br/>
+			<?php if ($office->signPerson) : ?>
+				<p><?= $office->signPerson->position->position->name; ?>_____________________/<?= $office->signPerson->name; ?>/</p>
 
-			<p>Директор_____________________/<?= $office->chief->name; ?>/</p></td>
+			<?php endif; ?>
+		</td>
 		<td class="center">
 			<br/>
 			<br/>
