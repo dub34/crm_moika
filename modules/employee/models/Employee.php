@@ -2,6 +2,7 @@
 
 namespace app\modules\employee\models;
 
+use app\modules\contract\models\Contract;
 use Yii;
 use app\modules\office\models\Office;
 
@@ -20,6 +21,7 @@ use app\modules\office\models\Office;
 class Employee extends \yii\db\ActiveRecord
 {
 	public $position_id;
+	public $office_id;
 
 	/**
 	 * @inheritdoc
@@ -35,8 +37,6 @@ class Employee extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['office_id'], 'required'],
-			[['office_id'], 'integer'],
 			[['name', 'login'], 'string']
 		];
 	}
@@ -80,6 +80,7 @@ class Employee extends \yii\db\ActiveRecord
 	public function getPosition()
 	{
 		return $this->hasOne(EmployeeHasPosition::className(),
-			['employee_id' => 'id'])->where(['office_id' => $this->office_id]);
+			['employee_id' => 'id'])
+			->where(['office_id' => $this->office_id]);
 	}
 }
