@@ -47,7 +47,6 @@ class EmployeeController extends Controller
     /**
      * Displays a single Employee model.
      * @param integer $id
-     * @param integer $office_id
      * @return mixed
      */
     public function actionView($id)
@@ -71,7 +70,7 @@ class EmployeeController extends Controller
         $offices = \app\modules\office\models\Office::find()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id, 'office_id' => $model->office_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -92,7 +91,7 @@ class EmployeeController extends Controller
         $model = $this->findModel($id);
         $offices = \app\modules\office\models\Office::find()->all();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id, 'office_id' => $model->office_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -105,12 +104,11 @@ class EmployeeController extends Controller
      * Deletes an existing Employee model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     * @param integer $office_id
      * @return mixed
      */
-    public function actionDelete($id, $office_id)
+    public function actionDelete($id)
     {
-        $this->findModel($id, $office_id)->delete();
+        $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
 
@@ -118,7 +116,6 @@ class EmployeeController extends Controller
      * Finds the Employee model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @param integer $office_id
      * @return Employee the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

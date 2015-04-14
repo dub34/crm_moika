@@ -16,7 +16,7 @@ class EmployeeSearch extends Employee
     public function rules()
     {
         return [
-            [['id', 'office_id'], 'integer'],
+            [['id'], 'integer'],
             [['name', 'sign_img'], 'safe'],
         ];
     }
@@ -31,11 +31,15 @@ class EmployeeSearch extends Employee
     {
         $query = Employee::find()->leftJoin('office_has_employee oe','employee.id=oe.employee_id');
 
+        $query->andFilterWhere([
+            'oe.office_id' => $this->office_id,
+        ]);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate()) && !$this->office_id) {
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 

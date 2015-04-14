@@ -55,6 +55,7 @@ class OfficeController extends Controller
 		$office = $this->findModel($id);
 		$EmployeesearchModel = new EmployeeSearch;
 		$EmployeesearchModel->office_id = $id;
+
 		$employees = $office->getEmployees();
 //		var_dump($employees);
 		$signDoc = \Yii::$app->settings->get('signdoc' . $id, 'employee');

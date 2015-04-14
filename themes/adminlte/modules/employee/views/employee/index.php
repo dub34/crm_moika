@@ -28,10 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //            'id',
             'name:ntext',
-            [
-                'attribute'=>'office_id',
-                'value'=>function ($model){ return $model->office->name;}
-            ],
+//            [
+//                'attribute'=>'office_id',
+//                'value'=>function ($model){ return $model->office->name;}
+//            ],
 //            'sign_img:ntext',
 
             [
