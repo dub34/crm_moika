@@ -56,7 +56,7 @@ class Ticket extends \yii\db\ActiveRecord
             [['created_at', 'closed_at', 'to_date', 'closed_to_date', 'services_list'], 'safe'],
             [['created_at'], 'required', 'on' => 'update'],
             [['pometka'], 'string', 'max' => 45],
-            [['email'], 'email'],
+            [['email'], 'email', 'on'=>'default'],
             [['email'], 'validate_email_checked', 'on' => 'default'],
             [
                 ['closed_at'],
@@ -290,6 +290,11 @@ class Ticket extends \yii\db\ActiveRecord
             ->andWhere('contract_id=:contract_id', [':contract_id' => $contract_id])
             ->all();
     }
+
+	public function getPaymentSumm($payments){
+		return (int)\app\components\helpers\Helpers::roundUp(array_sum(\yii\helpers\ArrayHelper::getColumn($payments,
+			'payment_sum')));
+	}
 
     /**
      * @return \yii\db\ActiveQuery

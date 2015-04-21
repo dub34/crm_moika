@@ -2,9 +2,9 @@
 return [
     'components' => [
         'db' => [
-            'dsn' => 'mysql:host=localhost;dbname=avtosm_crm',
-            'username' => 'avtosm_crm',
-            'password' => 'ps7MeSU1',
+            'dsn' => 'mysql:host=localhost;dbname=avtosm_new',
+            'username' => 'root',
+            'password' => 'toor',
         ],
         'mailer' => [
             'useFileTransport' => true,

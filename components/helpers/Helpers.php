@@ -3,7 +3,11 @@ namespace app\components\helpers;
 
 class Helpers {
 
-    //Round numbers
+	/**
+	 * @param $number
+	 * @param int $accuracy
+	 * @return float
+	 */
     public static function roundUp($number, $accuracy = 1)
     {
 
