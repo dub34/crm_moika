@@ -14,7 +14,8 @@ $office = (new \app\modules\office\models\Office())->defaultOffice;
 $f = Yii::$app->formatter;
 ?>
 
-<div class="row">
+
+<div class="row" style="background: #fff;">
 	<div class="col-xs-12">
 		<table class="table">
 			<tr>
@@ -44,12 +45,14 @@ $f = Yii::$app->formatter;
 				<p>(пользовавшихся услугами)</p>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-12">
-				<p>Расчетный период
-					<strong><?= $saldoModel->date_start; ?> &mdash; <?= $saldoModel->date_stop; ?></strong></p>
-			</div>
-		</div>
+		<table class="table">
+			<tr>
+				<td><p>Расчетный период
+						<strong><?= $saldoModel->date_start; ?> &mdash; <?= $saldoModel->date_stop; ?></strong></p></td>
+				<td class="right">
+					<?= \Yii::$app->formatter->asDate(time(),'php:d.m.Y') ?></td>
+			</tr>
+		</table>
 		<div class="row">
 			<div class="col-xs-12">
 				<table class="table table-bordered">
