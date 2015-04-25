@@ -291,7 +291,8 @@ class Ticket extends \yii\db\ActiveRecord
             ->all();
     }
 
-	public function getPaymentSumm($payments){
+    public static function getPaymentSumm($payments)
+    {
 		return (int)\app\components\helpers\Helpers::roundUp(array_sum(\yii\helpers\ArrayHelper::getColumn($payments,
 			'payment_sum')));
 	}
