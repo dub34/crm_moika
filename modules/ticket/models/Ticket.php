@@ -269,8 +269,8 @@ class Ticket extends \yii\db\ActiveRecord
             ':contract_id' => $contract_id,
             ':start_date' => Yii::$app->formatter->asDate($start_date, 'php:Y-m-d')
         ]);
-		$cmd->getRawSql();
-			$cmd->execute();
+        $cmd->getRawSql();
+        $cmd->execute();
         $balance = Yii::$app->db->createCommand("select @balance;")->queryScalar();
         return Helpers::roundUp($balance);
     }

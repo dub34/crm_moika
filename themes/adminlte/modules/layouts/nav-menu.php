@@ -21,7 +21,12 @@ use yii\helpers\Html;
         </ul>
     </li>
     <li><?= Html::a('<i class="glyphicon glyphicon-briefcase"></i><span>Договоры</span>', '/contract/contract'); ?></li>
-    <li><?= Html::a('<i class="glyphicon glyphicon-signal"></i><span>Отчеты</span>', '/contract/reports'); ?></li>
+    <li class="treeview"><?= Html::a('<i class="glyphicon glyphicon-signal"></i><span>Отчеты</span>', ''); ?>
+        <ul class="treeview-menu">
+            <li><?= Html::a('Обороты клиентов за период', '/contract/reports/index'); ?></li>
+            <li><?= Html::a('Реестр по клиентам', '/contract/reports/saldo'); ?></li>
+        </ul>
+    </li>
 </ul>
 
                                 

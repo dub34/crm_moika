@@ -50,7 +50,7 @@ $f = Yii::$app->formatter;
 				<td><p>Расчетный период
 						<strong><?= $saldoModel->date_start; ?> &mdash; <?= $saldoModel->date_stop; ?></strong></p></td>
 				<td class="right">
-					<?= \Yii::$app->formatter->asDate(time(),'php:d.m.Y') ?></td>
+					<?= \Yii::$app->formatter->asDate(time(), 'php:d.m.Y') ?></td>
 			</tr>
 		</table>
 		<div class="row">

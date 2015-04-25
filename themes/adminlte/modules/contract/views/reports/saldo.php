@@ -9,6 +9,7 @@ use \kartik\field\FieldRange;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
+$this->title = 'Реестр по клиентам';
 ?>
 <?php $form = ActiveForm::begin(['method' => 'GET', 'options' => ['style' => 'width:400px;']]); ?>
 <?=
