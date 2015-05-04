@@ -41,7 +41,7 @@ class ReportsController extends Controller {
 
 
 	public function actionSaldo(){
-		$saldoModel =new SaldoReportModel();
+		$saldoModel = new SaldoReportModel();
 
 		if ($saldoModel->load(\Yii::$app->request->get())){
 			$dataProvider = $saldoModel->getData();

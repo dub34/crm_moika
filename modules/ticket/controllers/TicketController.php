@@ -77,10 +77,14 @@ class TicketController extends Controller
 		if (!$contract) {
 			return;
 		}
-		$calculation = new CalculationModel(['contract_id' => $contract->id	]);
+		$calculation = new CalculationModel([
+			'contract_id' => $contract->id,
+			'closed_at' => isset($request['closed_at']) ? $request['closed_at'] : null,
+			'closed_to_date' => isset($request['closed_to_date']) ? $request['closed_to_date'] : null
+		]);
 
-		$calculation->closed_at = isset($request['closed_at']) ? $request['closed_at']: null;
-		$calculation->closed_to_date = isset($request['closed_to_date']) ? $request['closed_to_date']: null;
+//		$calculation->closed_at = ;
+//		$calculation->closed_to_date = ;
 
 
 		$pdf = new \mPDF('',

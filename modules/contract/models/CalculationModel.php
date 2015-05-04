@@ -55,6 +55,8 @@ class CalculationModel extends Model
 			throw new InvalidConfigException();
 		}
 		$this->contract_id = $config['contract_id'];
+		$this->closed_at = $config['closed_at'];
+		$this->closed_to_date = $config['closed_to_date'];
 //		$this->post = $config['post'];
 		parent::__construct($config);
 	}
@@ -77,7 +79,8 @@ class CalculationModel extends Model
 	{
 		$tickets = new SearchTicket();
 		$tickets->contract_id = $this->contract_id;
-		$tickets->to_date = $this->closed_at;
+//		$tickets->to_date = $this->closed_at;
+		$tickets->closed_at = $this->closed_at;
 		$tickets->closed_to_date = $this->closed_to_date;
 
 		return $tickets->searchTicketsForReport();

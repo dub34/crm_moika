@@ -66,9 +66,12 @@ $f = Yii::$app->formatter;
 						<th>Сумма на конец периода, руб</th>
 					</tr>
 					<?php foreach ($contracts as $contract) : ?>
-						<?php $calculations = new \app\modules\contract\models\CalculationModel(['contract_id' => $contract->id]);
-						$calculations->closed_at = $saldoModel->date_start;
-						$calculations->closed_to_date = $saldoModel->date_stop;
+						<?php $calculations = new \app\modules\contract\models\CalculationModel([
+							'contract_id' => $contract->id,
+							'closed_at' => $saldoModel->date_start,
+							'closed_to_date' => $saldoModel->date_stop
+						]);
+
 						?>
 						<tr>
 							<td><?= $contract->client->name; ?></td>
