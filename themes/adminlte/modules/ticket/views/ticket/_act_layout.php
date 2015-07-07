@@ -6,7 +6,7 @@ use yii\helpers\Html;
 
 /**
  * Print act modal window with form
- * @var $model instance of Contract model class
+ * @var \app\modules\contract\models\Contract $model
  */
 //$summ = []; //сумма стоимости всех услуг по всем талонам в акте
 //$summNDS = [];
@@ -64,7 +64,7 @@ $office = (new Office)->defaultOffice;
 	<tr>
 		<td><strong> Сальдо расчетов на начало периода:</strong></td>
 		<td class="right">
-			<strong><?= Yii::$app->formatter->asInteger($model->startSaldo); ?> руб.</strong></td>
+			<strong><?= Yii::$app->formatter->asInteger(Helpers::roundUp($model->startSaldo)); ?> руб.</strong></td>
 	</tr>
 </table>
 <hr/>
@@ -85,22 +85,25 @@ $office = (new Office)->defaultOffice;
 				<?php foreach ($ticket->services as $service): ?>
 					<tr>
 						<td><?= $service->ticket_id; ?></td>
-							<td><?= $service->name; ?></td>
+						<td><?= $service->name; ?></td>
 						<td><?= $service->count; ?></td>
 						<td><?= $ticket->closed_at; ?></td>
-						<td><?= Yii::$app->formatter->asInteger($service->priceWithoutNDS); ?></td>
+						<td><?= Yii::$app->formatter->asInteger(Helpers::roundUp($service->priceWithoutNDS)); ?></td>
 						<td><?= $service->nds; ?></td>
-						<td><?= Yii::$app->formatter->asInteger($service->priceNDS); ?></td>
-						<td><?= Yii::$app->formatter->asInteger($service->sum_price); ?></td>
+						<td><?= Yii::$app->formatter->asInteger(Helpers::roundUp($service->priceNDS)); ?></td>
+						<td><?= Yii::$app->formatter->asInteger(Helpers::roundUp($service->sum_price)); ?></td>
 					</tr>
 				<?php endforeach; ?>
 			<?php endforeach; ?>
 			<tr>
 				<td colspan="4">Итого оказано услуг:</td>
-				<td><strong><?= Yii::$app->formatter->asInteger($model->serviceSummWithoutNDS) ?></strong></td>
+				<td>
+					<strong><?= Yii::$app->formatter->asInteger(Helpers::roundUp($model->serviceSummWithoutNDS)); ?></strong>
+				</td>
 				<td>&nbsp;</td>
-				<td><strong><?= Yii::$app->formatter->asInteger($model->serviceSummNDS); ?></strong></td>
-				<td><strong><?= Yii::$app->formatter->asInteger($model->serviceSumm); ?></strong></td>
+				<td><strong><?= Yii::$app->formatter->asInteger(Helpers::roundUp($model->serviceSummNDS)); ?></strong>
+				</td>
+				<td><strong><?= Yii::$app->formatter->asInteger(Helpers::roundUp($model->serviceSumm)); ?></strong></td>
 			</tr>
 		</table>
 	</div>
@@ -118,7 +121,7 @@ $office = (new Office)->defaultOffice;
 							<?= $payment->created_at; ?>
 						</td>
 						<td>
-							<?= Yii::$app->formatter->asInteger($payment->payment_sum); ?>
+							<?= Yii::$app->formatter->asInteger(Helpers::roundUp($payment->payment_sum)); ?>
 						</td>
 					</tr>
 				<?php endforeach; ?>
@@ -135,7 +138,8 @@ $office = (new Office)->defaultOffice;
 <table class="table">
 	<tr>
 		<td><strong>Сальдо расчетов на конец периода </strong></td>
-		<td class="right"><strong><?= Yii::$app->formatter->asInteger($model->endSaldo); ?> руб.</strong></td>
+		<td class="right"><strong><?= Yii::$app->formatter->asInteger(Helpers::roundUp($model->endSaldo)); ?>
+				руб.</strong></td>
 	</tr>
 </table>
 <hr/>
@@ -143,7 +147,8 @@ $office = (new Office)->defaultOffice;
 	<tr>
 		<td><h5><strong>Итого к оплате за расчетный период:</strong></h5></td>
 		<td class="right"><h5>
-				<strong><?= ((int)$model->endSaldo < 0) ? Yii::$app->formatter->asInteger($model->endSaldo * -1) : 0; ?> руб.
+				<strong><?= ((int)$model->endSaldo < 0) ? Yii::$app->formatter->asInteger(Helpers::roundUp($model->endSaldo * -1)) : 0; ?>
+					руб.
 			</h5></strong></td>
 	</tr>
 </table>

@@ -10,9 +10,8 @@ class Helpers {
 	 */
     public static function roundUp($number, $accuracy = 1)
     {
-
         $accuracy = \Yii::$app->settings->get('main.roundAccuracy') ?: $accuracy;
-        if ($accuracy != 1)
+//        if ($accuracy != 1)
             $number = round($number / $accuracy) * $accuracy;
         return $number;
     }

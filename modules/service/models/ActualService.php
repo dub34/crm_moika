@@ -77,7 +77,7 @@ class ActualService extends \yii\db\ActiveRecord
         if ($this->sum_price !== null && $this->sum_price !== 0) {
             $percent = 100 + $this->nds;
             $summ = ($this->nds / $percent) * $this->sum_price;
-            return \app\components\helpers\Helpers::roundUp($summ);
+            return $summ;
         }
         return '';
     }
@@ -85,7 +85,7 @@ class ActualService extends \yii\db\ActiveRecord
     public function getPriceWithoutNDS()
     {
         $val = $this->sum_price !== null ? $this->sum_price - $this->priceNDS : '';
-        return \app\components\helpers\Helpers::roundUp($val);
+        return $val;
     }
 
     /**
