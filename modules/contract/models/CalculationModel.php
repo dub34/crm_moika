@@ -2,6 +2,7 @@
 
 namespace app\modules\contract\models;
 
+use app\components\helpers\Helpers;
 use app\modules\ticket\models\SearchTicket;
 use Yii;
 use app\modules\client\models\Client;
@@ -116,6 +117,9 @@ class CalculationModel extends Model
 			$summ['summ_without_nds'] = array_merge($summ['summ_without_nds'],
 				ArrayHelper::getColumn($services, 'priceWithoutNDS'));
 		}
+
+		$summ['summ_nds'] = array_map(['app\components\helpers\Helpers', 'roundUp'], $summ['summ_nds']);
+		$summ['summ_without_nds'] = array_map(['app\components\helpers\Helpers', 'roundUp'], $summ['summ_without_nds']);
 
 		$summ = array_map('array_sum',$summ);
 		$this->serviceSumm = $summ['summ'];

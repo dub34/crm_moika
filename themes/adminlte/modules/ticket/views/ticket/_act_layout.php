@@ -6,7 +6,7 @@ use yii\helpers\Html;
 
 /**
  * Print act modal window with form
- * @var \app\modules\contract\models\Contract $model
+ * @var \app\modules\contract\models\Contract $contract
  */
 //$summ = []; //сумма стоимости всех услуг по всем талонам в акте
 //$summNDS = [];
@@ -98,12 +98,12 @@ $office = (new Office)->defaultOffice;
 			<tr>
 				<td colspan="4">Итого оказано услуг:</td>
 				<td>
-					<strong><?= Yii::$app->formatter->asInteger(Helpers::roundUp($model->serviceSummWithoutNDS)); ?></strong>
+					<strong><?= Yii::$app->formatter->asInteger($model->serviceSummWithoutNDS); ?></strong>
 				</td>
 				<td>&nbsp;</td>
-				<td><strong><?= Yii::$app->formatter->asInteger(Helpers::roundUp($model->serviceSummNDS)); ?></strong>
+				<td><strong><?= Yii::$app->formatter->asInteger($model->serviceSummNDS); ?></strong>
 				</td>
-				<td><strong><?= Yii::$app->formatter->asInteger(Helpers::roundUp($model->serviceSumm)); ?></strong></td>
+				<td><strong><?= Yii::$app->formatter->asInteger($model->serviceSumm); ?></strong></td>
 			</tr>
 		</table>
 	</div>
