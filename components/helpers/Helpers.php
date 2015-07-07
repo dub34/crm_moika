@@ -13,7 +13,7 @@ class Helpers {
 
         $accuracy = \Yii::$app->settings->get('main.roundAccuracy') ?: $accuracy;
         if ($accuracy != 1)
-            $number = ceil($number / $accuracy) * $accuracy;
+            $number = round($number / $accuracy) * $accuracy;
         return $number;
     }
 
