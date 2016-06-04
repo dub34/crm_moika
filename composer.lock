@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a93a968f6b6b53cf9f8f2d287db90304",
-    "content-hash": "6a262c817842ed78acfa6fc983f514a9",
+    "hash": "6d0294331b7138cbd168b55434d1fe2a",
+    "content-hash": "3c6dd555c26a7eeb656bc9816313de9d",
     "packages": [
         {
             "name": "alexgx/yii2-phpexcel",
@@ -671,16 +671,16 @@
         },
         {
             "name": "kartik-v/yii2-grid",
-            "version": "v3.0.0",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "b4efc4a20dbad92af3ba0bdd766044cf8044e86b"
+                "reference": "9eddf20e7c9942e6d0e0b807625b1894f9745ce6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/b4efc4a20dbad92af3ba0bdd766044cf8044e86b",
-                "reference": "b4efc4a20dbad92af3ba0bdd766044cf8044e86b",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/9eddf20e7c9942e6d0e0b807625b1894f9745ce6",
+                "reference": "9eddf20e7c9942e6d0e0b807625b1894f9745ce6",
                 "shasum": ""
             },
             "require": {
@@ -711,7 +711,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-02-13 03:48:57"
+            "time": "2014-11-21 21:13:43"
         },
         {
             "name": "kartik-v/yii2-krajee-base",

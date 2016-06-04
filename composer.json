@@ -25,7 +25,7 @@
     "yiisoft/yii2-bootstrap": "*",
     "yiisoft/yii2-swiftmailer": "*",
     "kartik-v/yii2-widgets": "*",
-    "kartik-v/yii2-grid": "3.0",
+    "kartik-v/yii2-grid": "2.6",
     "kartik-v/yii2-field-range": "*",
     "kartik-v/yii2-mpdf": "*",
     "pheme/yii2-settings": "0.2",
