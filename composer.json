@@ -27,6 +27,7 @@
     "kartik-v/yii2-widgets": "*",
     "kartik-v/yii2-grid": "*",
     "kartik-v/yii2-field-range": "*",
+    "kartik-v/yii2-mpdf": "*",
     "pheme/yii2-settings": "0.2",
     "nepstor/yii2-datetime-compare-validator": "*",
     "alexgx/yii2-phpexcel": "*",
