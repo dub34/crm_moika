@@ -65,10 +65,10 @@
                     <td style="border-left:1px solid #000;">Всего с НДС, руб.</td>
                 </tr>
                 <tr>
-                    <td><?= Yii::$app->formatter->asInteger($model->summWithoutNDS); ?></td>
+                    <td><?= Yii::$app->formatter->asDecimal($model->summWithoutNDS, 2); ?></td>
                     <td style="border-left:1px solid #000;"><?= $model->nds; ?></td>
-                    <td style="border-left:1px solid #000;"><?= Yii::$app->formatter->asInteger($model->summNDS); ?></td>
-                    <td style="border-left:1px solid #000;"><?= Yii::$app->formatter->asInteger($model->summ);?></td>
+                    <td style="border-left:1px solid #000;"><?= Yii::$app->formatter->asDecimal($model->summNDS, 2); ?></td>
+                    <td style="border-left:1px solid #000;"><?= Yii::$app->formatter->asDecimal($model->summ, 2);?></td>
                 </tr>
             </table>
         </td>
@@ -81,10 +81,11 @@
                     <td style="border-left:1px solid #000;">Всего с НДС, руб.</td>
                 </tr>
                 <tr>
-                    <td><?= Yii::$app->formatter->asInteger($model->summWithoutNDS); ?></td>
+                    <td><?= Yii::$app->formatter->asDecimal($model->summWithoutNDS, 2); ?></td>
+                    <td><?= Yii::$app->formatter->asDecimal($model->summWithoutNDS, 2); ?></td>
                     <td style="border-left:1px solid #000;"><?= $model->nds; ?></td>
-                    <td style="border-left:1px solid #000;"><?= Yii::$app->formatter->asInteger($model->summNDS); ?></td>
-                    <td style="border-left:1px solid #000;"><?= Yii::$app->formatter->asInteger($model->summ); ?></td>
+                    <td style="border-left:1px solid #000;"><?= Yii::$app->formatter->asDecimal($model->summNDS, 2); ?></td>
+                    <td style="border-left:1px solid #000;"><?= Yii::$app->formatter->asDecimal($model->summ, 2); ?></td>
                 </tr>
             </table>
         </td>

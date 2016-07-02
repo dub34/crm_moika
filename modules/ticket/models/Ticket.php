@@ -345,7 +345,12 @@ class Ticket extends \yii\db\ActiveRecord
      */
     public function getServices()
     {
-        return $this->hasMany(ActualService::className(), ['ticket_id' => 'id']);
+//        return $this->hasMany(ActualService::className(), ['ticket_id' => 'id']);
+        $services = \Yii::$app->db->createCommand('CALL actual_ticket_services(:ticket_id)', [':ticket_id' => $this->id])->queryAll();
+        foreach($services as &$service){
+            $service = new ActualService($service);
+        }
+        return $services;
     }
 
     /**

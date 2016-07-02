@@ -64,7 +64,7 @@ $office = (new Office)->defaultOffice;
 	<tr>
 		<td><strong> Сальдо расчетов на начало периода:</strong></td>
 		<td class="right">
-			<strong><?= Yii::$app->formatter->asInteger($model->startSaldo); ?> руб.</strong></td>
+			<strong><?= Yii::$app->formatter->asDecimal($model->startSaldo, 2); ?> руб.</strong></td>
 	</tr>
 </table>
 <hr/>
@@ -88,19 +88,19 @@ $office = (new Office)->defaultOffice;
 							<td><?= $service->name; ?></td>
 						<td><?= $service->count; ?></td>
 						<td><?= $ticket->closed_at; ?></td>
-						<td><?= Yii::$app->formatter->asInteger($service->priceWithoutNDS); ?></td>
+						<td><?= Yii::$app->formatter->asDecimal($service->priceWithoutNDS, 2); ?></td>
 						<td><?= $service->nds; ?></td>
-						<td><?= Yii::$app->formatter->asInteger($service->priceNDS); ?></td>
-						<td><?= Yii::$app->formatter->asInteger($service->sum_price); ?></td>
+						<td><?= Yii::$app->formatter->asDecimal($service->priceNDS, 2); ?></td>
+						<td><?= Yii::$app->formatter->asDecimal($service->sum_price, 2); ?></td>
 					</tr>
 				<?php endforeach; ?>
 			<?php endforeach; ?>
 			<tr>
 				<td colspan="4">Итого оказано услуг:</td>
-				<td><strong><?= Yii::$app->formatter->asInteger($model->serviceSummWithoutNDS) ?></strong></td>
+				<td><strong><?= Yii::$app->formatter->asDecimal($model->serviceSummWithoutNDS, 2) ?></strong></td>
 				<td>&nbsp;</td>
-				<td><strong><?= Yii::$app->formatter->asInteger($model->serviceSummNDS); ?></strong></td>
-				<td><strong><?= Yii::$app->formatter->asInteger($model->serviceSumm); ?></strong></td>
+				<td><strong><?= Yii::$app->formatter->asDecimal($model->serviceSummNDS, 2); ?></strong></td>
+				<td><strong><?= Yii::$app->formatter->asDecimal($model->serviceSumm, 2); ?></strong></td>
 			</tr>
 		</table>
 	</div>
@@ -118,7 +118,7 @@ $office = (new Office)->defaultOffice;
 							<?= $payment->created_at; ?>
 						</td>
 						<td>
-							<?= Yii::$app->formatter->asInteger($payment->payment_sum); ?>
+							<?= Yii::$app->formatter->asDecimal($payment->payment_sum, 2); ?>
 						</td>
 					</tr>
 				<?php endforeach; ?>
@@ -135,7 +135,7 @@ $office = (new Office)->defaultOffice;
 <table class="table">
 	<tr>
 		<td><strong>Сальдо расчетов на конец периода </strong></td>
-		<td class="right"><strong><?= Yii::$app->formatter->asInteger($model->endSaldo); ?> руб.</strong></td>
+		<td class="right"><strong><?= Yii::$app->formatter->asDecimal($model->endSaldo, 2); ?> руб.</strong></td>
 	</tr>
 </table>
 <hr/>
@@ -143,7 +143,7 @@ $office = (new Office)->defaultOffice;
 	<tr>
 		<td><h5><strong>Итого к оплате за расчетный период:</strong></h5></td>
 		<td class="right"><h5>
-				<strong><?= ((int)$model->endSaldo < 0) ? Yii::$app->formatter->asInteger($model->endSaldo * -1) : 0; ?> руб.
+				<strong><?= ((int)$model->endSaldo < 0) ? Yii::$app->formatter->asDecimal($model->endSaldo * -1, 2) : 0; ?> руб.
 			</h5></strong></td>
 	</tr>
 </table>

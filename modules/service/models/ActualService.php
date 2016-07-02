@@ -3,6 +3,8 @@
 namespace app\modules\service\models;
 
 use Yii;
+use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for view "actualServiceVersions".
@@ -16,32 +18,47 @@ use Yii;
  * @property int $ticket_id
  *
  */
-class ActualService extends \yii\db\ActiveRecord
+class ActualService extends Model
 {
     public $summBezNDS = [];
+
+    public $count;
+    public $id;
+    public $version;
+    public $price;
+    public $sum_price;
+    public $name;
+    public $version_created_by;
+    public $version_created_at;
+    public $version_comment;
+    public $description;
+    public $nds;
+    public $contract_id;
+    public $ticket_id;
+    public $closed_at;
 
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
-        return 'actualServiceVersions';
-    }
+//    public static function tableName()
+//    {
+//        return 'actualServiceVersions';
+//    }
 
-    public function behaviors()
-    {
-        $behaviors = [
-//            'ModelVersioning'=>[
-//                'class'=>  ModelVersioning::className(),
-//                'versionTable'=>'service_history',
-//                'createdAtField'=>'version_created_at',
-//                'createdByField'=>'version_created_by',
-//                'versionCommentField'=>'version_comment'
-//            ]
-        ];
-        return array_merge(parent::behaviors(), $behaviors);
-    }
+//    public function behaviors()
+//    {
+//        $behaviors = [
+////            'ModelVersioning'=>[
+////                'class'=>  ModelVersioning::className(),
+////                'versionTable'=>'service_history',
+////                'createdAtField'=>'version_created_at',
+////                'createdByField'=>'version_created_by',
+////                'versionCommentField'=>'version_comment'
+////            ]
+//        ];
+//        return array_merge(parent::behaviors(), $behaviors);
+//    }
 
     /**
      * @inheritdoc
@@ -86,6 +103,13 @@ class ActualService extends \yii\db\ActiveRecord
     {
         $val = $this->sum_price !== null ? $this->sum_price - $this->priceNDS : '';
         return \app\components\helpers\Helpers::roundUp($val);
+    }
+
+    public static function getTicketSumPrice($ticket_id)
+    {
+        $services = \Yii::$app->db->createCommand('CALL actual_ticket_services(:ticket_id)', [':ticket_id' => $ticket_id])->queryAll();
+        return array_sum(ArrayHelper::getColumn($services, 'sum_price', false));
+//        return self::find()->select(['coalesce(SUM(sum_price),0) sum_price'])->where(['ticket_id'=>$ticket_id])->scalar();
     }
 
     /**

@@ -53,6 +53,7 @@ $this->registerJs($script);
 					'id' => 'contract_grid',
 					'striped' => false,
 					'bordered' => false,
+					'export'=>false,
 //					'resizableColumns'=>false,
 	//					'panel'=>[
 	//						'headingTemplate' => '
@@ -104,7 +105,7 @@ $this->registerJs($script);
 							'attribute' => 'balance',
 							'value' => function ($model, $key, $index) {
 								return Html::tag('span',
-									Yii::$app->formatter->asInteger(Helpers::roundUp($model->balance)),
+									Yii::$app->formatter->asDecimal(Helpers::roundUp($model->balance), 2),
 									['class' => $model->balance < Yii::$app->settings->get('contract.minBalance') ? 'label label-danger' : 'label label-success']);
 							},
 							'format' => 'raw',

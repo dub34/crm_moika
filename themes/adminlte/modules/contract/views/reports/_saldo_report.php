@@ -77,10 +77,10 @@ $f = Yii::$app->formatter;
 							<td><?= $contract->client->name; ?></td>
 							<td><?= $contract->number; ?></td>
 							<td><?= $contract->created_at; ?></td>
-							<td><?= $f->asInteger(Helpers::roundUp($calculations->startSaldo)); ?></td>
-							<td><?= $f->asInteger(Helpers::roundUp($calculations->paymentsSumm)); ?></td>
-							<td><?= $f->asInteger(Helpers::roundUp($calculations->serviceSumm)); ?></td>
-							<td><?= $f->asInteger(Helpers::roundUp($calculations->endSaldo)); ?></td>
+							<td><?= $f->asDecimal(Helpers::roundUp($calculations->startSaldo, 2)); ?></td>
+							<td><?= $f->asDecimal(Helpers::roundUp($calculations->paymentsSumm, 2)); ?></td>
+							<td><?= $f->asDecimal(Helpers::roundUp($calculations->serviceSumm, 2)); ?></td>
+							<td><?= $f->asDecimal(Helpers::roundUp($calculations->endSaldo, 2)); ?></td>
 						</tr>
 					<?php endforeach; ?>
 				</table>
