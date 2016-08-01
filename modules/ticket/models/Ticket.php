@@ -272,7 +272,8 @@ class Ticket extends \yii\db\ActiveRecord
         $cmd->getRawSql();
         $cmd->execute();
         $balance = Yii::$app->db->createCommand("select @balance;")->queryScalar();
-        return Helpers::roundUp($balance);
+//        return Helpers::roundUp($balance);
+        return $balance;
     }
 
     /**

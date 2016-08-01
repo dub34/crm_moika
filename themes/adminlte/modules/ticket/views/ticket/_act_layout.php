@@ -6,7 +6,7 @@ use yii\helpers\Html;
 
 /**
  * Print act modal window with form
- * @var $model instance of Contract model class
+ * @var $model \app\modules\contract\models\Contract
  */
 //$summ = []; //сумма стоимости всех услуг по всем талонам в акте
 //$summNDS = [];
