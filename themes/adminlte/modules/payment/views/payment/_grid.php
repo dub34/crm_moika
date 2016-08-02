@@ -44,7 +44,7 @@ $this->registerJs($js);
         [
             'attribute'=>'payment_sum',
             'value'=> function($model){ return app\components\helpers\Helpers::roundUp($model->payment_sum); },
-            'format'=>'integer'
+//            'format'=>'integer'
             
         ],
         'created_at',
