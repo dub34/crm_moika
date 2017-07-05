@@ -49,9 +49,9 @@ class Office extends \yii\db\ActiveRecord
 			[['id'], 'integer'],
 			[['name'], 'required'],
 			[['name'], 'string', 'max' => 45],
-			[['register_address', 'bank_name', 'telephone', 'fax', 'payment_account'], 'string'],
+			[['register_address', 'bank_name', 'telephone', 'bank_code', 'fax', 'payment_account'], 'string'],
 			['uploadedFile', 'file'],
-			[['chief_name', 'glbuh_name', 'check_buh_name', 'bank_code', 'unp', 'okpo'], 'integer'],
+			[['chief_name', 'glbuh_name', 'check_buh_name', 'unp', 'okpo'], 'integer'],
 			[['name'], 'string', 'max' => 200],
 			[['logo'], 'string'],
 			[['email'], 'string', 'max' => 45]
