@@ -43,10 +43,11 @@ class Client extends \yii\db\ActiveRecord {
         return [
             [['name', 'register_address', 'post_address', 'chief_name', 'bank_name', 'bank_code', 'payment_account', 'unp', 'okpo'], 'required'],
             [['register_address', 'post_address', 'chief_name', 'chief_post', 'bank_name', 'responsible_person'], 'string'],
-            [['bank_code', 'payment_account', 'unp', 'okpo'], 'integer'],
+            [['unp', 'okpo'], 'integer'],
             [['telephone', 'fax', 'is_deleted'], 'safe'],
+            [['payment_account', 'bank_code'], 'string'],
             ['email', 'email'],
-            [['name'], 'string', 'max' => 45]
+            [['name'], 'string', 'max' => 255]
         ];
     }
 

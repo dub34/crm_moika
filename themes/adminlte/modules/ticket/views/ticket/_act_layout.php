@@ -1,12 +1,15 @@
 <?php
 
 use app\components\helpers\Helpers;
+use app\modules\contract\models\CalculationModel;
+use app\modules\contract\models\Contract;
 use app\modules\office\models\Office;
 use yii\helpers\Html;
 
 /**
  * Print act modal window with form
- * @var $model \app\modules\contract\models\Contract
+ * @var $contract Contract
+ * @var $model CalculationModel
  */
 //$summ = []; //сумма стоимости всех услуг по всем талонам в акте
 //$summNDS = [];
@@ -40,11 +43,11 @@ $office = (new Office)->defaultOffice;
 <hr style="background: blue;">
 
 <div class="row center">
-	<div class="col-xs-12"><h2>Акт</h2></div>
+	<div class="col-xs-12"><h2>Акт № <?= $model->actNumber; ?> от <?= $model->actDate; ?></h2></div>
 </div>
 <div class="row center">
 	<div class="col-xs-12">
-		<p> Выполненных работ <?= $office->name; ?> </p>
+		<p> Выполненных работ <?= $office->name; ?></p>
 
 		<p>по обслуживанию автомобилей согласно договору № <?= $contract->number; ?>
 			от <?= $contract->created_at; ?></p>

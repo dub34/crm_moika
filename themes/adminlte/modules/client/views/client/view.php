@@ -135,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <!--            <div class="box-header">-->
     <!--                <h3 class="box-title">--><? //= Yii::t('payment', 'Show Payments'); ?><!--</h3>-->
     <!--                <div class="box-tools pull-right">-->
-    <? //= $this->render('//modules/payment/views/payment/_modal',['client_id'=>$model->id,'model'=>new Payment]);?><!--</div>-->
+    <?php //= $this->render('//modules/payment/views/payment/_modal',['client_id'=>$model->id,'model'=>new Payment]);?><!--</div>-->
     <!--            </div>-->
     <!--            <div class="box-body">-->
     <!--                --><?php //// Pjax::begin(['id' => 'contract_payments_pjax_container', 'formSelector'=>'form[data-pjax!="#payment_form_pjax_container"]', 'enablePushState'=>false,'enableReplaceState'=>false,'timeout'=>5000]); ?>

@@ -97,6 +97,7 @@ class Ticket extends \yii\db\ActiveRecord
             'office_id' => Yii::t('ticket', 'Office'),
             'services_list' => Yii::t('ticket', 'Services List'),
             'email' => Yii::t('client', 'Email'),
+            'actDate' => Yii::t('client', 'От'),
         ];
     }
 
